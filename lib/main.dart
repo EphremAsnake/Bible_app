@@ -7,11 +7,17 @@ import 'package:holy_bible_app/src/pages/home/logic.dart';
 import 'package:logger/logger.dart';
 import 'package:sizer/sizer.dart';
 
+import 'routes.dart';
+import 'src/controller/configdatacontroller.dart';
 import 'src/controller/datagetterandsetter.dart';
 import 'src/pages/home/homepage.dart';
 import 'src/pages/splash/splashscreen.dart';
 import 'src/services/database_service.dart';
+import 'src/services/http_client/http_service.dart';
+import 'src/services/http_client/http_service_impl.dart';
+import 'src/services/masterdatahelper.dart';
 import 'src/utils/Strings.dart';
+import 'src/utils/app_translation.dart';
 import 'src/utils/storagepreference.dart';
 import 'src/widget/custom_easy_loading.dart';
 
@@ -19,6 +25,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await initApp();
+
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
@@ -27,27 +34,64 @@ void main() async {
   FlutterStatusbarcolor.setStatusBarColor(const Color(0xff7B5533));
   FlutterStatusbarcolor.setStatusBarWhiteForeground(true);
   Get.put(DataGetterAndSetter());
+  Get.put<HttpService>(HttpServiceImpl());
   Get.put(HomePageController());
+  
+  Get.put(MasterDataController());
+
+  //getting app's Config data
+  await MasterDataHelper().getMasterData();
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   // This widget is the root of your application.
+  SharedPreferencesStorage sharedPreferencesStorage =
+      SharedPreferencesStorage();
+  late String selectedLocale;
+  List<String> selectedLocales = [];
+
+  @override
+  void initState() {
+    super.initState();
+    initValues();
+  }
+
+  Future<void> initValues() async {
+    selectedLocale =
+        await sharedPreferencesStorage.readStringData(Strings.selectedLocale) ??
+            "";
+
+    if (selectedLocale != "") {
+      selectedLocales = selectedLocale.split("_");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Sizer(builder: (context, orientation, deviceType) {
       return GetMaterialApp(
         builder: EasyLoading.init(),
-        // translations: AppTranslation(),
-
+        translations: AppTranslation(),
+        locale: selectedLocales.isNotEmpty
+            ? Locale(selectedLocales[0], selectedLocales[1])
+            : const Locale('ln', 'OL'),
+        fallbackLocale: const Locale('en', 'US'),
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primarySwatch: customSwatch,
         ),
         title: "Holy Bible",
-        home: SplashScreenPage(),
+        getPages: routes(),
+        initialRoute: PageRoutes.splash,
+        //home: SplashScreenPage(),
         // initialRoute: AppPages.INITIAL,
         // getPages: AppPages.routes,
       );

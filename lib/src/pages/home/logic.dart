@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
@@ -7,7 +9,10 @@ import '../../controller/datagetterandsetter.dart';
 import '../../model/bible/book.dart';
 import '../../model/bible/verses.dart';
 import '../../model/configs/configs.dart';
+import '../../services/configservice.dart';
 import '../../services/database_service.dart';
+import '../../services/http_client/http_service.dart';
+import '../../services/http_exeption_handler/http_exception_handler.dart';
 import '../../utils/api_state_handler.dart';
 import '../../utils/storagepreference.dart';
 
@@ -23,7 +28,8 @@ class HomePageController extends GetxController {
   List<Verses> searchResultVerses = [];
   String selectedSearchTypeOptions = 'every_word'.tr;
   String selectedSearchPlaceOptions = 'all'.tr;
-
+  var httpService = Get.find<HttpService>();
+  Configs? configs;
   String selectedBook = 'English KJV';
   double fontSize = 12.5;
   bool isLoading = false;
@@ -56,7 +62,7 @@ class HomePageController extends GetxController {
     setInitialSelectedBookTypeOptions();
     getBooks();
     loadInitialPage();
-    //fetchConfigsData();
+    fetchConfigsData();
     getFontSize();
   }
 
@@ -196,7 +202,8 @@ class HomePageController extends GetxController {
   saveLocale(String locale) async {
     SharedPreferencesStorage sharedPreferencesStorage =
         SharedPreferencesStorage();
-    await sharedPreferencesStorage.saveStringData(Strings.selectedLocale, locale);
+    await sharedPreferencesStorage.saveStringData(
+        Strings.selectedLocale, locale);
   }
 
   changeBibleFromSearch(String bibleType) async {
@@ -451,31 +458,31 @@ class HomePageController extends GetxController {
   }
 
   //!fetching data from api
-  // void fetchConfigsData() async {
-  //   apiStateHandler.setLoading();
-  //   try {
-  //     dynamic response =
-  //         await httpService.sendHttpRequest(ConfigsHttpAttributes());
+  void fetchConfigsData() async {
+    apiStateHandler.setLoading();
+    try {
+      dynamic response =
+          await httpService.sendHttpRequest(ConfigsHttpAttributes());
 
-  //     // Ensure response.data is a Map<String, dynamic>
-  //     if (response.data is Map<String, dynamic>) {
-  //       String jsonData = jsonEncode(response.data);
+      // Ensure response.data is a Map<String, dynamic>
+      if (response.data is Map<String, dynamic>) {
+        String jsonData = jsonEncode(response.data);
 
-  //       // No need to encode and decode again, just use the data directly
-  //       configs = configsFromJson(jsonData);
-  //       // Update state with success and response data
-  //       apiStateHandler.setSuccess(configs!);
-  //       update();
-  //     } else {
-  //       // Handle the case where response.data is not the expected type
-  //       apiStateHandler.setError("Invalid Data");
-  //       update();
-  //     }
-  //   } catch (ex) {
-  //     // Update state with error message
-  //     String errorMessage = await HandleHttpException().getExceptionString(ex);
-  //     apiStateHandler.setError(errorMessage);
-  //     update();
-  //   }
-  // }
+        // No need to encode and decode again, just use the data directly
+        configs = configsFromJson(jsonData);
+        // Update state with success and response data
+        apiStateHandler.setSuccess(configs!);
+        update();
+      } else {
+        // Handle the case where response.data is not the expected type
+        apiStateHandler.setError("Invalid Data");
+        update();
+      }
+    } catch (ex) {
+      // Update state with error message
+      String errorMessage = await HandleHttpException().getExceptionString(ex);
+      apiStateHandler.setError(errorMessage);
+      update();
+    }
+  }
 }

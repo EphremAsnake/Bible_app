@@ -25,13 +25,14 @@ class SettingsView extends GetView<SettingsController> {
           'settings'.tr,
           style: const TextStyle(color: Colors.white),
         ),
-        automaticallyImplyLeading: false,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: AppColors.white),
-          onPressed: () {
-            Get.back();
-          },
-        ),
+        iconTheme: const IconThemeData(color: AppColors.white),
+        // automaticallyImplyLeading: false,
+        // leading: IconButton(
+        //   icon: const Icon(Icons.arrow_back, color: AppColors.white),
+        //   onPressed: () {
+        //     Get.back();
+        //   },
+        // ),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -63,7 +64,7 @@ class SettingsView extends GetView<SettingsController> {
               ),
               child: ListTile(
                 onTap: () {
-                  if (Get.locale.toString() == "mainLanguage") {
+                  if (Get.locale.toString() == "ln_OL") {
                     homeController.saveLocale('en_US');
                     Get.updateLocale(const Locale('en', 'US'));
                     Get.snackbar(
@@ -72,8 +73,8 @@ class SettingsView extends GetView<SettingsController> {
                       snackPosition: SnackPosition.BOTTOM,
                     );
                   } else {
-                    Get.updateLocale(const Locale('ml', 'ml'));
-                    homeController.saveLocale('mainLanguage');
+                    Get.updateLocale(const Locale('ln', 'ln_OL'));
+                    homeController.saveLocale('ln_OL');
                     Get.snackbar(
                       Strings.info,
                       Strings.languagechanged,

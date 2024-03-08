@@ -1,13 +1,19 @@
+import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:holy_bible_app/src/pages/home/homepage.dart';
 import 'package:holy_bible_app/src/pages/home/logic.dart';
+import 'package:open_store/open_store.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:sizer/sizer.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../controller/datagetterandsetter.dart';
 import '../controller/maincontroller.dart';
+import '../pages/webview/inappwebview.dart';
 import '../utils/api_state_handler.dart';
 import '../utils/appcolor.dart';
 import '../utils/Strings.dart';
@@ -22,6 +28,27 @@ class CustomDrawer extends StatelessWidget {
   final DataGetterAndSetter getterAndSetterController;
   final HomePageController homeController = Get.find();
 
+  Future<void> _launchURL(String url) async {
+    if (!await launchUrl(Uri.parse(url))) {
+      throw Exception('Could not launch $url');
+    }
+  }
+
+
+  void openUrlAndroid(String url) async {
+    //!open Playstore
+    OpenStore.instance.open(
+      androidAppBundleId: url,
+    );
+  }
+
+  void openAppStore(String appId) async {
+    final String appStoreUrl =
+        'https://apps.apple.com/app/id$appId?action=write-review';
+
+    _launchURL(appStoreUrl);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -29,91 +56,96 @@ class CustomDrawer extends StatelessWidget {
       child: Column(
         //physics: const NeverScrollableScrollPhysics(),
         children: [
-          // GetBuilder<DetailController>(
-          //   init: DetailController(),
-          //   initState: (_) {},
-          //   builder: (_) {
-          //     if (homeController.apiStateHandler.apiState ==
-          //         ApiState.loading) {
-          //       return const SizedBox(
-          //         height: 40,
-          //       );
-          //     } else if (homeController.apiStateHandler.apiState ==
-          //         ApiState.success) {
-          //       if (homeController
-          //               .apiStateHandler.data!.houseAds[0].houseAd1!.show ==
-          //           true) {
-          //         return GestureDetector(
-          //           onTap: () {
-          //             if (homeController.apiStateHandler.data!.houseAds[0]
-          //                     .houseAd1!.openInAppBrowser ==
-          //                 true) {
-          //               Navigator.of(context).push(
-          //                 MaterialPageRoute(
-          //                   builder: (context) => InAppWebViewer(
-          //                       url: homeController.apiStateHandler.data!
-          //                           .houseAds[0].houseAd1!.url),
-          //                 ),
-          //               );
-          //             } else {
-          //               DetailHelpers().openStores(
-          //                   androidAppId: homeController.apiStateHandler.data!
-          //                       .houseAds[0].houseAd1!.url);
-          //             }
-          //           },
-          //           child: Container(
-          //             height: 25.h,
-          //             width: 90.w,
-          //             padding: const EdgeInsets.all(0),
-          //             child: CachedNetworkImage(
-          //               imageUrl: homeController
-          //                   .apiStateHandler.data!.houseAds[0].houseAd1!.image,
-          //               fit: BoxFit.fill,
-          //               placeholder: (context, url) => const SizedBox(
-          //                 height: 40,
-          //               ),
-          //               errorWidget: (context, url, error) => const SizedBox(
-          //                 height: 40,
-          //               ),
-          //             ),
-          //           ),
-          //         );
-          //       } else {
-          //         return Container(
-          //           padding: const EdgeInsets.all(0),
-          //           child: Stack(
-          //             children: [
-          //               Image.asset(
-          //                 "assets/images/banner.jpeg",
-          //                 fit: BoxFit.fill,
-          //               ),
-          //               Positioned(
-          //                 bottom: 0,
-          //                 left: 0,
-          //                 right: 0,
-          //                 child: Container(
-          //                   color: Colors.black.withOpacity(0.5),
-          //                   padding: const EdgeInsets.all(8.0),
-          //                   child: Text(
-          //                     homeController.drawerQuote,
-          //                     style: TextStyle(
-          //                         color: AppColors.whiteColor,
-          //                         fontFamily: "Abyssinica",
-          //                         fontSize: 16),
-          //                   ),
-          //                 ),
-          //               ),
-          //             ],
-          //           ),
-          //         );
-          //       }
-          //     } else {
-          //       return const SizedBox(
-          //         height: 40,
-          //       );
-          //     }
-          //   },
-          // ),
+          GetBuilder<HomePageController>(
+            init: HomePageController(),
+            initState: (_) {},
+            builder: (_) {
+              if (homeController.apiStateHandler.apiState == ApiState.loading) {
+                return const SizedBox(
+                  height: 40,
+                );
+              } else if (homeController.apiStateHandler.apiState ==
+                  ApiState.success) {
+                if (homeController
+                        .apiStateHandler.data!.houseAds[0].houseAd1!.show ==
+                    true) {
+                  return GestureDetector(
+                    onTap: () {
+                      if (homeController.apiStateHandler.data!.houseAds[0]
+                              .houseAd1!.openInAppBrowser ==
+                          true) {
+                        Get.to(InAppWebViewPage(
+                            webUrl: homeController.apiStateHandler.data!
+                                .houseAds[0].houseAd1!.url));
+                      } else {
+                        Uri.tryParse(homeController.apiStateHandler.data!
+                                    .houseAds[0].houseAd1!.url)
+                                !.isAbsolute
+                            ? _launchURL(homeController.apiStateHandler.data!
+                                .houseAds[0].houseAd1!.url)
+                            : Platform.isAndroid
+                                ? openUrlAndroid(homeController.apiStateHandler
+                                    .data!.houseAds[0].houseAd1!.url)
+                                : openAppStore(homeController.apiStateHandler
+                                    .data!.houseAds[0].houseAd1!.url);
+                        // DetailHelpers().openStores(
+                        //     androidAppId: homeController.apiStateHandler.data!
+                        //         .houseAds[0].houseAd1!.url);
+                      }
+                    },
+                    child: Container(
+                      height: 25.h,
+                      width: 90.w,
+                      padding: const EdgeInsets.all(0),
+                      child: CachedNetworkImage(
+                        imageUrl: homeController
+                            .apiStateHandler.data!.houseAds[0].houseAd1!.image,
+                        fit: BoxFit.fill,
+                        placeholder: (context, url) => const SizedBox(
+                          height: 40,
+                        ),
+                        errorWidget: (context, url, error) => const SizedBox(
+                          height: 40,
+                        ),
+                      ),
+                    ),
+                  );
+                } else {
+                  return Container(
+                    padding: const EdgeInsets.all(0),
+                    child: Stack(
+                      children: [
+                        Image.asset(
+                          "assets/images/banner.jpeg",
+                          fit: BoxFit.fill,
+                        ),
+                        Positioned(
+                          bottom: 0,
+                          left: 0,
+                          right: 0,
+                          child: Container(
+                            color: Colors.black.withOpacity(0.5),
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              homeController.drawerQuote,
+                              style: const TextStyle(
+                                  color: AppColors.white,
+                                  fontFamily: "Abyssinica",
+                                  fontSize: 16),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                }
+              } else {
+                return const SizedBox(
+                  height: 40,
+                );
+              }
+            },
+          ),
           Expanded(
             child: GetBuilder<MainController>(
               init: MainController(),
@@ -164,9 +196,7 @@ class CustomDrawer extends StatelessWidget {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      const SizedBox(
-                                        height: 50,
-                                      ),
+                                      
                                       TabBar(
                                         indicatorColor: AppColors.primaryColor,
                                         tabs: [
@@ -174,7 +204,7 @@ class CustomDrawer extends StatelessWidget {
                                             child: Align(
                                               alignment: Alignment.center,
                                               child: Text(
-                                                Strings.oldtestament,
+                                                'ot'.tr,
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
                                                   fontSize: 10.sp,
@@ -188,7 +218,7 @@ class CustomDrawer extends StatelessWidget {
                                             child: Align(
                                               alignment: Alignment.center,
                                               child: Text(
-                                                Strings.newtestament,
+                                                'nt'.tr,
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
                                                   fontSize: 10.sp,

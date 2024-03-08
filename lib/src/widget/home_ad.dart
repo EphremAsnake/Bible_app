@@ -1,16 +1,41 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:holy_bible_app/src/pages/home/logic.dart';
 import 'package:holy_bible_app/src/utils/appcolor.dart';
+import 'package:open_store/open_store.dart';
+import 'package:url_launcher/url_launcher.dart';
 
+import '../pages/webview/inappwebview.dart';
 import '../utils/api_state_handler.dart';
 
 class HomeAD extends StatelessWidget {
   HomeAD({
     super.key,
   });
-  
+
   final HomePageController homepageController = Get.find<HomePageController>();
+  Future<void> _launchURL(String url) async {
+    if (!await launchUrl(Uri.parse(url))) {
+      throw Exception('Could not launch $url');
+    }
+  }
+
+  void openUrlAndroid(String url) async {
+    //!open Playstore
+    OpenStore.instance.open(
+      androidAppBundleId: url,
+    );
+  }
+
+  void openAppStore(String appId) async {
+    final String appStoreUrl =
+        'https://apps.apple.com/app/id$appId?action=write-review';
+
+    _launchURL(appStoreUrl);
+  }
+
   @override
   Widget build(BuildContext context) {
     return GetBuilder<HomePageController>(
@@ -33,20 +58,33 @@ class HomeAD extends StatelessWidget {
                   left: 10.0, right: 10.0, top: 10.0, bottom: 15.0),
               child: GestureDetector(
                 onTap: () {
-                  // if (homepageController.apiStateHandler.data!.houseAds[1]
-                  //         .houseAd2!.openInAppBrowser ==
-                  //     true) {
-                  //   Navigator.of(context).push(
-                  //     MaterialPageRoute(
-                  //       builder: (context) => InAppWebViewer(
-                  //           url: homepageController.apiStateHandler.data!
-                  //               .houseAds[1].houseAd2!.url),
-                  //     ),
-                  //   );
-                  // } else {
-                  //   homepageController.openWebBrowser(homepageController
-                  //       .apiStateHandler.data!.houseAds[1].houseAd2!.url);
-                  // }
+                  if (homepageController.apiStateHandler.data!.houseAds[1]
+                          .houseAd2!.openInAppBrowser ==
+                      true) {
+                    Get.to(InAppWebViewPage(
+                        webUrl: homepageController
+                            .apiStateHandler.data!.houseAds[1].houseAd2!.url));
+                    // Navigator.of(context).push(
+                    //   MaterialPageRoute(
+                    //     builder: (context) => InAppWebViewer(
+                    //         url: homepageController.apiStateHandler.data!
+                    //             .houseAds[1].houseAd2!.url),
+                    //   ),
+                    // );
+                  } else {
+                    Uri.tryParse(homepageController.apiStateHandler.data!
+                                .houseAds[1].houseAd2!.url)!
+                            .isAbsolute
+                        ? _launchURL(homepageController
+                            .apiStateHandler.data!.houseAds[1].houseAd2!.url)
+                        : Platform.isAndroid
+                            ? openUrlAndroid(homepageController.apiStateHandler
+                                .data!.houseAds[1].houseAd2!.url)
+                            : openAppStore(homepageController.apiStateHandler
+                                .data!.houseAds[1].houseAd2!.url);
+                    // homepageController.openWebBrowser(homepageController
+                    //     .apiStateHandler.data!.houseAds[1].houseAd2!.url);
+                  }
                 },
                 child: Container(
                   width: MediaQuery.of(context).size.width,
@@ -99,8 +137,8 @@ class HomeAD extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(
                                 vertical: 2.0, horizontal: 15),
                             child: Text(
-                              homepageController.apiStateHandler.data!.houseAds[1]
-                                  .houseAd2!.buttonText,
+                              homepageController.apiStateHandler.data!
+                                  .houseAds[1].houseAd2!.buttonText,
                               style: const TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,

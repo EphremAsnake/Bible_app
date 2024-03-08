@@ -6,7 +6,10 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:holy_bible_app/src/controller/maincontroller.dart';
 import 'package:holy_bible_app/src/utils/appcolor.dart';
+import 'package:open_store/open_store.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:sizer/sizer.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../controller/datagetterandsetter.dart';
 import '../../services/database_service.dart';
@@ -17,6 +20,7 @@ import '../../widget/drawer.dart';
 import '../../widget/exit_confirmation_dialogue.dart';
 import '../../widget/home_ad.dart';
 import '../../widget/text_selection_widget.dart';
+import '../about/aboutpage.dart';
 import '../settings/settings.dart';
 import 'logic.dart';
 
@@ -35,6 +39,11 @@ class _HomePageState extends State<HomePage> {
   final DataGetterAndSetter getterAndSetterController =
       Get.find<DataGetterAndSetter>();
   String forsearch = '';
+
+  void shareApp(String shareMessage) {
+    Share.share(shareMessage);
+  }
+
   @override
   Widget build(BuildContext context) {
     return GetBuilder<HomePageController>(builder: (_) {
@@ -113,8 +122,9 @@ class _HomePageState extends State<HomePage> {
                   if (value == 'settings') {
                     Get.to(SettingsView());
                   } else if (value == 'about') {
-                    Get.toNamed("/about");
+                    Get.to(AboutView());
                   } else if (value == 'share') {
+                    shareApp("Share Mesage");
                   } else if (value == 'rate') {
                   } else if (value == 'font_size') {
                     showFontSizeBottomSheet(context);

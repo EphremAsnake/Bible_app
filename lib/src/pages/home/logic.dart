@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:holy_bible_app/src/utils/Strings.dart';
+import 'package:logger/logger.dart';
 
 import '../../controller/datagetterandsetter.dart';
 import '../../model/bible/book.dart';
@@ -460,6 +461,7 @@ class HomePageController extends GetxController {
   //!fetching data from api
   void fetchConfigsData() async {
     apiStateHandler.setLoading();
+    Logger logger = Logger();
     try {
       dynamic response =
           await httpService.sendHttpRequest(ConfigsHttpAttributes());
@@ -472,6 +474,7 @@ class HomePageController extends GetxController {
         configs = configsFromJson(jsonData);
         // Update state with success and response data
         apiStateHandler.setSuccess(configs!);
+        logger.e("Config Fetched");
         update();
       } else {
         // Handle the case where response.data is not the expected type

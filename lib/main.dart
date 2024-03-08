@@ -36,7 +36,7 @@ void main() async {
   Get.put(DataGetterAndSetter());
   Get.put<HttpService>(HttpServiceImpl());
   Get.put(HomePageController());
-  
+
   Get.put(MasterDataController());
 
   //getting app's Config data
@@ -51,17 +51,50 @@ class MyApp extends StatefulWidget {
   State<MyApp> createState() => _MyAppState();
 }
 
-class _MyAppState extends State<MyApp> {
+class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   // This widget is the root of your application.
   SharedPreferencesStorage sharedPreferencesStorage =
       SharedPreferencesStorage();
+
+  final HomePageController homeController = Get.find<HomePageController>();
   late String selectedLocale;
   List<String> selectedLocales = [];
-
+  Logger logger = Logger();
   @override
   void initState() {
+    WidgetsBinding.instance.addObserver(this);
     super.initState();
     initValues();
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+
+    switch (state) {
+      case AppLifecycleState.resumed:
+        // logger.e("APP Resumed");
+        homeController.fetchConfigsData();
+        break;
+      case AppLifecycleState.inactive:
+        //logger.e("inactive");
+        break;
+      case AppLifecycleState.paused:
+        //logger.e("inactive");
+        break;
+      case AppLifecycleState.detached:
+        //logger.e("paused");
+        break;
+      case AppLifecycleState.hidden:
+        //logger.e("hidden");
+        break;
+    }
   }
 
   Future<void> initValues() async {

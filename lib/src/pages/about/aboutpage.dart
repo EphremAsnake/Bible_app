@@ -12,7 +12,7 @@ import '../../widget/refresh_error_widget.dart';
 
 class AboutView extends StatelessWidget {
   AboutView({Key? key}) : super(key: key);
-  final HomePageController detailController = Get.find<HomePageController>();
+  final HomePageController homeController = Get.find<HomePageController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,11 +40,11 @@ class AboutView extends StatelessWidget {
           init: HomePageController(),
           initState: (_) {},
           builder: (_) {
-            if (detailController.apiStateHandler.apiState == ApiState.loading) {
+            if (homeController.apiStateHandler.apiState == ApiState.loading) {
               return const Center(
                 child: CustomProgressIndicator(),
               );
-            } else if (detailController.apiStateHandler.apiState ==
+            } else if (homeController.apiStateHandler.apiState ==
                 ApiState.success) {
               return Padding(
                 padding: const EdgeInsets.fromLTRB(5,0,5,0),
@@ -67,7 +67,7 @@ class AboutView extends StatelessWidget {
                                     const SizedBox(height: 5,),
                                     Center(
                                       child: Text(
-                                        detailController
+                                        homeController
                                             .apiStateHandler.data!.aboutApp,
                                         textAlign: TextAlign.justify,
                                         style: const TextStyle(
@@ -88,15 +88,15 @@ class AboutView extends StatelessWidget {
                   ),
                 ),
               );
-            } else if (detailController.apiStateHandler.apiState ==
+            } else if (homeController.apiStateHandler.apiState ==
                 ApiState.error) {
               return RefreshErrorWidget(
                 showBackToHomeButton: true,
                 assetImage: "assets/images/error.png",
-                errorMessage: detailController.apiStateHandler.error!,
+                errorMessage: homeController.apiStateHandler.error!,
                 onRefresh: () async {
-                  detailController.fetchConfigsData();
-                  detailController.update();
+                  homeController.fetchConfigsData();
+                  homeController.update();
                 },
               );
             } else {
@@ -106,8 +106,8 @@ class AboutView extends StatelessWidget {
                 errorMessage:
                     "No internet connection, please check your internet connection and try again.",
                 onRefresh: () async {
-                  detailController.fetchConfigsData();
-                  detailController.update();
+                  homeController.fetchConfigsData();
+                  homeController.update();
                 },
               );
             }

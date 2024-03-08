@@ -94,48 +94,29 @@ class CustomDrawer extends StatelessWidget {
                       }
                     },
                     child: Container(
-                      height: 25.h,
+                      height: 30.h,
                       width: 90.w,
                       padding: const EdgeInsets.all(0),
                       child: CachedNetworkImage(
                         imageUrl: homeController
                             .apiStateHandler.data!.houseAds[0].houseAd1!.image,
                         fit: BoxFit.fill,
-                        placeholder: (context, url) => const SizedBox(
-                          height: 40,
+                        placeholder: (context, url) =>  SizedBox(
+                          height: 30.h,
                         ),
-                        errorWidget: (context, url, error) => const SizedBox(
-                          height: 40,
+                        errorWidget: (context, url, error) =>  SizedBox(
+                          height: 30.h,
                         ),
                       ),
                     ),
                   );
                 } else {
                   return Container(
+                    height: 30.h,
                     padding: const EdgeInsets.all(0),
-                    child: Stack(
-                      children: [
-                        Image.asset(
-                          "assets/images/banner.jpeg",
-                          fit: BoxFit.fill,
-                        ),
-                        Positioned(
-                          bottom: 0,
-                          left: 0,
-                          right: 0,
-                          child: Container(
-                            color: Colors.black.withOpacity(0.5),
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              homeController.drawerQuote,
-                              style: const TextStyle(
-                                  color: AppColors.white,
-                                  fontFamily: "Abyssinica",
-                                  fontSize: 16),
-                            ),
-                          ),
-                        ),
-                      ],
+                    child: Image.asset(
+                      "assets/images/banner.jpeg",
+                      fit: BoxFit.fill,
                     ),
                   );
                 }

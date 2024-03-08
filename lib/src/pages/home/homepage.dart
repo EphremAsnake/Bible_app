@@ -67,6 +67,7 @@ class _HomePageState extends State<HomePage> {
               },
               icon: Icon(
                 Icons.menu,
+                size: 30,
                 color: AppColors.primaryColor,
               ),
             ),

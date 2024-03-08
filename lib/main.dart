@@ -11,7 +11,7 @@ import 'src/controller/datagetterandsetter.dart';
 import 'src/pages/home/homepage.dart';
 import 'src/pages/splash/splashscreen.dart';
 import 'src/services/database_service.dart';
-import 'src/utils/keys.dart';
+import 'src/utils/Strings.dart';
 import 'src/utils/storagepreference.dart';
 import 'src/widget/custom_easy_loading.dart';
 
@@ -63,7 +63,7 @@ Future initApp() async {
   SharedPreferencesStorage sharedPreferencesStorage =
       SharedPreferencesStorage();
   String? bookName =
-      await sharedPreferencesStorage.readStringData(Keys.selectedBookKey);
+      await sharedPreferencesStorage.readStringData(Strings.selectedBookKey);
 
   Logger logger = Logger();
   logger.e(bookName);

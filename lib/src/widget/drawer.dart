@@ -10,7 +10,7 @@ import '../controller/datagetterandsetter.dart';
 import '../controller/maincontroller.dart';
 import '../utils/api_state_handler.dart';
 import '../utils/appcolor.dart';
-import '../utils/keys.dart';
+import '../utils/Strings.dart';
 import 'refresh_error_widget.dart';
 
 class CustomDrawer extends StatelessWidget {
@@ -174,7 +174,7 @@ class CustomDrawer extends StatelessWidget {
                                             child: Align(
                                               alignment: Alignment.center,
                                               child: Text(
-                                                Keys.oldtestament,
+                                                Strings.oldtestament,
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
                                                   fontSize: 10.sp,
@@ -188,7 +188,7 @@ class CustomDrawer extends StatelessWidget {
                                             child: Align(
                                               alignment: Alignment.center,
                                               child: Text(
-                                                Keys.newtestament,
+                                                Strings.newtestament,
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
                                                   fontSize: 10.sp,

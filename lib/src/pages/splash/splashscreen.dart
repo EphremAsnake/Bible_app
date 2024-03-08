@@ -9,7 +9,7 @@ import 'package:sizer/sizer.dart';
 import '../../controller/datagetterandsetter.dart';
 import '../../controller/maincontroller.dart';
 import '../../services/database_service.dart';
-import '../../utils/keys.dart';
+import '../../utils/Strings.dart';
 import '../../utils/storagepreference.dart';
 
 class SplashScreenPage extends StatefulWidget {
@@ -31,7 +31,7 @@ class _MySplashScreenPageState extends State<SplashScreenPage> {
     readsavedbookdata();
     // Future.delayed(const Duration(seconds: 1), () {
     //   if (mounted) {
-        
+
     //   }
     // });
     //readBibleBooks();
@@ -50,24 +50,24 @@ class _MySplashScreenPageState extends State<SplashScreenPage> {
     final DataGetterAndSetter getterAndSetterController =
         Get.find<DataGetterAndSetter>();
     final HomePageController controller = Get.find<HomePageController>();
-    await EasyLoading.show(status: 'Changing Please Wait...');
+    await EasyLoading.show(status: '...', indicator: const SizedBox());
     controller.isLoading = true;
     controller.update();
     SharedPreferencesStorage sharedPreferencesStorage =
         SharedPreferencesStorage();
     String? savedBibleName =
-        await sharedPreferencesStorage.readStringData(Keys.selectedBookKey);
+        await sharedPreferencesStorage.readStringData(Strings.selectedBookKey);
     getterAndSetterController.versesAMH = await DatabaseService()
-        .changeBibleType(savedBibleName ?? Keys.bibletitle);
+        .changeBibleType(savedBibleName ?? Strings.bibletitle);
     getterAndSetterController.update();
     controller.allVerses.assignAll(getterAndSetterController.groupedBookList());
 
     //saving selected book to local storage
     sharedPreferencesStorage.saveStringData(
-        Keys.selectedBookKey, savedBibleName ?? Keys.bibletitle);
+        Strings.selectedBookKey, savedBibleName ?? Strings.bibletitle);
 
     //set selected book Name
-    controller.setSelectedBook(savedBibleName ?? Keys.bibletitle);
+    controller.setSelectedBook(savedBibleName ?? Strings.bibletitle);
     controller.setInitialSelectedBookTypeOptions();
 
     // //scroll to top
@@ -77,6 +77,7 @@ class _MySplashScreenPageState extends State<SplashScreenPage> {
     //       const Duration(milliseconds: 500), // Adjust the duration as needed
     //   curve: Curves.easeInOut, // Use a different curve if desired
     // );
+
     EasyLoading.dismiss();
     controller.selectedRowIndex = -1;
     controller.isLoading = false;

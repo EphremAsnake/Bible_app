@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:holy_bible_app/src/utils/keys.dart';
+import 'package:holy_bible_app/src/utils/Strings.dart';
 import 'package:logger/logger.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
@@ -55,7 +55,7 @@ class DatabaseService {
   Future<void> copyDatabaseOtherLanguage() async {
     // Get the path to the database file
     String databasesPath = await getDatabasesPath();
-    String path = join(databasesPath, Keys.otherbibledatabase);
+    String path = join(databasesPath, Strings.otherbibledatabase);
 
     // Check if the database file already exists
     bool exists = await databaseExists(path);
@@ -66,7 +66,7 @@ class DatabaseService {
 
       // Copy the database file from assets to the device
       ByteData data =
-          await rootBundle.load('assets/db/${Keys.otherbibledatabase}');
+          await rootBundle.load('assets/db/${Strings.otherbibledatabase}');
       List<int> bytes =
           data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
       await File(path).writeAsBytes(bytes);
@@ -121,7 +121,7 @@ class DatabaseService {
     // Get the path to the database file
     String databasesPath = await getDatabasesPath();
     String path = join(databasesPath,
-        book == "English KJV" ? 'kjv.db' : Keys.otherbibledatabase);
+        book == "English KJV" ? 'kjv.db' : Strings.otherbibledatabase);
 
     // Open the database
     Database database = await openDatabase(path);
@@ -173,7 +173,7 @@ class DatabaseService {
     // Get the path to the database file
     String databasesPath = await getDatabasesPath();
     String path = join(databasesPath,
-        type == "English KJV" ? 'kjv.db' : Keys.otherbibledatabase);
+        type == "English KJV" ? 'kjv.db' : Strings.otherbibledatabase);
 
     // Open the database
     Database database = await openDatabase(path);
@@ -207,7 +207,7 @@ class DatabaseService {
     // Get the path to the database file
     String databasesPath = await getDatabasesPath();
     String path = join(databasesPath,
-        bibleName == "English KJV" ? 'kjv.db' : Keys.otherbibledatabase);
+        bibleName == "English KJV" ? 'kjv.db' : Strings.otherbibledatabase);
 
     // Open the database
     Database database = await openDatabase(path);
@@ -234,7 +234,7 @@ class DatabaseService {
 //     // Get the path to the database file
 //     String databasesPath = await getDatabasesPath();
 //     String path = join(databasesPath,
-//         bibleName == "English KJV" ? 'kjv.db' : Keys.otherbibledatabase);
+//         bibleName == "English KJV" ? 'kjv.db' : Strings.otherbibledatabase);
 
 //     // Open the database
 //     Database database = await openDatabase(path, onCreate: (db, version) async {
@@ -263,7 +263,7 @@ class DatabaseService {
   // Future<void> readBookConfigurationofOtherLanguage() async {
   //   // Get the path to the database file
   //   String databasesPath = await getDatabasesPath();
-  //   String path = join(databasesPath, Keys.otherbibledatabase);
+  //   String path = join(databasesPath, Strings.otherbibledatabase);
 
   //   // Open the database
   //   Database database = await openDatabase(path);
@@ -288,7 +288,7 @@ class DatabaseService {
     final DataGetterAndSetter dataController = Get.find();
     // Get the path to the database file
     String databasesPath = await getDatabasesPath();
-    String path = join(databasesPath, Keys.otherbibledatabase);
+    String path = join(databasesPath, Strings.otherbibledatabase);
 
     // Open the database
     Database database = await openDatabase(path);

@@ -8,7 +8,7 @@ import '../model/bible/book.dart';
 import '../model/bible/verses.dart';
 import '../services/database_service.dart';
 import '../utils/api_state_handler.dart';
-import '../utils/keys.dart';
+import '../utils/Strings.dart';
 import 'datagetterandsetter.dart';
 
 class MainController extends GetxController {
@@ -114,7 +114,7 @@ class MainController extends GetxController {
     List<Book> books = await DatabaseService().readBookDatabase();
 
     var otherlanguage =
-        await DatabaseService().readVersesDatabase(Keys.otherbibledatabase);
+        await DatabaseService().readVersesDatabase(Strings.otherbibledatabase);
     await getterAndSetterController.readData();
     versesAMH.addAll(otherlanguage);
 

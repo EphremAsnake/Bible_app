@@ -5,7 +5,7 @@ import '../model/bible/book.dart';
 import '../model/bible/verses.dart';
 import '../services/database_service.dart';
 import '../utils/api_state_handler.dart';
-import '../utils/keys.dart';
+import '../utils/Strings.dart';
 import '../utils/storagepreference.dart';
 
 class DataGetterAndSetter extends GetxController {
@@ -112,7 +112,7 @@ class DataGetterAndSetter extends GetxController {
         SharedPreferencesStorage();
     String selectedBook = "";
     String? bookName =
-        await sharedPreferencesStorage.readStringData(Keys.selectedBookKey);
+        await sharedPreferencesStorage.readStringData(Strings.selectedBookKey);
     if (bookName != null) {
       if (bookName == "English KJV") {
         selectedBook = bookName;

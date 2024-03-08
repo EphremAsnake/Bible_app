@@ -11,12 +11,13 @@ import 'package:sizer/sizer.dart';
 import '../../controller/datagetterandsetter.dart';
 import '../../services/database_service.dart';
 import '../../utils/get_and_set_highlight_color.dart';
-import '../../utils/keys.dart';
+import '../../utils/Strings.dart';
 import '../../utils/storagepreference.dart';
 import '../../widget/drawer.dart';
 import '../../widget/exit_confirmation_dialogue.dart';
 import '../../widget/home_ad.dart';
 import '../../widget/text_selection_widget.dart';
+import '../settings/settings.dart';
 import 'logic.dart';
 
 class HomePage extends StatefulWidget {
@@ -29,10 +30,11 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final HomePageController controller = Get.find<HomePageController>();
   final MainController mainController = Get.find<MainController>();
+  final ScrollController _scrollController = ScrollController();
 
   final DataGetterAndSetter getterAndSetterController =
       Get.find<DataGetterAndSetter>();
-
+  String forsearch = '';
   @override
   Widget build(BuildContext context) {
     return GetBuilder<HomePageController>(builder: (_) {
@@ -109,7 +111,7 @@ class _HomePageState extends State<HomePage> {
                 onSelected: (value) {
                   // Handle menu item selection
                   if (value == 'settings') {
-                    Get.toNamed("/settings");
+                    Get.to(SettingsView());
                   } else if (value == 'about') {
                     Get.toNamed("/about");
                   } else if (value == 'share') {
@@ -232,7 +234,7 @@ class _HomePageState extends State<HomePage> {
                                       controller.selectedBook
                                               .contains("English")
                                           ? '${controller.getBookTitle(controller.allVerses[i][0].book!)} | Chapter ${controller.allVerses[i][0].chapter}'
-                                          : '${getterAndSetterController.otherLanguageAllChapters[controller.getBookTitle(controller.allVerses[i][0].book!) - 1]}  | ${Keys.chapter} ${controller.allVerses[i][0].chapter}',
+                                          : '${getterAndSetterController.otherLanguageAllChapters[controller.getBookTitle(controller.allVerses[i][0].book!) - 1]}  | ${Strings.chapter} ${controller.allVerses[i][0].chapter}',
                                       style: TextStyle(
                                         fontSize: controller.fontSize.sp,
                                         fontFamily: "Abyssinica",
@@ -245,10 +247,11 @@ class _HomePageState extends State<HomePage> {
                                           vertical: 5),
                                       child: SizedBox(
                                         width: 100.w,
-                                        height: 79.h,
+                                        height: 80.h,
                                         child: Padding(
+                                          //!from Bottom
                                           padding:
-                                              const EdgeInsets.only(bottom: 30),
+                                              const EdgeInsets.only(bottom: 10),
                                           child: SizedBox(
                                             width: MediaQuery.of(context)
                                                 .size
@@ -415,7 +418,7 @@ class _HomePageState extends State<HomePage> {
                                                                     .length -
                                                                 1)
                                                           const SizedBox(
-                                                            height: 25,
+                                                            height: 30,
                                                           ),
                                                       ],
                                                     ),
@@ -516,6 +519,339 @@ class _HomePageState extends State<HomePage> {
                   ],
                 )
               : null,
+          endDrawer: Drawer(
+            width: 90.w,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(
+                  height: 15,
+                ),
+                Container(
+                  padding: const EdgeInsets.only(
+                      left: 5, right: 8, top: 45, bottom: 8),
+                  color: AppColors.primaryColor,
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Container(
+                          height: 40,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10.0),
+                            border: Border.all(color: Colors.white, width: 1.0),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            child: TextField(
+                              keyboardType: TextInputType.text,
+                              autofocus: true,
+                              style: TextStyle(
+                                  color: AppColors.primaryColor, fontSize: 13),
+                              showCursor: true,
+                              cursorColor: AppColors.primaryColor,
+                              focusNode: controller.focusNode,
+                              controller: controller.searchController,
+                              onTap: () {
+                                // FocusManager.instance.primaryFocus?.unfocus();
+                                // if (controller.isAmharicKeyboardVisible ==
+                                //     false) {
+                                //   controller.makeAmharicKeyboardVisible();
+                                // }
+                              },
+                              maxLines: 1,
+                              decoration: InputDecoration(
+                                hintText: 'search'.tr,
+                                hintStyle:
+                                    TextStyle(color: AppColors.primaryColor),
+                                labelStyle:
+                                    TextStyle(color: AppColors.primaryColor),
+                                border: InputBorder.none,
+                                suffixIcon: Container(
+                                  margin: const EdgeInsets.all(0.0),
+                                  child: IconButton(
+                                    icon: Icon(
+                                      Icons.search,
+                                      color: AppColors.primaryColor,
+                                      size: 26,
+                                    ),
+                                    onPressed: () async {
+                                      if (controller
+                                          .searchController.text.isNotEmpty) {
+                                        setState(() {
+                                          forsearch =
+                                              controller.searchController.text;
+                                        });
+                                        await EasyLoading.show(
+                                            status: 'Searching Please Wait...');
+                                        controller.isLoading = true;
+                                        controller.update();
+                                        controller.searchResultVerses =
+                                            await controller.search(
+                                                bibleType: controller
+                                                    .selectedBookTypeOptions,
+                                                searchType: controller
+                                                    .selectedSearchTypeOptions,
+                                                searchPlace: controller
+                                                    .selectedSearchPlaceOptions,
+                                                query: controller
+                                                    .searchController.text);
+
+                                        if (controller
+                                            .searchResultVerses.isEmpty) {
+                                          Get.snackbar(
+                                            'info'.tr,
+                                            'no_search_results'.tr,
+                                            snackPosition: SnackPosition.BOTTOM,
+                                          );
+                                        }
+                                        EasyLoading.dismiss();
+                                        controller.update();
+                                      }
+                                    },
+                                  ),
+                                ),
+                                prefixIcon:
+                                    controller.searchController.text.isNotEmpty
+                                        ? Container(
+                                            margin: const EdgeInsets.all(0.0),
+                                            child: IconButton(
+                                              icon: Icon(
+                                                Icons.close,
+                                                color: AppColors.primaryColor,
+                                                size: 24,
+                                              ),
+                                              onPressed: () {
+                                                controller.clearSearchBar();
+                                              },
+                                            ),
+                                          )
+                                        : null,
+                              ),
+                              onChanged: (value) {
+                                // setState(() {
+                                //   _searchQuery = value;
+                                // });
+                              },
+                              onSubmitted: (value) async {
+                                if (controller
+                                    .searchController.text.isNotEmpty) {
+                                  setState(() {
+                                    forsearch =
+                                        controller.searchController.text;
+                                  });
+
+                                  await EasyLoading.show(
+                                      status: 'Searching Please Wait...');
+                                  controller.isLoading = true;
+                                  controller.update();
+                                  controller.searchResultVerses =
+                                      await controller.search(
+                                          bibleType: controller
+                                              .selectedBookTypeOptions,
+                                          searchType: controller
+                                              .selectedSearchTypeOptions,
+                                          searchPlace: controller
+                                              .selectedSearchPlaceOptions,
+                                          query:
+                                              controller.searchController.text);
+
+                                  if (controller.searchResultVerses.isEmpty) {
+                                    Get.snackbar(
+                                      'info'.tr,
+                                      'no_search_results'.tr,
+                                      snackPosition: SnackPosition.BOTTOM,
+                                    );
+                                  }
+                                  EasyLoading.dismiss();
+                                  controller.update();
+                                }
+                              },
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
+                Container(
+                  color: Colors.white,
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                        left: 8.0, right: 8.0, bottom: 1, top: 5),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        DropdownButton<String>(
+                          style: const TextStyle(
+                              fontSize: 12, color: Colors.black),
+                          value: controller.selectedBookTypeOptions,
+                          items:
+                              controller.bookTypeOptions.map((String option) {
+                            return DropdownMenuItem<String>(
+                              value: option,
+                              child: Text(option),
+                            );
+                          }).toList(),
+                          onChanged: (String? newValue) {
+                            controller.setSelectedBookTypeOptions(newValue!);
+                          },
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        DropdownButton<String>(
+                          style: const TextStyle(
+                              fontSize: 12, color: Colors.black),
+                          value: controller.selectedSearchTypeOptions,
+                          items:
+                              controller.searchTypeOptions.map((String option) {
+                            return DropdownMenuItem<String>(
+                              value: option,
+                              child: Text(option),
+                            );
+                          }).toList(),
+                          onChanged: (String? newValue) {
+                            controller.setSelectedSearchTypeOptions(newValue!);
+                          },
+                        ),
+                        DropdownButton<String>(
+                          style: const TextStyle(
+                              fontSize: 12, color: Colors.black),
+                          value: controller.selectedSearchPlaceOptions,
+                          items: controller.searchPlaceOptions
+                              .map((String option) {
+                            return DropdownMenuItem<String>(
+                              value: option,
+                              child: Text(option),
+                            );
+                          }).toList(),
+                          onChanged: (String? newValue) {
+                            controller.setSelectedSearchPlaceOptions(newValue!);
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Visibility(
+                    visible: controller.searchResultVerses.isEmpty,
+                    child: const Expanded(child: SizedBox())),
+
+                Visibility(
+                  visible: controller.searchResultVerses.isNotEmpty,
+                  child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 14),
+                      child: RichText(
+                        text: TextSpan(
+                          children: [
+                            TextSpan(
+                              text: 'searchResult'.tr,
+                              style: const TextStyle(
+                                fontSize: 13,
+                                color: AppColors.black,
+                              ),
+                            ),
+                            TextSpan(
+                              text: '${controller.searchResultVerses.length}',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: AppColors.primaryColor,
+                                  fontSize: 13),
+                            ),
+                          ],
+                        ),
+                      )),
+                ),
+
+                Visibility(
+                  visible: controller.searchResultVerses.isNotEmpty,
+                  child: Expanded(
+                    child: RawScrollbar(
+                      thumbColor: AppColors.primaryColor,
+                      controller: _scrollController,
+                      thickness: 12.0,
+                      trackVisibility: true,
+                      thumbVisibility: true,
+                      interactive: true,
+                      child: ListView.builder(
+                        controller: _scrollController,
+                        padding: const EdgeInsets.all(0),
+                        shrinkWrap: true,
+                        itemCount: controller.searchResultVerses.length,
+                        itemBuilder: (context, i) {
+                          String verseText =
+                              controller.searchResultVerses[i].verseText ?? "";
+                          String searchText = forsearch;
+                          List<TextSpan> textSpans = [];
+                          int start = 0;
+                          while (start < verseText.length) {
+                            int index = verseText.indexOf(searchText, start);
+                            if (index == -1) {
+                              textSpans.add(TextSpan(
+                                  text: verseText.substring(start),
+                                  style: const TextStyle(color: Colors.black)));
+                              break;
+                            }
+                            textSpans.add(
+                              TextSpan(
+                                  text:
+                                      "${controller.searchResultVerses[i].verseNumber} ${verseText.substring(start, index)}",
+                                  style: const TextStyle(color: Colors.black)),
+                            );
+                            textSpans.add(TextSpan(
+                              text: verseText.substring(
+                                  index, index + searchText.length),
+                              style: const TextStyle(color: Colors.red),
+                            ));
+
+                            start = index + searchText.length;
+                          }
+
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 0, horizontal: 4),
+                            child: GestureDetector(
+                              onTap: () {
+                                controller.navigateToSpecificBookDetailView(
+                                    controller.searchResultVerses[i].book!,
+                                    controller.searchResultVerses[i].chapter!);
+                              },
+                              child: Card(
+                                elevation: 0,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        "${controller.getBookName(controller.searchResultVerses[i].book!)} ${controller.searchResultVerses[i].chapter}:${controller.searchResultVerses[i].verseNumber}",
+                                        style: TextStyle(
+                                            color: AppColors.primaryColor,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 13),
+                                      ),
+                                      RichText(
+                                        text: TextSpan(children: textSpans),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                  ),
+                ),
+                // Visibility(
+                //     visible: controller.isAmharicKeyboardVisible,
+                //     child: AmharicKeyboard()),
+                // Drawer content below the search field...
+              ],
+            ),
+          ),
         ),
       );
     });
@@ -528,18 +864,18 @@ class _HomePageState extends State<HomePage> {
     SharedPreferencesStorage sharedPreferencesStorage =
         SharedPreferencesStorage();
     String? savedBibleName =
-        await sharedPreferencesStorage.readStringData(Keys.selectedBookKey);
+        await sharedPreferencesStorage.readStringData(Strings.selectedBookKey);
     getterAndSetterController.versesAMH = await DatabaseService()
-        .changeBibleType(savedBibleName ?? Keys.bibletitle);
+        .changeBibleType(savedBibleName ?? Strings.bibletitle);
     getterAndSetterController.update();
     controller.allVerses.assignAll(getterAndSetterController.groupedBookList());
 
     //saving selected book to local storage
     sharedPreferencesStorage.saveStringData(
-        Keys.selectedBookKey, savedBibleName ?? Keys.bibletitle);
+        Strings.selectedBookKey, savedBibleName ?? Strings.bibletitle);
 
     //set selected book Name
-    controller.setSelectedBook(savedBibleName ?? Keys.bibletitle);
+    controller.setSelectedBook(savedBibleName ?? Strings.bibletitle);
     controller.setInitialSelectedBookTypeOptions();
 
     //scroll to top
@@ -623,17 +959,17 @@ class _HomePageState extends State<HomePage> {
                             SharedPreferencesStorage();
                         getterAndSetterController.versesAMH =
                             await DatabaseService()
-                                .changeBibleType(Keys.bibletitle);
+                                .changeBibleType(Strings.bibletitle);
                         getterAndSetterController.update();
                         controller.allVerses.assignAll(
                             getterAndSetterController.groupedBookList());
 
                         //saving selected book to local storage
                         sharedPreferencesStorage.saveStringData(
-                            Keys.selectedBookKey, Keys.bibletitle);
+                            Strings.selectedBookKey, Strings.bibletitle);
 
                         //set selected book Name
-                        controller.setSelectedBook(Keys.bibletitle);
+                        controller.setSelectedBook(Strings.bibletitle);
                         controller.setInitialSelectedBookTypeOptions();
 
                         //scroll to top
@@ -650,7 +986,7 @@ class _HomePageState extends State<HomePage> {
                         controller.isLoading = false;
                         controller.update();
                       },
-                      title: Text(Keys.bibletitle),
+                      title: Text(Strings.bibletitle),
                       leading: Image.asset(
                         "assets/images/bible.png",
                         height: 32.sp,
@@ -679,7 +1015,7 @@ class _HomePageState extends State<HomePage> {
 
                         //saving selected book to local storage
                         sharedPreferencesStorage.saveStringData(
-                            Keys.selectedBookKey, "English KJV");
+                            Strings.selectedBookKey, "English KJV");
                         //set selected book Name
                         controller.setSelectedBook("English KJV");
                         controller.setInitialSelectedBookTypeOptions();

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
-import 'package:holy_bible_app/src/utils/keys.dart';
+import 'package:holy_bible_app/src/utils/Strings.dart';
 
 import '../../controller/datagetterandsetter.dart';
 import '../../model/bible/book.dart';
@@ -18,6 +18,11 @@ class HomePageController extends GetxController {
   ScrollController drawerScrollController = ScrollController();
   ScrollController readerScrollController = ScrollController();
   final apiStateHandler = ApiStateHandler<Configs>();
+  FocusNode focusNode = FocusNode();
+  TextEditingController searchController = TextEditingController();
+  List<Verses> searchResultVerses = [];
+  String selectedSearchTypeOptions = 'every_word'.tr;
+  String selectedSearchPlaceOptions = 'all'.tr;
 
   String selectedBook = 'English KJV';
   double fontSize = 12.5;
@@ -34,8 +39,13 @@ class HomePageController extends GetxController {
   List<Book> booksList = [];
   List<Book> booksListOtherLanguage = [];
   int previousOpenedBookPageNumber = 0;
-  String selectedBookTypeOptions = Keys.bibletitle;
-
+  String selectedBookTypeOptions = Strings.bibletitle;
+  List<Book> books = [];
+  List<String> bookTypeOptions = [Strings.bibletitle, 'English KJV'];
+  List<String> searchTypeOptions = [
+    'every_word'.tr,
+    'exactly'.tr,
+  ];
   @override
   void onInit() {
     super.onInit();
@@ -50,12 +60,172 @@ class HomePageController extends GetxController {
     getFontSize();
   }
 
+  setSelectedSearchTypeOptions(String newValue) {
+    selectedSearchTypeOptions = newValue;
+    update();
+  }
+
+  setSelectedSearchPlaceOptions(String newValue) {
+    selectedSearchPlaceOptions = newValue;
+    update();
+  }
+
+  List<String> searchPlaceOptions = [
+    'ot'.tr,
+    'nt'.tr,
+    'all'.tr,
+  ];
+  clearSearchBar() {
+    searchController.clear();
+    searchResultVerses.clear();
+    update();
+  }
+
+  Future<List<Verses>> search({
+    required String bibleType,
+    required String searchType,
+    required String searchPlace,
+    required String query,
+  }) async {
+    isLoading = true;
+    update();
+    List<Verses> emptyVerses = [];
+    if (query.length < 2) {
+      isLoading = false;
+      update();
+      return emptyVerses;
+    }
+    if (searchType == 'every_word'.tr) {
+      if (searchPlace == 'ot'.tr) {
+        isLoading = false;
+        update();
+        return await handleSearch("OT", query, 'contains', bibleType);
+      } else if (searchPlace == 'nt'.tr) {
+        isLoading = false;
+        update();
+        return await handleSearch("NT", query, 'contains', bibleType);
+      } else if (searchPlace == 'all'.tr) {
+        isLoading = false;
+        update();
+        return await handleSearch("", query, 'contains', bibleType);
+      } else {
+        isLoading = false;
+        update();
+        return emptyVerses;
+      }
+    } else if (searchType == 'exactly'.tr) {
+      if (searchPlace == 'ot'.tr) {
+        isLoading = false;
+        update();
+        return await handleSearch("OT", query, 'exact', bibleType);
+      } else if (searchPlace == 'nt'.tr) {
+        isLoading = false;
+        update();
+        return await handleSearch("NT", query, 'exact', bibleType);
+      } else if (searchPlace == 'all'.tr) {
+        isLoading = false;
+        update();
+        return await handleSearch("", query, 'exact', bibleType);
+      } else {
+        isLoading = false;
+        update();
+        return emptyVerses;
+      }
+    } else {
+      isLoading = false;
+      update();
+      return emptyVerses;
+    }
+  }
+
+  Future<List<Verses>> handleSearch(
+    String testament,
+    String query,
+    String searchOption,
+    String bibleType,
+  ) async {
+    if (bibleType == 'English KJV') {
+      bibleType = "English KJV";
+    } else {
+      bibleType = Strings.bibletitle;
+    }
+    List<Verses> verses = await DatabaseService().changeBibleType(bibleType);
+    List<Book> oldTestamentBookIDs = [];
+    List<Verses> oldTestamentBookVerses = [];
+    books = await DatabaseService().readBookDatabase();
+
+    if (testament != "") {
+      oldTestamentBookIDs =
+          books.where((element) => element.testament == testament).toList();
+    } else {
+      oldTestamentBookIDs = books;
+    }
+    for (int i = 0; i < oldTestamentBookIDs.length; i++) {
+      //check
+      List<Verses> oldTestamentBookVerseTemp = verses
+          .where((element) => element.book == oldTestamentBookIDs[i].id)
+          .toList();
+      oldTestamentBookVerses.addAll(oldTestamentBookVerseTemp);
+    }
+    if (searchOption == "contains") {
+      oldTestamentBookVerses = oldTestamentBookVerses
+          .where((verse) => verse.verseText!.contains(query))
+          .toList();
+      if (oldTestamentBookVerses.isNotEmpty) {
+        await changeBibleFromSearch(bibleType);
+      }
+      return oldTestamentBookVerses;
+    } else if (searchOption == 'exact') {
+      List<Verses> searchResults = [];
+      for (Verses item in oldTestamentBookVerses) {
+        List<String> words = item.verseText!.split(" ");
+        if (words.contains(query)) {
+          searchResults.add(item);
+        }
+      }
+      if (searchResults.isNotEmpty) {
+        await changeBibleFromSearch(bibleType);
+      }
+      return searchResults;
+    } else {
+      List<Verses> emptyVerses = [];
+      return emptyVerses;
+    }
+  }
+
+  saveLocale(String locale) async {
+    SharedPreferencesStorage sharedPreferencesStorage =
+        SharedPreferencesStorage();
+    await sharedPreferencesStorage.saveStringData(Strings.selectedLocale, locale);
+  }
+
+  changeBibleFromSearch(String bibleType) async {
+    String saveName = "";
+    if (bibleType == 'ENGKJV') {
+      saveName = "English KJV";
+    } else {
+      saveName = Strings.bibletitle;
+    }
+    //changing book type
+    SharedPreferencesStorage sharedPreferencesStorage =
+        SharedPreferencesStorage();
+    getterAndSetterController.versesAMH =
+        await DatabaseService().changeBibleType(bibleType);
+    getterAndSetterController.update();
+    allVerses.assignAll(getterAndSetterController.groupedBookList());
+    //saving selected book to local storage
+    sharedPreferencesStorage.saveStringData(Strings.selectedBookKey, saveName);
+    //set selected book Name
+    setSelectedBook(saveName);
+    update();
+  }
+
   Future<void> loadInitialData() async {
     final HomePageController controller = Get.find<HomePageController>();
     SharedPreferencesStorage sharedPreferencesStorage =
         SharedPreferencesStorage();
     String? bookName =
-        await sharedPreferencesStorage.readStringData(Keys.selectedBookKey);
+        await sharedPreferencesStorage.readStringData(Strings.selectedBookKey);
 
     await EasyLoading.show(status: '...');
 
@@ -64,15 +234,15 @@ class HomePageController extends GetxController {
     // SharedPreferencesStorage sharedPreferencesStorage =
     //     SharedPreferencesStorage();
     getterAndSetterController.versesAMH =
-        await DatabaseService().changeBibleType(bookName ?? Keys.bibletitle);
+        await DatabaseService().changeBibleType(bookName ?? Strings.bibletitle);
     getterAndSetterController.update();
     controller.allVerses.assignAll(getterAndSetterController.groupedBookList());
 
     //saving selected book to local storage
     sharedPreferencesStorage.saveStringData(
-        Keys.selectedBookKey, bookName ?? Keys.bibletitle);
+        Strings.selectedBookKey, bookName ?? Strings.bibletitle);
     //set selected book Name
-    controller.setSelectedBook(bookName ?? Keys.bibletitle);
+    controller.setSelectedBook(bookName ?? Strings.bibletitle);
     controller.setInitialSelectedBookTypeOptions();
 
     // //scroll to top
@@ -99,7 +269,7 @@ class HomePageController extends GetxController {
     SharedPreferencesStorage sharedPreferencesStorage =
         SharedPreferencesStorage();
     int? localFontSize =
-        await sharedPreferencesStorage.readIntData(Keys.fontSize);
+        await sharedPreferencesStorage.readIntData(Strings.fontSize);
     if (localFontSize != null) {
       fontSize = localFontSize.toDouble();
       update();
@@ -110,7 +280,7 @@ class HomePageController extends GetxController {
     SharedPreferencesStorage sharedPreferencesStorage =
         SharedPreferencesStorage();
     int? pageNo =
-        await sharedPreferencesStorage.readIntData(Keys.previousPageNumber);
+        await sharedPreferencesStorage.readIntData(Strings.previousPageNumber);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (pageNo != null) {
         // Check if the widget is still mounted before creating PageController
@@ -150,7 +320,7 @@ class HomePageController extends GetxController {
     SharedPreferencesStorage sharedPreferencesStorage =
         SharedPreferencesStorage();
     String? bookName =
-        await sharedPreferencesStorage.readStringData(Keys.selectedBookKey);
+        await sharedPreferencesStorage.readStringData(Strings.selectedBookKey);
     if (bookName != null) {
       selectedBookTypeOptions = bookName;
     }
@@ -161,7 +331,7 @@ class HomePageController extends GetxController {
     SharedPreferencesStorage sharedPreferencesStorage =
         SharedPreferencesStorage();
     int? pageNo =
-        await sharedPreferencesStorage.readIntData(Keys.previousPageNumber);
+        await sharedPreferencesStorage.readIntData(Strings.previousPageNumber);
     if (pageNo != null) {
       previousOpenedBookPageNumber = pageNo;
     }
@@ -183,6 +353,17 @@ class HomePageController extends GetxController {
     update();
   }
 
+  getBookName(int bookId) {
+    if (books.isNotEmpty) {
+      //check if current book is amharic or english
+      if (selectedBook.contains("English")) {
+        return booksList.where((element) => element.id == bookId).first.title;
+      } else {
+        return booksList.where((element) => element.id == bookId).first.id;
+      }
+    }
+  }
+
   getBookTitle(int bookId) {
     if (booksList.isNotEmpty) {
       if (selectedBook.contains("English")) {
@@ -197,7 +378,7 @@ class HomePageController extends GetxController {
     SharedPreferencesStorage sharedPreferencesStorage =
         SharedPreferencesStorage();
     await sharedPreferencesStorage.saveIntData(
-        Keys.previousPageNumber, pageNumber);
+        Strings.previousPageNumber, pageNumber);
   }
 
   void detachScrollController() {
@@ -213,7 +394,8 @@ class HomePageController extends GetxController {
     fontSize = newFontSize;
     SharedPreferencesStorage sharedPreferencesStorage =
         SharedPreferencesStorage();
-    await sharedPreferencesStorage.saveIntData(Keys.fontSize, fontSize.toInt());
+    await sharedPreferencesStorage.saveIntData(
+        Strings.fontSize, fontSize.toInt());
     update();
   }
 
@@ -258,11 +440,11 @@ class HomePageController extends GetxController {
     SharedPreferencesStorage sharedPreferencesStorage =
         SharedPreferencesStorage();
     String? bookName =
-        await sharedPreferencesStorage.readStringData(Keys.selectedBookKey);
+        await sharedPreferencesStorage.readStringData(Strings.selectedBookKey);
     if (bookName != null) {
       selectedBook = bookName;
     } else {
-      selectedBook = Keys.bibletitle;
+      selectedBook = Strings.bibletitle;
     }
 
     update();

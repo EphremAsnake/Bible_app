@@ -322,10 +322,9 @@ class _HomePageState extends State<HomePage> {
                                                                         TextStyle(
                                                                       fontFamily:
                                                                           "Abyssinica",
-                                                                      fontSize: controller
-                                                                              .fontSize
-                                                                              .sp +
-                                                                          40.sp,
+                                                                      fontSize:
+                                                                          controller.fontSize *
+                                                                              4.sp,
                                                                       fontWeight:
                                                                           FontWeight
                                                                               .normal,
@@ -352,6 +351,7 @@ class _HomePageState extends State<HomePage> {
                                                                               color: const Color.fromARGB(255, 146, 45, 38),
                                                                             ),
                                                                           ),
+                                                                          
                                                                           TextSpan(
                                                                             text:
                                                                                 controller.allVerses[i][index].verseText,

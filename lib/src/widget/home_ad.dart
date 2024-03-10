@@ -50,20 +50,29 @@ class HomeAD extends StatelessWidget {
           );
         } else if (homepageController.apiStateHandler.apiState ==
             ApiState.success) {
-          if (homepageController
-                  .apiStateHandler.data!.houseAds[1].houseAd2!.show ==
-              true) {
+          if (Platform.isAndroid
+              ? homepageController
+                  .apiStateHandler.data!.androidhouseAds[1].houseAd2!.show
+              : homepageController
+                      .apiStateHandler.data!.ioshouseAds[1].houseAd2!.show ==
+                  true) {
             return Padding(
               padding: const EdgeInsets.only(
                   left: 10.0, right: 10.0, top: 10.0, bottom: 15.0),
               child: GestureDetector(
                 onTap: () {
-                  if (homepageController.apiStateHandler.data!.houseAds[1]
-                          .houseAd2!.openInAppBrowser ==
-                      true) {
+                  if (Platform.isAndroid
+                      ? homepageController.apiStateHandler.data!
+                          .androidhouseAds[1].houseAd2!.openInAppBrowser
+                      : homepageController.apiStateHandler.data!.ioshouseAds[1]
+                              .houseAd2!.openInAppBrowser ==
+                          true) {
                     Get.to(InAppWebViewPage(
-                        webUrl: homepageController
-                            .apiStateHandler.data!.houseAds[1].houseAd2!.url));
+                        webUrl: Platform.isAndroid
+                            ? homepageController.apiStateHandler.data!
+                                .androidhouseAds[1].houseAd2!.url
+                            : homepageController.apiStateHandler.data!
+                                .ioshouseAds[1].houseAd2!.url));
                     // Navigator.of(context).push(
                     //   MaterialPageRoute(
                     //     builder: (context) => InAppWebViewer(
@@ -72,16 +81,28 @@ class HomeAD extends StatelessWidget {
                     //   ),
                     // );
                   } else {
-                    Uri.tryParse(homepageController.apiStateHandler.data!
-                                .houseAds[1].houseAd2!.url)!
+                    Uri.tryParse(Platform.isAndroid
+                                ? homepageController.apiStateHandler.data!
+                                    .androidhouseAds[1].houseAd2!.url
+                                : homepageController.apiStateHandler.data!
+                                    .ioshouseAds[1].houseAd2!.url)!
                             .isAbsolute
-                        ? _launchURL(homepageController
-                            .apiStateHandler.data!.houseAds[1].houseAd2!.url)
+                        ? _launchURL(Platform.isAndroid
+                            ? homepageController.apiStateHandler.data!
+                                .androidhouseAds[1].houseAd2!.url
+                            : homepageController.apiStateHandler.data!
+                                .ioshouseAds[1].houseAd2!.url)
                         : Platform.isAndroid
-                            ? openUrlAndroid(homepageController.apiStateHandler
-                                .data!.houseAds[1].houseAd2!.url)
-                            : openAppStore(homepageController.apiStateHandler
-                                .data!.houseAds[1].houseAd2!.url);
+                            ? openUrlAndroid(Platform.isAndroid
+                                ? homepageController.apiStateHandler.data!
+                                    .androidhouseAds[1].houseAd2!.url
+                                : homepageController.apiStateHandler.data!
+                                    .ioshouseAds[1].houseAd2!.url)
+                            : openAppStore(Platform.isAndroid
+                                ? homepageController.apiStateHandler.data!
+                                    .androidhouseAds[1].houseAd2!.url
+                                : homepageController.apiStateHandler.data!
+                                    .ioshouseAds[1].houseAd2!.url);
                     // homepageController.openWebBrowser(homepageController
                     //     .apiStateHandler.data!.houseAds[1].houseAd2!.url);
                   }
@@ -114,7 +135,9 @@ class HomeAD extends StatelessWidget {
                       children: [
                         Expanded(
                           child: Text(
-                            homepageController.apiStateHandler.data!.houseAds[1]
+                            Platform.isAndroid
+                                ?homepageController.apiStateHandler.data!.androidhouseAds[1]
+                                .houseAd2!.title:homepageController.apiStateHandler.data!.ioshouseAds[1]
                                 .houseAd2!.title,
                             style: const TextStyle(
                               fontSize: 13,
@@ -137,8 +160,10 @@ class HomeAD extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(
                                 vertical: 2.0, horizontal: 15),
                             child: Text(
-                              homepageController.apiStateHandler.data!
-                                  .houseAds[1].houseAd2!.buttonText,
+                              Platform.isAndroid
+                                ?homepageController.apiStateHandler.data!
+                                  .androidhouseAds[1].houseAd2!.buttonText:homepageController.apiStateHandler.data!
+                                  .ioshouseAds[1].houseAd2!.buttonText,
                               style: const TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,

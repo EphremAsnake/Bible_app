@@ -34,7 +34,6 @@ class CustomDrawer extends StatelessWidget {
     }
   }
 
-
   void openUrlAndroid(String url) async {
     //!open Playstore
     OpenStore.instance.open(
@@ -66,28 +65,49 @@ class CustomDrawer extends StatelessWidget {
                 );
               } else if (homeController.apiStateHandler.apiState ==
                   ApiState.success) {
-                if (homeController
-                        .apiStateHandler.data!.houseAds[0].houseAd1!.show ==
-                    true) {
+                if (Platform.isAndroid
+                    ? homeController
+                        .apiStateHandler.data!.androidhouseAds[0].houseAd1!.show
+                    : homeController.apiStateHandler.data!.ioshouseAds[0]
+                            .houseAd1!.show ==
+                        true) {
                   return GestureDetector(
                     onTap: () {
-                      if (homeController.apiStateHandler.data!.houseAds[0]
-                              .houseAd1!.openInAppBrowser ==
-                          true) {
+                      if (Platform.isAndroid
+                          ? homeController.apiStateHandler.data!
+                              .androidhouseAds[0].houseAd1!.openInAppBrowser
+                          : homeController.apiStateHandler.data!.ioshouseAds[0]
+                                  .houseAd1!.openInAppBrowser ==
+                              true) {
                         Get.to(InAppWebViewPage(
-                            webUrl: homeController.apiStateHandler.data!
-                                .houseAds[0].houseAd1!.url));
+                            webUrl: Platform.isAndroid
+                                ? homeController.apiStateHandler.data!
+                                    .androidhouseAds[0].houseAd1!.url
+                                : homeController.apiStateHandler.data!
+                                    .ioshouseAds[0].houseAd1!.url));
                       } else {
-                        Uri.tryParse(homeController.apiStateHandler.data!
-                                    .houseAds[0].houseAd1!.url)
-                                !.isAbsolute
-                            ? _launchURL(homeController.apiStateHandler.data!
-                                .houseAds[0].houseAd1!.url)
+                        Uri.tryParse(Platform.isAndroid
+                                    ? homeController.apiStateHandler.data!
+                                        .androidhouseAds[0].houseAd1!.url
+                                    : homeController.apiStateHandler.data!
+                                        .ioshouseAds[0].houseAd1!.url)!
+                                .isAbsolute
+                            ? _launchURL(Platform.isAndroid
+                                ? homeController.apiStateHandler.data!
+                                    .androidhouseAds[0].houseAd1!.url
+                                : homeController.apiStateHandler.data!
+                                    .ioshouseAds[0].houseAd1!.url)
                             : Platform.isAndroid
-                                ? openUrlAndroid(homeController.apiStateHandler
-                                    .data!.houseAds[0].houseAd1!.url)
-                                : openAppStore(homeController.apiStateHandler
-                                    .data!.houseAds[0].houseAd1!.url);
+                                ? openUrlAndroid(Platform.isAndroid
+                                    ? homeController.apiStateHandler.data!
+                                        .androidhouseAds[0].houseAd1!.url
+                                    : homeController.apiStateHandler.data!
+                                        .ioshouseAds[0].houseAd1!.url)
+                                : openAppStore(Platform.isAndroid
+                                    ? homeController.apiStateHandler.data!
+                                        .androidhouseAds[0].houseAd1!.url
+                                    : homeController.apiStateHandler.data!
+                                        .ioshouseAds[0].houseAd1!.url);
                         // DetailHelpers().openStores(
                         //     androidAppId: homeController.apiStateHandler.data!
                         //         .houseAds[0].houseAd1!.url);
@@ -98,13 +118,16 @@ class CustomDrawer extends StatelessWidget {
                       width: 90.w,
                       padding: const EdgeInsets.all(0),
                       child: CachedNetworkImage(
-                        imageUrl: homeController
-                            .apiStateHandler.data!.houseAds[0].houseAd1!.image,
+                        imageUrl: Platform.isAndroid
+                            ? homeController.apiStateHandler.data!
+                                .androidhouseAds[0].houseAd1!.image
+                            : homeController.apiStateHandler.data!
+                                .ioshouseAds[0].houseAd1!.image,
                         fit: BoxFit.fill,
-                        placeholder: (context, url) =>  SizedBox(
+                        placeholder: (context, url) => SizedBox(
                           height: 30.h,
                         ),
-                        errorWidget: (context, url, error) =>  SizedBox(
+                        errorWidget: (context, url, error) => SizedBox(
                           height: 30.h,
                         ),
                       ),
@@ -177,7 +200,6 @@ class CustomDrawer extends StatelessWidget {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      
                                       TabBar(
                                         indicatorColor: AppColors.primaryColor,
                                         tabs: [

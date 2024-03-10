@@ -5,36 +5,66 @@ Configs configsFromJson(String str) => Configs.fromJson(json.decode(str));
 String configsToJson(Configs data) => json.encode(data.toJson());
 
 class Configs {
-  List<HouseAd> houseAds;
+  List<AndroidHouseAd> androidhouseAds;
+  List<IOSHouseAd> ioshouseAds;
   String aboutApp;
 
   Configs({
-    required this.houseAds,
+    required this.androidhouseAds,
+    required this.ioshouseAds,
     required this.aboutApp,
   });
 
   factory Configs.fromJson(Map<String, dynamic> json) => Configs(
-        houseAds: List<HouseAd>.from(
-            json["house_ads"].map((x) => HouseAd.fromJson(x))),
+        androidhouseAds: List<AndroidHouseAd>.from(
+            json["android_house_ads"].map((x) => AndroidHouseAd.fromJson(x))),
+        ioshouseAds: List<IOSHouseAd>.from(
+            json["ios_house_ads"].map((x) => IOSHouseAd.fromJson(x))),
         aboutApp: json["about_app"],
       );
 
   Map<String, dynamic> toJson() => {
-        "house_ads": List<dynamic>.from(houseAds.map((x) => x.toJson())),
+        "android_house_ads":
+            List<dynamic>.from(androidhouseAds.map((x) => x.toJson())),
+        "ios_house_ads": List<dynamic>.from(ioshouseAds.map((x) => x.toJson())),
         "about_app": aboutApp,
       };
 }
 
-class HouseAd {
+class AndroidHouseAd {
   HouseAd1? houseAd1;
   HouseAd2? houseAd2;
 
-  HouseAd({
+  AndroidHouseAd({
     this.houseAd1,
     this.houseAd2,
   });
 
-  factory HouseAd.fromJson(Map<String, dynamic> json) => HouseAd(
+  factory AndroidHouseAd.fromJson(Map<String, dynamic> json) => AndroidHouseAd(
+        houseAd1: json["house_ad_1"] == null
+            ? null
+            : HouseAd1.fromJson(json["house_ad_1"]),
+        houseAd2: json["house_ad_2"] == null
+            ? null
+            : HouseAd2.fromJson(json["house_ad_2"]),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "house_ad_1": houseAd1?.toJson(),
+        "house_ad_2": houseAd2?.toJson(),
+      };
+}
+
+class IOSHouseAd {
+  HouseAd1? houseAd1;
+  HouseAd2? houseAd2;
+
+  IOSHouseAd({
+    this.houseAd1,
+    this.houseAd2,
+  });
+
+  factory IOSHouseAd.fromJson(Map<String, dynamic> json) => IOSHouseAd(
         houseAd1: json["house_ad_1"] == null
             ? null
             : HouseAd1.fromJson(json["house_ad_1"]),

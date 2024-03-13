@@ -56,8 +56,8 @@ class _HomePageState extends State<HomePage> {
         child: Scaffold(
           key: controller.scaffoldKey,
           appBar: AppBar(
-            systemOverlayStyle: const SystemUiOverlayStyle(
-                statusBarColor: Color(0xff7B5533),
+            systemOverlayStyle: SystemUiOverlayStyle(
+                statusBarColor: AppColors.primaryColor,
                 statusBarIconBrightness: Brightness.light),
             elevation: 0,
             backgroundColor: Colors.white,
@@ -121,7 +121,7 @@ class _HomePageState extends State<HomePage> {
                 onSelected: (value) {
                   // Handle menu item selection
                   if (value == 'settings') {
-                    Get.to(SettingsView());
+                    Get.to(const SettingsView());
                   } else if (value == 'about') {
                     Get.to(AboutView());
                   } else if (value == 'share') {
@@ -348,10 +348,9 @@ class _HomePageState extends State<HomePage> {
                                                                                 TextStyle(
                                                                               fontSize: controller.fontSize.sp,
                                                                               fontWeight: FontWeight.bold,
-                                                                              color: const Color.fromARGB(255, 146, 45, 38),
+                                                                              color: AppColors.primaryColor,
                                                                             ),
                                                                           ),
-                                                                          
                                                                           TextSpan(
                                                                             text:
                                                                                 controller.allVerses[i][index].verseText,
@@ -384,12 +383,7 @@ class _HomePageState extends State<HomePage> {
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .bold,
-                                                                color: const Color
-                                                                    .fromARGB(
-                                                                    255,
-                                                                    146,
-                                                                    45,
-                                                                    38),
+                                                                color: AppColors.primaryColor,
                                                               ),
                                                               children: <InlineSpan>[
                                                                 TextSpan(

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:lottie/lottie.dart';
 
+import '../utils/appcolor.dart';
+
 class CustomEasyLoading {
   static final CustomEasyLoading _instance = CustomEasyLoading._internal();
   CustomEasyLoading._internal();
@@ -28,9 +30,9 @@ class CustomEasyLoading {
         ),
       )
       ..radius = 50.0
-      ..progressColor = const Color(0xff7B5533)
+      ..progressColor =  AppColors.primaryColor
       ..backgroundColor = Colors.transparent
-      ..indicatorColor = const Color(0xff7B5533)
+      ..indicatorColor =  AppColors.primaryColor
       ..textColor = Colors.white
       ..textStyle = const TextStyle(
         fontFamily: 'NoirPro',

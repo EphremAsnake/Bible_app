@@ -18,6 +18,7 @@ import 'src/services/http_client/http_service_impl.dart';
 import 'src/services/masterdatahelper.dart';
 import 'src/utils/Strings.dart';
 import 'src/utils/app_translation.dart';
+import 'src/utils/appcolor.dart';
 import 'src/utils/storagepreference.dart';
 import 'src/widget/custom_easy_loading.dart';
 
@@ -31,7 +32,9 @@ void main() async {
     DeviceOrientation.portraitDown,
   ]);
 
-  FlutterStatusbarcolor.setStatusBarColor(const Color(0xff7B5533));
+  AppColors.loadPrimaryColor();
+
+  FlutterStatusbarcolor.setStatusBarColor(AppColors.primaryColor);
   FlutterStatusbarcolor.setStatusBarWhiteForeground(true);
   Get.put(DataGetterAndSetter());
   Get.put<HttpService>(HttpServiceImpl());
@@ -147,14 +150,14 @@ Future initApp() async {
 }
 
 MaterialColor customSwatch = MaterialColor(0xff7B5533, {
-  50: const Color(0xff7B5533).withOpacity(0.1),
-  100: const Color(0xff7B5533).withOpacity(0.2),
-  200: const Color(0xff7B5533).withOpacity(0.3),
-  300: const Color(0xff7B5533).withOpacity(0.4),
-  400: const Color(0xff7B5533).withOpacity(0.5),
-  500: const Color(0xff7B5533).withOpacity(0.6),
-  600: const Color(0xff7B5533).withOpacity(0.7),
-  700: const Color(0xff7B5533).withOpacity(0.8),
-  800: const Color(0xff7B5533).withOpacity(0.9),
-  900: const Color(0xff7B5533).withOpacity(1.0),
+  50: AppColors.primaryColor.withOpacity(0.1),
+  100: AppColors.primaryColor.withOpacity(0.2),
+  200: AppColors.primaryColor.withOpacity(0.3),
+  300: AppColors.primaryColor.withOpacity(0.4),
+  400: AppColors.primaryColor.withOpacity(0.5),
+  500: AppColors.primaryColor.withOpacity(0.6),
+  600: AppColors.primaryColor.withOpacity(0.7),
+  700: AppColors.primaryColor.withOpacity(0.8),
+  800: AppColors.primaryColor.withOpacity(0.9),
+  900: AppColors.primaryColor.withOpacity(1.0),
 });

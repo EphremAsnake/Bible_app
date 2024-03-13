@@ -27,6 +27,7 @@ final Map<String, String> en = {
   'font_size': "Font Size",
   'share': 'Share',
   'rate': 'Rate App',
+  'theme': 'Theme',
 };
 
 final Map<String, String> ln = {
@@ -48,4 +49,5 @@ final Map<String, String> ln = {
   'font_size': "Tamaño de Fuente",
   'share': 'Compartir',
   'rate': 'Calificar App',
+  'theme': 'Theme',
 };

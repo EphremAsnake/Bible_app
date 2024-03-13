@@ -262,7 +262,7 @@ class CustomDrawer extends StatelessWidget {
                                                                     controller
                                                                         .selectedOldTestamentBookIndex
                                                                 ? AppColors
-                                                                    .thcolor
+                                                                    .primaryColor
                                                                 : null,
                                                             borderRadius:
                                                                 BorderRadius
@@ -359,7 +359,7 @@ class CustomDrawer extends StatelessWidget {
                                                                     controller
                                                                         .selectedNewTestamentBookIndex
                                                                 ? AppColors
-                                                                    .thcolor
+                                                                    .primaryColor
                                                                 : null,
                                                             borderRadius:
                                                                 BorderRadius
@@ -456,7 +456,7 @@ class CustomDrawer extends StatelessWidget {
                                 vertical: 0.sp, horizontal: 0),
                             child: const VerticalDivider(
                               width: 1,
-                              color: AppColors.thcolor,
+                              color: AppColors.primarycolor2,
                             ),
                           ),
                         ),
@@ -517,7 +517,7 @@ class CustomDrawer extends StatelessWidget {
                                                     color: index ==
                                                             controller
                                                                 .selectedIndex
-                                                        ? AppColors.thcolor
+                                                        ? AppColors.primaryColor
                                                         : null,
                                                     borderRadius:
                                                         BorderRadius.circular(
@@ -627,7 +627,7 @@ class CustomDrawer extends StatelessWidget {
                                                                   page);
                                                           homeController
                                                               .update();
-                                                          Get.to(HomePage());
+                                                          Get.to(const HomePage());
                                                         },
                                                       );
                                                     },

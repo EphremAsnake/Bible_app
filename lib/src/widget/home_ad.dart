@@ -150,9 +150,9 @@ class HomeAD extends StatelessWidget {
                         ),
                         Container(
                           decoration: BoxDecoration(
-                            color: const Color(0xff7B5533),
+                            color:  AppColors.primaryColor,
                             border: Border.all(
-                              color: const Color(0xff7B5533).withOpacity(0.5),
+                              color:  AppColors.primaryColor.withOpacity(0.5),
                             ),
                             borderRadius: BorderRadius.circular(4),
                           ),

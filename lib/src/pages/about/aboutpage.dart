@@ -17,11 +17,11 @@ class AboutView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        systemOverlayStyle: const SystemUiOverlayStyle(
-            statusBarColor: Color(0xff7B5533),
+        systemOverlayStyle:  SystemUiOverlayStyle(
+            statusBarColor: AppColors.primaryColor,
             statusBarIconBrightness: Brightness.light),
         elevation: 0,
-        backgroundColor: const Color(0xff7B5533),
+        backgroundColor:  AppColors.primaryColor,
         title: Text(
           'about'.tr,
           style: const TextStyle(color: Colors.white),

@@ -28,6 +28,7 @@ class DetailController extends GetxController {
       Get.find<DataGetterAndSetter>();
   List<List<Verses>> allVerses = [];
   AmharicLetter? selectedAmharicLetter;
+  String forsearch = '';
   FocusNode focusNode = FocusNode();
   TextEditingController searchController = TextEditingController();
   String selectedBook = "አማርኛ 1954";
@@ -183,6 +184,11 @@ class DetailController extends GetxController {
     update();
   }
 
+  updateforsearch(String newvalue) {
+    forsearch = newvalue;
+    update();
+  }
+
   getSelectedBookName() async {
     SharedPreferencesStorage sharedPreferencesStorage =
         SharedPreferencesStorage();
@@ -211,7 +217,11 @@ class DetailController extends GetxController {
       oldValue.removeAt(oldValue.length - 1);
       searchController.text = oldValue.join('');
       update();
+    } else {
+      searchController.text = '';
+      update();
     }
+    print(currentValue);
   }
 
   makeAmharicKeyboardVisible() {
@@ -572,5 +582,4 @@ class DetailController extends GetxController {
     SystemChannels.textInput.invokeMethod("TextInput.show");
     update();
   }
-  
 }

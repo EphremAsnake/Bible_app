@@ -11,12 +11,15 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:share_plus/share_plus.dart';
 
+import '../../../../core/shared_controllers/theme_controller.dart';
+
+final themeData = Get.find<ThemeController>().themeData.value;
 void textSelectionOptions(BuildContext context, int book, int chapter,
     int verseNumber, String tableName, Verses? verse) {
   final DetailController detailController = Get.find<DetailController>();
   showModalBottomSheet(
     barrierColor: Colors.transparent,
-    backgroundColor: Colors.white,
+    backgroundColor: themeData!.backgroundColor,
     shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
             topLeft: Radius.circular(2), topRight: Radius.circular(2))),
@@ -298,8 +301,12 @@ void textSelectionOptions(BuildContext context, int book, int chapter,
                               }
                               await share(textToCopy, "Share", context);
                             },
-                            icon: const Icon(Icons.share)),
-                        const Text("Share")
+                            icon: Icon(
+                              Icons.share,
+                              color: themeData!.verseColor,
+                            )),
+                        Text("Share",
+                            style: TextStyle(color: themeData!.verseColor))
                       ],
                     ),
                     Column(

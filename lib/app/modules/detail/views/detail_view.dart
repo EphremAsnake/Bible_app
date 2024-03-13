@@ -21,14 +21,23 @@ import 'package:sizer/sizer.dart';
 import '../controllers/detail_controller.dart';
 
 // ignore: must_be_immutable
-class DetailView extends GetView<DetailController> with WidgetsBindingObserver {
+class DetailView extends StatefulWidget with WidgetsBindingObserver {
   DetailView({Key? key}) : super(key: key);
-  final ThemeController themeData = Get.find<ThemeController>();
 
+  @override
+  State<DetailView> createState() => _DetailViewState();
+}
+
+class _DetailViewState extends State<DetailView> {
+  final ThemeController themeData = Get.find<ThemeController>();
+  final DetailController controller = Get.find<DetailController>();
   final DataGetterAndSetter getterAndSetterController =
       Get.find<DataGetterAndSetter>();
+
   final HomeController homeController = Get.find<HomeController>();
+
   final ScrollController _scrollController = ScrollController();
+
   final overlayKey = GlobalKey<OverlayState>();
 
   @override
@@ -134,6 +143,12 @@ class DetailView extends GetView<DetailController> with WidgetsBindingObserver {
                                       onPressed: () async {
                                         if (controller
                                             .searchController.text.isNotEmpty) {
+                                          controller.updateforsearch(
+                                              controller.searchController.text);
+                                          // controller.forsearch =
+                                          //     ;
+                                          // controller.update();
+
                                           await EasyLoading.show(
                                               status:
                                                   'Searching Please Wait...');
@@ -308,9 +323,9 @@ class DetailView extends GetView<DetailController> with WidgetsBindingObserver {
 
                   Visibility(
                     visible: controller.searchResultVerses.isNotEmpty,
-                    child: Container(
-                      color: themeData.themeData.value!.backgroundColor,
-                      child: Expanded(
+                    child: Expanded(
+                      child: Container(
+                        color: themeData.themeData.value!.backgroundColor,
                         child: RawScrollbar(
                           thumbColor: themeData.themeData.value!.primaryColor,
                           controller: _scrollController,
@@ -327,8 +342,9 @@ class DetailView extends GetView<DetailController> with WidgetsBindingObserver {
                               String verseText =
                                   controller.searchResultVerses[i].verseText ??
                                       "";
-                              String searchText =
-                                  controller.searchController.text;
+                              // String searchText =
+                              //     String searchText = forsearch;;
+                              String searchText = controller.forsearch;
                               List<TextSpan> textSpans = [];
                               List<TextSpan> verseNumberTextSpans = [];
                               verseNumberTextSpans.add(
@@ -415,21 +431,31 @@ class DetailView extends GetView<DetailController> with WidgetsBindingObserver {
                       ),
                     ),
                   ),
-                  Visibility(
-                      visible: controller.isAmharicKeyboardVisible,
-                      child: Container(
-                          decoration: BoxDecoration(
-                              color: themeData.themeData.value!.backgroundColor,
-                              border: Border.all(
-                                  color: themeData
-                                      .themeData.value!.backgroundColor)),
-                          child: AmharicKeyboard())),
-                  Visibility(
-                      visible: !controller.isAmharicKeyboardVisible,
-                      child: Expanded(
-                        child: Container(
-                            color: themeData.themeData.value!.backgroundColor),
-                      )),
+                  controller.isAmharicKeyboardVisible
+                      ? Container(
+                        // padding: EdgeInsets.symmetric(horizontal: 1),
+                          color: themeData.themeData.value!.keyboardColor,
+                          child: AmharicKeyboard())
+                      : const SizedBox(),
+                  // Visibility(
+                  //     visible: !controller.isAmharicKeyboardVisible,
+                  //     child: Container(
+                  //         decoration: BoxDecoration(
+                  //           //themeData.themeData.value!.backgroundColor
+                  //             color: Colors.red,
+                  //             border: Border.all(
+                  //                 color: themeData
+                  //                     .themeData.value!.backgroundColor)),
+                  //         child: Padding(
+                  //           padding: const EdgeInsets.only(bottom:50.0),
+                  //           child: AmharicKeyboard(),
+                  //         ))),
+                  // Visibility(
+                  //     visible: !controller.isAmharicKeyboardVisible,
+                  //     child: Expanded(
+                  //       child: Container(
+                  //           color: themeData.themeData.value!.backgroundColor),
+                  //     )),
                   // Visibility(
                   //     visible: controller.isAmharicKeyboardVisible,
                   //     child: AmharicKeyboard()),
@@ -978,7 +1004,8 @@ class DetailView extends GetView<DetailController> with WidgetsBindingObserver {
                               },
                               elevation: 2,
                               heroTag: "prev",
-                              backgroundColor: themeData.themeData.value!.cardColor,
+                              backgroundColor:
+                                  themeData.themeData.value!.cardColor,
                               mini: true,
                               child: Icon(
                                 Icons.chevron_left,

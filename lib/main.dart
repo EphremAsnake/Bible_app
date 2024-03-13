@@ -58,7 +58,7 @@ void main() async {
     DeviceOrientation.portraitDown,
   ]);
 
-  FlutterStatusbarcolor.setStatusBarColor(const Color(0xff7B5533));
+  FlutterStatusbarcolor.setStatusBarColor(themeController.themeData.value!.primaryColor);
   FlutterStatusbarcolor.setStatusBarWhiteForeground(true);
 
   runApp(

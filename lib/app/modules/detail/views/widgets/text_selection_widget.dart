@@ -314,6 +314,7 @@ void textSelectionOptions(BuildContext context, int book, int chapter,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         IconButton(
+                          color: themeData!.verseColor,
                             onPressed: () {
                               String textToCopy = "";
                               if (tableName.contains("English")) {
@@ -327,7 +328,7 @@ void textSelectionOptions(BuildContext context, int book, int chapter,
                               copyToClipboard(textToCopy);
                             },
                             icon: const Icon(Icons.copy)),
-                        const Text("Copy")
+                         Text("Copy",style: TextStyle(color: themeData!.verseColor))
                       ],
                     ),
                   ],

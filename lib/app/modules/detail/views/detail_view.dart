@@ -797,6 +797,8 @@ class DetailView extends GetView<DetailController> {
                                                                         width:
                                                                             10,
                                                                       ),
+
+                                                                      //!Title
                                                                       if (controller
                                                                               .allVerses[i][index]
                                                                               .verseText !=
@@ -916,6 +918,18 @@ class DetailView extends GetView<DetailController> {
                                                                                 backgroundColor: controller.selectedRowIndex.any((element) => element == index) ? themeData.themeData.value!.primaryColor.withOpacity(0.5) : getHighlightColor(controller.allVerses[i][index].highlight!),
                                                                               ),
                                                                             ),
+                                                                            // if (index == 1 &&
+                                                                            //     (controller.allVerses[i][index].verseNumber == controller.allVerses[i][index - 1].verseNumber))
+                                                                            //   TextSpan(
+                                                                            //     text: '${controller.allVerses[i][index].verseText?.trimRight()}',
+                                                                            //     style: TextStyle(
+                                                                            //       fontFamily: "Abyssinica",
+                                                                            //       fontSize: controller.fontSize.sp,
+                                                                            //       color: Colors.red,
+                                                                            //       fontWeight: FontWeight.normal,
+                                                                            //       backgroundColor: controller.selectedRowIndex.any((element) => element == index) ? themeData.themeData.value!.primaryColor.withOpacity(0.5) : getHighlightColor(controller.allVerses[i][index].highlight!),
+                                                                            //     ),
+                                                                            //   ),
                                                                           ],
                                                                         ),
                                                                       ),

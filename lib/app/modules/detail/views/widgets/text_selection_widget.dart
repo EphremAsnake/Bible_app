@@ -761,6 +761,7 @@ class _CompareDialogState extends State<CompareDialog> {
   }
 
   Future<void> initclass() async {
+    await EasyLoading.show(status: 'Please Wait...');
     eNGKJVverseText = await DatabaseService().readVersesfromDB(
         'ENGKJV',
         int.tryParse(widget.chapterNumber)!,
@@ -782,6 +783,12 @@ class _CompareDialogState extends State<CompareDialog> {
         int.tryParse(widget.versrNumber)!,
         widget.book);
     setState(() {});
+    if (eNGKJVverseText != '' &&
+        eNGNIVverseText != '' &&
+        aMHNIVverseText != '' &&
+        aMHKJVverseText != '') {
+      EasyLoading.dismiss();
+    }
   }
 
   @override
@@ -838,7 +845,7 @@ class _CompareDialogState extends State<CompareDialog> {
                 ),
               ),
             ),
-            
+
             // English KJV
             if (detailController.selectedBook != 'English KJV')
               buildVerseContainer(

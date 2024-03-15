@@ -322,7 +322,7 @@ class DetailView extends GetView<DetailController> {
                                 String verseText = controller
                                         .searchResultVerses[i].verseText ??
                                     "";
-                                     String searchText = controller.forsearch;
+                                String searchText = controller.forsearch;
                                 // String searchText =
                                 //     controller.searchController.text;
                                 List<TextSpan> textSpans = [];
@@ -713,9 +713,13 @@ class DetailView extends GetView<DetailController> {
                                                                 controller
                                                                         .allVerses[
                                                                     i][index]);
+                                                        // controller
+                                                        //         .showSelectionMenu =
+                                                        //     true;
                                                         controller
-                                                                .showSelectionMenu =
-                                                            true;
+                                                            .updateshowSelectionMenu(
+                                                                true);
+
                                                         controller.context =
                                                             context;
                                                         controller.index =

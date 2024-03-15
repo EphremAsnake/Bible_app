@@ -5,6 +5,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:get/get.dart';
 
+import '../../core/shared_controllers/theme_controller.dart';
+
 class InAppWebViewer extends StatefulWidget {
   final String url;
   const InAppWebViewer({
@@ -17,6 +19,8 @@ class InAppWebViewer extends StatefulWidget {
 
 class _InAppWebViewerState extends State<InAppWebViewer> {
   InAppWebViewController? webViewController;
+  final ThemeController themeData = Get.find<ThemeController>();
+
   String url = "";
   double progress = 0;
 
@@ -24,14 +28,15 @@ class _InAppWebViewerState extends State<InAppWebViewer> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        systemOverlayStyle: const SystemUiOverlayStyle(
-            statusBarColor: Color(0xff7B5533),
-            statusBarIconBrightness: Brightness.light),
-        elevation: 0,
-        backgroundColor: const Color(0xff7B5533),
+        systemOverlayStyle: SystemUiOverlayStyle(
+              statusBarColor: themeData.themeData.value!.primaryColor,
+              statusBarIconBrightness: Brightness.light),
+          elevation: 0,
+          backgroundColor: themeData.themeData.value!.primaryColor,
         automaticallyImplyLeading: false,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: themeData!.whiteColor),
+          icon: Icon(Icons.arrow_back,
+              color: themeData.themeData.value!.whiteColor),
           onPressed: () {
             Get.back();
           },

@@ -20,12 +20,15 @@ import '../../../settings/views/settings_view.dart';
 Widget textSelectionOptions(BuildContext context, List<Verses> selectedVerses,
     Verses? verse, int index) {
   final DetailController detailController = Get.find<DetailController>();
-  final themeData = Get.find<ThemeController>().themeData.value;
+  final ThemeController themeData = Get.find<ThemeController>();
   return GetBuilder<DetailController>(
     init: DetailController(),
     initState: (_) {},
     builder: (_) {
       return Container(
+        decoration: BoxDecoration(
+            color: themeData.themeData.value!.backgroundColor,
+            border: const Border(top: BorderSide(color: Colors.grey))),
         padding: const EdgeInsets.only(bottom: 5, top: 15, left: 5, right: 5),
         child: SingleChildScrollView(
           child: Column(
@@ -499,7 +502,8 @@ Widget textSelectionOptions(BuildContext context, List<Verses> selectedVerses,
                 padding: const EdgeInsets.only(
                     top: 5, left: 10, right: 10, bottom: 1),
                 child: Divider(
-                  color: themeData!.grayTextColor.withOpacity(0.5),
+                  color:
+                      themeData.themeData.value!.grayTextColor.withOpacity(0.5),
                 ),
               ),
               Row(
@@ -535,11 +539,12 @@ Widget textSelectionOptions(BuildContext context, List<Verses> selectedVerses,
                           },
                           icon: Icon(
                             Icons.share,
-                            color: themeData.verseColor,
+                            color: themeData.themeData.value!.verseColor,
                           )),
                       Text(
                         'share'.tr,
-                        style: TextStyle(color: themeData.verseColor),
+                        style: TextStyle(
+                            color: themeData.themeData.value!.verseColor),
                       )
                     ],
                   ),
@@ -573,11 +578,12 @@ Widget textSelectionOptions(BuildContext context, List<Verses> selectedVerses,
                           },
                           icon: Icon(
                             Icons.copy,
-                            color: themeData.verseColor,
+                            color: themeData.themeData.value!.verseColor,
                           )),
                       Text(
                         'copy'.tr,
-                        style: TextStyle(color: themeData.verseColor),
+                        style: TextStyle(
+                            color: themeData.themeData.value!.verseColor),
                       )
                     ],
                   ),
@@ -605,11 +611,12 @@ Widget textSelectionOptions(BuildContext context, List<Verses> selectedVerses,
                           },
                           icon: Icon(
                             Icons.compare_outlined,
-                            color: themeData.verseColor,
+                            color: themeData.themeData.value!.verseColor,
                           )),
                       Text(
                         'compare'.tr,
-                        style: TextStyle(color: themeData.verseColor),
+                        style: TextStyle(
+                            color: themeData.themeData.value!.verseColor),
                       )
                     ],
                   ),
@@ -627,11 +634,12 @@ Widget textSelectionOptions(BuildContext context, List<Verses> selectedVerses,
                           },
                           icon: Icon(
                             Icons.format_size_outlined,
-                            color: themeData.verseColor,
+                            color: themeData.themeData.value!.verseColor,
                           )),
                       Text(
                         'font_size'.tr,
-                        style: TextStyle(color: themeData.verseColor),
+                        style: TextStyle(
+                            color: themeData.themeData.value!.verseColor),
                       )
                     ],
                   ),
@@ -649,11 +657,12 @@ Widget textSelectionOptions(BuildContext context, List<Verses> selectedVerses,
                           },
                           icon: Icon(
                             Icons.star,
-                            color: themeData.verseColor,
+                            color: themeData.themeData.value!.verseColor,
                           )),
                       Text(
                         'rate'.tr,
-                        style: TextStyle(color: themeData.verseColor),
+                        style: TextStyle(
+                            color: themeData.themeData.value!.verseColor),
                       )
                     ],
                   ),
@@ -801,8 +810,13 @@ class _CompareDialogState extends State<CompareDialog> {
             : sepa = ' ';
 
     return AlertDialog(
+      backgroundColor: themeData.themeData.value!.backgroundColor,
       contentPadding: const EdgeInsets.all(0),
-      title: Text('compare'.tr),
+      title: Text(
+        'compare'.tr,
+        style: TextStyle(
+            color: themeData.themeData.value!.verseColor, fontSize: 15.sp),
+      ),
       content: SingleChildScrollView(
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -837,7 +851,7 @@ class _CompareDialogState extends State<CompareDialog> {
                       text: widget.verse,
                       style: TextStyle(
                         fontSize: detailController.fontSize.sp,
-                        color: themeData.themeData.value!.blackColor,
+                        color: themeData.themeData.value!.verseColor,
                         fontFamily: "Abyssinica",
                       ),
                     ),
@@ -845,7 +859,24 @@ class _CompareDialogState extends State<CompareDialog> {
                 ),
               ),
             ),
-
+            // አዲሱ መደበኛ ትርጉም
+            if (detailController.selectedBook != 'አዲሱ መደበኛ ትርጉም')
+              buildVerseContainer(
+                  'አዲሱ መደበኛ ትርጉም',
+                  aMHNIVverseText,
+                  '፤ ',
+                  detailController.selectedBook.contains('Eng')
+                      ? detailController.getAMHBookinfo(widget.chapterName)
+                      : widget.chapterName),
+            // አማርኛ 1954
+            if (detailController.selectedBook != 'አማርኛ 1954')
+              buildVerseContainer(
+                  'አማርኛ 1954',
+                  aMHKJVverseText,
+                  '',
+                  detailController.selectedBook.contains('Eng')
+                      ? detailController.getAMHBookinfo(widget.chapterName)
+                      : widget.chapterName),
             // English KJV
             if (detailController.selectedBook != 'English KJV')
               buildVerseContainer(
@@ -866,24 +897,7 @@ class _CompareDialogState extends State<CompareDialog> {
                       ? widget.chapterName
                       : detailController
                           .getENGBookinfofromAMH(widget.chapterName)),
-            // አዲሱ መደበኛ ትርጉም
-            if (detailController.selectedBook != 'አዲሱ መደበኛ ትርጉም')
-              buildVerseContainer(
-                  'አዲሱ መደበኛ ትርጉም',
-                  aMHNIVverseText,
-                  '፤ ',
-                  detailController.selectedBook.contains('Eng')
-                      ? detailController.getAMHBookinfo(widget.chapterName)
-                      : widget.chapterName),
-            // አማርኛ 1954
-            if (detailController.selectedBook != 'አማርኛ 1954')
-              buildVerseContainer(
-                  'አማርኛ 1954',
-                  aMHKJVverseText,
-                  '',
-                  detailController.selectedBook.contains('Eng')
-                      ? detailController.getAMHBookinfo(widget.chapterName)
-                      : widget.chapterName),
+
             const SizedBox(height: 8.0),
           ],
         ),
@@ -893,7 +907,10 @@ class _CompareDialogState extends State<CompareDialog> {
           onPressed: () {
             Navigator.of(context).pop();
           },
-          child: Text('close'.tr),
+          child: Text(
+            'close'.tr,
+            style: TextStyle(color: themeData.themeData.value!.verseColor),
+          ),
         ),
       ],
     );
@@ -930,7 +947,7 @@ class _CompareDialogState extends State<CompareDialog> {
                   text: verseText,
                   style: TextStyle(
                     fontSize: detailController.fontSize.sp,
-                    color: themeData.themeData.value!.blackColor,
+                    color: themeData.themeData.value!.verseColor,
                     fontFamily: "Abyssinica",
                   ),
                 ),

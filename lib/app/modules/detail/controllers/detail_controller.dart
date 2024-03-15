@@ -118,6 +118,11 @@ class DetailController extends SuperController {
     update();
   }
 
+  updateshowSelectionMenu(bool newvalue) {
+    showSelectionMenu = newvalue;
+    update();
+  }
+
   Future<void> loadInitialPage() async {
     SharedPreferencesStorage sharedPreferencesStorage =
         SharedPreferencesStorage();

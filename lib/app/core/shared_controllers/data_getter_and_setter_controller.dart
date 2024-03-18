@@ -58,9 +58,62 @@ class DataGetterAndSetter extends GetxController {
     return previousVerseForBook;
   }
 
+  // List<List<Verses>> groupedBookList() {
+  //   versesAMH.removeWhere((e) => e.para == "mt1");
+
+  //   var groupedVerses =
+  //       groupBy(versesAMH, (Verses verse) => '${verse.book}-${verse.chapter}');
+
+  //   List<List<Verses>> groupedVerseList = [];
+
+  //   groupedVerses.forEach((key, versesList) {
+  //     // Sort the verses within the group based on verse number
+  //     versesList.sort((a, b) => a.verseNumber!.compareTo(b.verseNumber!));
+
+  //     // Merge verses with the same verse number within the same chapter
+  //     List<Verses> mergedVerses = [];
+  //     int currentChapter = -1;
+  //     int currentVerseNumber = -1;
+
+  //     for (var verse in versesList) {
+  //       if (verse.para != "s1") {
+  //         if (mergedVerses.isNotEmpty) {
+  //           if (mergedVerses.last.para != "s1") {
+  //             if (verse.chapter != currentChapter ||
+  //                 verse.verseNumber != currentVerseNumber) {
+  //               // Add the verse if it's a new chapter or verse number
+
+  //               mergedVerses.add(verse);
+  //               currentChapter = verse.chapter!;
+  //               currentVerseNumber = verse.verseNumber!;
+  //             } else {
+  //               // Merge verses with the same verse number within the same chapter
+  //               mergedVerses.last.verseText =
+  //                   "${(mergedVerses.last.verseText ?? '').trim()} ${(verse.verseText ?? '').trim()}";
+  //             }
+  //           } else {
+  //             mergedVerses.add(verse);
+  //           }
+  //         } else {
+  //           currentChapter = verse.chapter!;
+  //           currentVerseNumber = verse.verseNumber!;
+  //           mergedVerses.add(verse);
+  //         }
+  //       } else {
+  //         mergedVerses.add(verse);
+  //       }
+  //     }
+
+  //     groupedVerseList.add(mergedVerses);
+  //   });
+
+  //   return groupedVerseList;
+  // }
   List<List<Verses>> groupedBookList() {
+    // Remove verses with para "mt1"
     versesAMH.removeWhere((e) => e.para == "mt1");
 
+    // Group verses by book and chapter
     var groupedVerses =
         groupBy(versesAMH, (Verses verse) => '${verse.book}-${verse.chapter}');
 
@@ -76,30 +129,21 @@ class DataGetterAndSetter extends GetxController {
       int currentVerseNumber = -1;
 
       for (var verse in versesList) {
-        if (verse.para != "s1") {
-          if (mergedVerses.isNotEmpty) {
-            if (mergedVerses.last.para != "s1") {
-              if (verse.chapter != currentChapter ||
-                  verse.verseNumber != currentVerseNumber) {
-                // Add the verse if it's a new chapter or verse number
-
-                mergedVerses.add(verse);
-                currentChapter = verse.chapter!;
-                currentVerseNumber = verse.verseNumber!;
-              } else {
-                // Merge verses with the same verse number within the same chapter
-                mergedVerses.last.verseText =
-                    "${(mergedVerses.last.verseText ?? '').trim()} ${(verse.verseText ?? '').trim()}";
-              }
-            } else {
-              mergedVerses.add(verse);
-            }
+        if (verse.para != "s1" && verse.para != "s2" && verse.para != "s3") {
+          if (mergedVerses.isNotEmpty &&
+              verse.chapter == currentChapter &&
+              verse.verseNumber == currentVerseNumber) {
+            // Merge verses with the same verse number within the same chapter
+            mergedVerses.last.verseText =
+                "${(mergedVerses.last.verseText ?? '').trim()} ${(verse.verseText ?? '').trim()}";
           } else {
+            // Add the verse if it's a new chapter or verse number
+            mergedVerses.add(verse);
             currentChapter = verse.chapter!;
             currentVerseNumber = verse.verseNumber!;
-            mergedVerses.add(verse);
           }
         } else {
+          // Add title verses directly without merging
           mergedVerses.add(verse);
         }
       }

@@ -698,6 +698,9 @@ class DetailView extends GetView<DetailController> {
                                                     .size
                                                     .width,
                                                 child: ListView.builder(
+                                                  padding: EdgeInsets.only(
+                                                      bottom:  20.h
+                                                          ),
                                                   controller: controller
                                                       .readerScrollController,
                                                   itemCount: controller
@@ -707,6 +710,27 @@ class DetailView extends GetView<DetailController> {
                                                       (context, index) {
                                                     return GestureDetector(
                                                       onTap: () async {
+                                                        if (index ==
+                                                            controller
+                                                                    .allVerses[
+                                                                        i]
+                                                                    .length -
+                                                                1) {
+                                                          // Scroll to the bottom
+                                                          controller
+                                                              .readerScrollController
+                                                              .animateTo(
+                                                            controller
+                                                                .readerScrollController
+                                                                .position
+                                                                .maxScrollExtent,
+                                                            duration: Duration(
+                                                                milliseconds:
+                                                                    500),
+                                                            curve: Curves
+                                                                .easeInOut,
+                                                          );
+                                                        }
                                                         controller
                                                             .toggleSelectedRowIndex(
                                                                 index,
@@ -714,6 +738,12 @@ class DetailView extends GetView<DetailController> {
                                                                         .allVerses[
                                                                     i][index]);
                                                         controller.update();
+                                                        print(index);
+                                                        print(controller
+                                                                .allVerses[i]
+                                                                .length -
+                                                            1);
+                                                        
                                                         if (controller
                                                                     .allVerses[
                                                                         i]

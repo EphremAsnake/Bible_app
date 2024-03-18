@@ -26,73 +26,115 @@ Widget textSelectionOptions(BuildContext context, List<Verses> selectedVerses,
     initState: (_) {},
     builder: (_) {
       return Container(
-        decoration: BoxDecoration(
-            color: themeData.themeData.value!.backgroundColor,
-            border: const Border(top: BorderSide(color: Colors.grey))),
-        padding: const EdgeInsets.only(bottom: 5, top: 15, left: 5, right: 5),
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const SizedBox(
-                      width: 2,
-                    ),
-                    GestureDetector(
-                      onTap: () async {
-                        if (verse?.highlight != 0) {
-                          for (int i = 0;
-                              i < detailController.selectedVerses.length;
-                              i++) {
-                            await DatabaseService().updateHighlight(
-                                selectedVerses[i].book!,
-                                selectedVerses[i].chapter!,
-                                selectedVerses[i].verseNumber,
-                                0,
-                                detailController.selectedBook);
-                            selectedVerses[i].highlight = 0;
-                          }
-                          detailController.selectedRowIndex = [];
-                          detailController.selectedVerses = [];
-                          detailController.showSelectionMenu = false;
-                          detailController.update();
-                        } else {
-                          detailController.selectedRowIndex = [];
-                          detailController.selectedVerses = [];
-                          detailController.showSelectionMenu = false;
-                          detailController.update();
-                        }
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(
-                            color: Colors.grey, // Set the color of the border
-                            width: 1.0, // Set the width of the border
-                          ),
-                        ),
-                        child: const CircleAvatar(
-                            backgroundColor: Color.fromARGB(255, 201, 200, 200),
-                            radius: 20,
-                            child: Icon(
-                              Icons.clear,
-                              color: Colors.white,
-                            )),
+        padding: EdgeInsets.symmetric(
+            horizontal: SizerUtil.deviceType != DeviceType.mobile?MediaQuery.of(context).size.width / 7:0),
+        color: Colors.transparent,
+        child: Container(
+          decoration: BoxDecoration(
+              color: themeData.themeData.value!.backgroundColor,
+              border: const Border(top: BorderSide(color: Colors.grey))),
+          padding: const EdgeInsets.only(bottom: 5, top: 15, left: 5, right: 5),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const SizedBox(
+                        width: 2,
                       ),
-                    ),
-                    const SizedBox(
-                      width: 15,
-                    ),
-                    GestureDetector(
+                      GestureDetector(
                         onTap: () async {
-                          int color =
-                              setHighlightColor(HighlightColors.highlightGreen);
+                          if (verse?.highlight != 0) {
+                            for (int i = 0;
+                                i < detailController.selectedVerses.length;
+                                i++) {
+                              await DatabaseService().updateHighlight(
+                                  selectedVerses[i].book!,
+                                  selectedVerses[i].chapter!,
+                                  selectedVerses[i].verseNumber,
+                                  0,
+                                  detailController.selectedBook);
+                              selectedVerses[i].highlight = 0;
+                            }
+                            detailController.selectedRowIndex = [];
+                            detailController.selectedVerses = [];
+                            detailController.showSelectionMenu = false;
+                            detailController.update();
+                          } else {
+                            detailController.selectedRowIndex = [];
+                            detailController.selectedVerses = [];
+                            detailController.showSelectionMenu = false;
+                            detailController.update();
+                          }
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            border: Border.all(
+                              color: Colors.grey, // Set the color of the border
+                              width: 1.0, // Set the width of the border
+                            ),
+                          ),
+                          child: const CircleAvatar(
+                              backgroundColor:
+                                  Color.fromARGB(255, 201, 200, 200),
+                              radius: 20,
+                              child: Icon(
+                                Icons.clear,
+                                color: Colors.white,
+                              )),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 15,
+                      ),
+                      GestureDetector(
+                          onTap: () async {
+                            int color = setHighlightColor(
+                                HighlightColors.highlightGreen);
+                            for (int i = 0;
+                                i < detailController.selectedVerses.length;
+                                i++) {
+                              await DatabaseService().updateHighlight(
+                                  selectedVerses[i].book!,
+                                  selectedVerses[i].chapter!,
+                                  selectedVerses[i].verseNumber,
+                                  color,
+                                  detailController.selectedBook);
+                              selectedVerses[i].highlight = color;
+                            }
+                            detailController.selectedRowIndex = [];
+                            detailController.selectedVerses = [];
+                            detailController.showSelectionMenu = false;
+                            detailController.update();
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                color:
+                                    Colors.grey, // Set the color of the border
+                                width: 1.0, // Set the width of the border
+                              ),
+                            ),
+                            child: const CircleAvatar(
+                              backgroundColor: HighlightColors.highlightGreen,
+                              radius: 20,
+                            ),
+                          )),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      GestureDetector(
+                        onTap: () async {
+                          int color = setHighlightColor(
+                              HighlightColors.highlightYellow);
                           for (int i = 0;
                               i < detailController.selectedVerses.length;
                               i++) {
@@ -118,563 +160,531 @@ Widget textSelectionOptions(BuildContext context, List<Verses> selectedVerses,
                             ),
                           ),
                           child: const CircleAvatar(
-                            backgroundColor: HighlightColors.highlightGreen,
+                            backgroundColor: HighlightColors.highlightYellow,
                             radius: 20,
                           ),
-                        )),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    GestureDetector(
-                      onTap: () async {
-                        int color =
-                            setHighlightColor(HighlightColors.highlightYellow);
-                        for (int i = 0;
-                            i < detailController.selectedVerses.length;
-                            i++) {
-                          await DatabaseService().updateHighlight(
-                              selectedVerses[i].book!,
-                              selectedVerses[i].chapter!,
-                              selectedVerses[i].verseNumber,
-                              color,
-                              detailController.selectedBook);
-                          selectedVerses[i].highlight = color;
-                        }
-                        detailController.selectedRowIndex = [];
-                        detailController.selectedVerses = [];
-                        detailController.showSelectionMenu = false;
-                        detailController.update();
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(
-                            color: Colors.grey, // Set the color of the border
-                            width: 1.0, // Set the width of the border
-                          ),
-                        ),
-                        child: const CircleAvatar(
-                          backgroundColor: HighlightColors.highlightYellow,
-                          radius: 20,
                         ),
                       ),
-                    ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    GestureDetector(
-                      onTap: () async {
-                        int color =
-                            setHighlightColor(HighlightColors.highlightOrange);
-                        for (int i = 0;
-                            i < detailController.selectedVerses.length;
-                            i++) {
-                          await DatabaseService().updateHighlight(
-                              selectedVerses[i].book!,
-                              selectedVerses[i].chapter!,
-                              selectedVerses[i].verseNumber,
-                              color,
-                              detailController.selectedBook);
-                          selectedVerses[i].highlight = color;
-                        }
-                        detailController.selectedRowIndex = [];
-                        detailController.selectedVerses = [];
-                        detailController.showSelectionMenu = false;
-                        detailController.update();
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(
-                            color: Colors.grey, // Set the color of the border
-                            width: 1.0, // Set the width of the border
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      GestureDetector(
+                        onTap: () async {
+                          int color = setHighlightColor(
+                              HighlightColors.highlightOrange);
+                          for (int i = 0;
+                              i < detailController.selectedVerses.length;
+                              i++) {
+                            await DatabaseService().updateHighlight(
+                                selectedVerses[i].book!,
+                                selectedVerses[i].chapter!,
+                                selectedVerses[i].verseNumber,
+                                color,
+                                detailController.selectedBook);
+                            selectedVerses[i].highlight = color;
+                          }
+                          detailController.selectedRowIndex = [];
+                          detailController.selectedVerses = [];
+                          detailController.showSelectionMenu = false;
+                          detailController.update();
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            border: Border.all(
+                              color: Colors.grey, // Set the color of the border
+                              width: 1.0, // Set the width of the border
+                            ),
+                          ),
+                          child: const CircleAvatar(
+                            backgroundColor: HighlightColors.highlightOrange,
+                            radius: 20,
                           ),
                         ),
-                        child: const CircleAvatar(
-                          backgroundColor: HighlightColors.highlightOrange,
-                          radius: 20,
-                        ),
                       ),
-                    ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    GestureDetector(
-                      onTap: () async {
-                        int color =
-                            setHighlightColor(HighlightColors.highlightRed);
-                        for (int i = 0;
-                            i < detailController.selectedVerses.length;
-                            i++) {
-                          await DatabaseService().updateHighlight(
-                              selectedVerses[i].book!,
-                              selectedVerses[i].chapter!,
-                              selectedVerses[i].verseNumber,
-                              color,
-                              detailController.selectedBook);
-                          selectedVerses[i].highlight = color;
-                        }
-                        detailController.selectedRowIndex = [];
-                        detailController.selectedVerses = [];
-                        detailController.showSelectionMenu = false;
-                        detailController.update();
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(
-                            color: Colors.grey, // Set the color of the border
-                            width: 1.0, // Set the width of the border
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      GestureDetector(
+                        onTap: () async {
+                          int color =
+                              setHighlightColor(HighlightColors.highlightRed);
+                          for (int i = 0;
+                              i < detailController.selectedVerses.length;
+                              i++) {
+                            await DatabaseService().updateHighlight(
+                                selectedVerses[i].book!,
+                                selectedVerses[i].chapter!,
+                                selectedVerses[i].verseNumber,
+                                color,
+                                detailController.selectedBook);
+                            selectedVerses[i].highlight = color;
+                          }
+                          detailController.selectedRowIndex = [];
+                          detailController.selectedVerses = [];
+                          detailController.showSelectionMenu = false;
+                          detailController.update();
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            border: Border.all(
+                              color: Colors.grey, // Set the color of the border
+                              width: 1.0, // Set the width of the border
+                            ),
+                          ),
+                          child: const CircleAvatar(
+                            backgroundColor: HighlightColors.highlightRed,
+                            radius: 20,
                           ),
                         ),
-                        child: const CircleAvatar(
-                          backgroundColor: HighlightColors.highlightRed,
-                          radius: 20,
-                        ),
                       ),
-                    ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    GestureDetector(
-                      onTap: () async {
-                        int color =
-                            setHighlightColor(HighlightColors.highlightBlue);
-                        for (int i = 0;
-                            i < detailController.selectedVerses.length;
-                            i++) {
-                          await DatabaseService().updateHighlight(
-                              selectedVerses[i].book!,
-                              selectedVerses[i].chapter!,
-                              selectedVerses[i].verseNumber,
-                              color,
-                              detailController.selectedBook);
-                          selectedVerses[i].highlight = color;
-                        }
-                        detailController.selectedRowIndex = [];
-                        detailController.selectedVerses = [];
-                        detailController.showSelectionMenu = false;
-                        detailController.update();
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(
-                            color: Colors.grey, // Set the color of the border
-                            width: 1.0, // Set the width of the border
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      GestureDetector(
+                        onTap: () async {
+                          int color =
+                              setHighlightColor(HighlightColors.highlightBlue);
+                          for (int i = 0;
+                              i < detailController.selectedVerses.length;
+                              i++) {
+                            await DatabaseService().updateHighlight(
+                                selectedVerses[i].book!,
+                                selectedVerses[i].chapter!,
+                                selectedVerses[i].verseNumber,
+                                color,
+                                detailController.selectedBook);
+                            selectedVerses[i].highlight = color;
+                          }
+                          detailController.selectedRowIndex = [];
+                          detailController.selectedVerses = [];
+                          detailController.showSelectionMenu = false;
+                          detailController.update();
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            border: Border.all(
+                              color: Colors.grey, // Set the color of the border
+                              width: 1.0, // Set the width of the border
+                            ),
+                          ),
+                          child: const CircleAvatar(
+                            backgroundColor: HighlightColors.highlightBlue,
+                            radius: 20,
                           ),
                         ),
-                        child: const CircleAvatar(
-                          backgroundColor: HighlightColors.highlightBlue,
-                          radius: 20,
-                        ),
                       ),
-                    ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    GestureDetector(
-                      onTap: () async {
-                        int color =
-                            setHighlightColor(HighlightColors.highlightPink);
-                        for (int i = 0;
-                            i < detailController.selectedVerses.length;
-                            i++) {
-                          await DatabaseService().updateHighlight(
-                              selectedVerses[i].book!,
-                              selectedVerses[i].chapter!,
-                              selectedVerses[i].verseNumber,
-                              color,
-                              detailController.selectedBook);
-                          selectedVerses[i].highlight = color;
-                        }
-                        detailController.selectedRowIndex = [];
-                        detailController.selectedVerses = [];
-                        detailController.showSelectionMenu = false;
-                        detailController.update();
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(
-                            color: Colors.grey, // Set the color of the border
-                            width: 1.0, // Set the width of the border
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      GestureDetector(
+                        onTap: () async {
+                          int color =
+                              setHighlightColor(HighlightColors.highlightPink);
+                          for (int i = 0;
+                              i < detailController.selectedVerses.length;
+                              i++) {
+                            await DatabaseService().updateHighlight(
+                                selectedVerses[i].book!,
+                                selectedVerses[i].chapter!,
+                                selectedVerses[i].verseNumber,
+                                color,
+                                detailController.selectedBook);
+                            selectedVerses[i].highlight = color;
+                          }
+                          detailController.selectedRowIndex = [];
+                          detailController.selectedVerses = [];
+                          detailController.showSelectionMenu = false;
+                          detailController.update();
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            border: Border.all(
+                              color: Colors.grey, // Set the color of the border
+                              width: 1.0, // Set the width of the border
+                            ),
+                          ),
+                          child: const CircleAvatar(
+                            backgroundColor: HighlightColors.highlightPink,
+                            radius: 20,
                           ),
                         ),
-                        child: const CircleAvatar(
-                          backgroundColor: HighlightColors.highlightPink,
-                          radius: 20,
-                        ),
                       ),
-                    ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    GestureDetector(
-                      onTap: () async {
-                        int color = setHighlightColor(
-                            HighlightColors.highlightDarkGreen);
-                        for (int i = 0;
-                            i < detailController.selectedVerses.length;
-                            i++) {
-                          await DatabaseService().updateHighlight(
-                              selectedVerses[i].book!,
-                              selectedVerses[i].chapter!,
-                              selectedVerses[i].verseNumber,
-                              color,
-                              detailController.selectedBook);
-                          selectedVerses[i].highlight = color;
-                        }
-                        detailController.selectedRowIndex = [];
-                        detailController.selectedVerses = [];
-                        detailController.showSelectionMenu = false;
-                        detailController.update();
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(
-                            color: Colors.grey, // Set the color of the border
-                            width: 1.0, // Set the width of the border
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      GestureDetector(
+                        onTap: () async {
+                          int color = setHighlightColor(
+                              HighlightColors.highlightDarkGreen);
+                          for (int i = 0;
+                              i < detailController.selectedVerses.length;
+                              i++) {
+                            await DatabaseService().updateHighlight(
+                                selectedVerses[i].book!,
+                                selectedVerses[i].chapter!,
+                                selectedVerses[i].verseNumber,
+                                color,
+                                detailController.selectedBook);
+                            selectedVerses[i].highlight = color;
+                          }
+                          detailController.selectedRowIndex = [];
+                          detailController.selectedVerses = [];
+                          detailController.showSelectionMenu = false;
+                          detailController.update();
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            border: Border.all(
+                              color: Colors.grey, // Set the color of the border
+                              width: 1.0, // Set the width of the border
+                            ),
+                          ),
+                          child: const CircleAvatar(
+                            backgroundColor: HighlightColors.highlightDarkGreen,
+                            radius: 20,
                           ),
                         ),
-                        child: const CircleAvatar(
-                          backgroundColor: HighlightColors.highlightDarkGreen,
-                          radius: 20,
-                        ),
                       ),
-                    ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    GestureDetector(
-                      onTap: () async {
-                        int color = setHighlightColor(
-                            HighlightColors.highlightDarkYellow);
-                        for (int i = 0;
-                            i < detailController.selectedVerses.length;
-                            i++) {
-                          await DatabaseService().updateHighlight(
-                              selectedVerses[i].book!,
-                              selectedVerses[i].chapter!,
-                              selectedVerses[i].verseNumber,
-                              color,
-                              detailController.selectedBook);
-                          selectedVerses[i].highlight = color;
-                        }
-                        detailController.selectedRowIndex = [];
-                        detailController.selectedVerses = [];
-                        detailController.showSelectionMenu = false;
-                        detailController.update();
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(
-                            color: Colors.grey, // Set the color of the border
-                            width: 1.0, // Set the width of the border
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      GestureDetector(
+                        onTap: () async {
+                          int color = setHighlightColor(
+                              HighlightColors.highlightDarkYellow);
+                          for (int i = 0;
+                              i < detailController.selectedVerses.length;
+                              i++) {
+                            await DatabaseService().updateHighlight(
+                                selectedVerses[i].book!,
+                                selectedVerses[i].chapter!,
+                                selectedVerses[i].verseNumber,
+                                color,
+                                detailController.selectedBook);
+                            selectedVerses[i].highlight = color;
+                          }
+                          detailController.selectedRowIndex = [];
+                          detailController.selectedVerses = [];
+                          detailController.showSelectionMenu = false;
+                          detailController.update();
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            border: Border.all(
+                              color: Colors.grey, // Set the color of the border
+                              width: 1.0, // Set the width of the border
+                            ),
+                          ),
+                          child: const CircleAvatar(
+                            backgroundColor:
+                                HighlightColors.highlightDarkYellow,
+                            radius: 20,
                           ),
                         ),
-                        child: const CircleAvatar(
-                          backgroundColor: HighlightColors.highlightDarkYellow,
-                          radius: 20,
-                        ),
                       ),
-                    ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    GestureDetector(
-                      onTap: () async {
-                        int color = setHighlightColor(
-                            HighlightColors.highlightDarkTeal);
-                        for (int i = 0;
-                            i < detailController.selectedVerses.length;
-                            i++) {
-                          await DatabaseService().updateHighlight(
-                              selectedVerses[i].book!,
-                              selectedVerses[i].chapter!,
-                              selectedVerses[i].verseNumber,
-                              color,
-                              detailController.selectedBook);
-                          selectedVerses[i].highlight = color;
-                        }
-                        detailController.selectedRowIndex = [];
-                        detailController.selectedVerses = [];
-                        detailController.showSelectionMenu = false;
-                        detailController.update();
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(
-                            color: Colors.grey, // Set the color of the border
-                            width: 1.0, // Set the width of the border
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      GestureDetector(
+                        onTap: () async {
+                          int color = setHighlightColor(
+                              HighlightColors.highlightDarkTeal);
+                          for (int i = 0;
+                              i < detailController.selectedVerses.length;
+                              i++) {
+                            await DatabaseService().updateHighlight(
+                                selectedVerses[i].book!,
+                                selectedVerses[i].chapter!,
+                                selectedVerses[i].verseNumber,
+                                color,
+                                detailController.selectedBook);
+                            selectedVerses[i].highlight = color;
+                          }
+                          detailController.selectedRowIndex = [];
+                          detailController.selectedVerses = [];
+                          detailController.showSelectionMenu = false;
+                          detailController.update();
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            border: Border.all(
+                              color: Colors.grey, // Set the color of the border
+                              width: 1.0, // Set the width of the border
+                            ),
+                          ),
+                          child: const CircleAvatar(
+                            backgroundColor: HighlightColors.highlightDarkTeal,
+                            radius: 20,
                           ),
                         ),
-                        child: const CircleAvatar(
-                          backgroundColor: HighlightColors.highlightDarkTeal,
-                          radius: 20,
-                        ),
                       ),
-                    ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    GestureDetector(
-                      onTap: () async {
-                        int color =
-                            setHighlightColor(HighlightColors.highlightBrown);
-                        for (int i = 0;
-                            i < detailController.selectedVerses.length;
-                            i++) {
-                          await DatabaseService().updateHighlight(
-                              selectedVerses[i].book!,
-                              selectedVerses[i].chapter!,
-                              selectedVerses[i].verseNumber,
-                              color,
-                              detailController.selectedBook);
-                          selectedVerses[i].highlight = color;
-                        }
-                        detailController.selectedRowIndex = [];
-                        detailController.selectedVerses = [];
-                        detailController.showSelectionMenu = false;
-                        detailController.update();
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(
-                            color: Colors.grey, // Set the color of the border
-                            width: 1.0, // Set the width of the border
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      GestureDetector(
+                        onTap: () async {
+                          int color =
+                              setHighlightColor(HighlightColors.highlightBrown);
+                          for (int i = 0;
+                              i < detailController.selectedVerses.length;
+                              i++) {
+                            await DatabaseService().updateHighlight(
+                                selectedVerses[i].book!,
+                                selectedVerses[i].chapter!,
+                                selectedVerses[i].verseNumber,
+                                color,
+                                detailController.selectedBook);
+                            selectedVerses[i].highlight = color;
+                          }
+                          detailController.selectedRowIndex = [];
+                          detailController.selectedVerses = [];
+                          detailController.showSelectionMenu = false;
+                          detailController.update();
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            border: Border.all(
+                              color: Colors.grey, // Set the color of the border
+                              width: 1.0, // Set the width of the border
+                            ),
+                          ),
+                          child: const CircleAvatar(
+                            backgroundColor: HighlightColors.highlightBrown,
+                            radius: 20,
                           ),
                         ),
-                        child: const CircleAvatar(
-                          backgroundColor: HighlightColors.highlightBrown,
-                          radius: 20,
-                        ),
                       ),
-                    ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    GestureDetector(
-                      onTap: () async {
-                        int color = setHighlightColor(
-                            HighlightColors.highlightLightRed);
-                        for (int i = 0;
-                            i < detailController.selectedVerses.length;
-                            i++) {
-                          await DatabaseService().updateHighlight(
-                              selectedVerses[i].book!,
-                              selectedVerses[i].chapter!,
-                              selectedVerses[i].verseNumber,
-                              color,
-                              detailController.selectedBook);
-                          selectedVerses[i].highlight = color;
-                        }
-                        detailController.selectedRowIndex = [];
-                        detailController.selectedVerses = [];
-                        detailController.showSelectionMenu = false;
-                        detailController.update();
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(
-                            color: Colors.grey, // Set the color of the border
-                            width: 1.0, // Set the width of the border
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      GestureDetector(
+                        onTap: () async {
+                          int color = setHighlightColor(
+                              HighlightColors.highlightLightRed);
+                          for (int i = 0;
+                              i < detailController.selectedVerses.length;
+                              i++) {
+                            await DatabaseService().updateHighlight(
+                                selectedVerses[i].book!,
+                                selectedVerses[i].chapter!,
+                                selectedVerses[i].verseNumber,
+                                color,
+                                detailController.selectedBook);
+                            selectedVerses[i].highlight = color;
+                          }
+                          detailController.selectedRowIndex = [];
+                          detailController.selectedVerses = [];
+                          detailController.showSelectionMenu = false;
+                          detailController.update();
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            border: Border.all(
+                              color: Colors.grey, // Set the color of the border
+                              width: 1.0, // Set the width of the border
+                            ),
+                          ),
+                          child: const CircleAvatar(
+                            backgroundColor: HighlightColors.highlightLightRed,
+                            radius: 20,
                           ),
                         ),
-                        child: const CircleAvatar(
-                          backgroundColor: HighlightColors.highlightLightRed,
-                          radius: 20,
-                        ),
                       ),
-                    ),
-                    const SizedBox(
-                      width: 5,
-                    ),
-                  ],
+                      const SizedBox(
+                        width: 5,
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(
-                    top: 5, left: 10, right: 10, bottom: 1),
-                child: Divider(
-                  color:
-                      themeData.themeData.value!.grayTextColor.withOpacity(0.5),
+                Padding(
+                  padding: const EdgeInsets.only(
+                      top: 5, left: 10, right: 10, bottom: 1),
+                  child: Divider(
+                    color: themeData.themeData.value!.grayTextColor
+                        .withOpacity(0.5),
+                  ),
                 ),
-              ),
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    const SizedBox(
-                      width: 5,
-                    ),
-                    //!Share
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        IconButton(
-                            onPressed: () async {
-                              String textToCopy = "";
-                              for (int i = 0;
-                                  i < detailController.selectedVerses.length;
-                                  i++) {
-                                String tempTextToCopy = "";
-                
-                                if (detailController.selectedBook
-                                    .contains("English")) {
-                                  tempTextToCopy =
-                                      "\"${selectedVerses[i].verseText!}\" — ${detailController.getBookTitle(selectedVerses[i].book!)} ${selectedVerses[i].chapter}:${selectedVerses[i].verseNumber}";
-                                } else {
-                                  tempTextToCopy =
-                                      "\"${selectedVerses[i].verseText!}\" — ${detailController.getBookTitle(selectedVerses[i].book!)} ${selectedVerses[i].chapter}፥${selectedVerses[i].verseNumber}";
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      //!Share
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          IconButton(
+                              onPressed: () async {
+                                String textToCopy = "";
+                                for (int i = 0;
+                                    i < detailController.selectedVerses.length;
+                                    i++) {
+                                  String tempTextToCopy = "";
+
+                                  if (detailController.selectedBook
+                                      .contains("English")) {
+                                    tempTextToCopy =
+                                        "\"${selectedVerses[i].verseText!}\" — ${detailController.getBookTitle(selectedVerses[i].book!)} ${selectedVerses[i].chapter}:${selectedVerses[i].verseNumber}";
+                                  } else {
+                                    tempTextToCopy =
+                                        "\"${selectedVerses[i].verseText!}\" — ${detailController.getBookTitle(selectedVerses[i].book!)} ${selectedVerses[i].chapter}፥${selectedVerses[i].verseNumber}";
+                                  }
+                                  textToCopy =
+                                      textToCopy + "\n ${tempTextToCopy}";
                                 }
-                                textToCopy = textToCopy + "\n ${tempTextToCopy}";
-                              }
-                              await share(textToCopy, "Share", context);
-                            },
-                            icon: Icon(
-                              Icons.share,
-                              color: themeData.themeData.value!.verseColor,
-                            )),
-                        Text(
-                          'share'.tr,
-                          style: TextStyle(
-                              color: themeData.themeData.value!.verseColor),
-                        )
-                      ],
-                    ),
-                    const SizedBox(
-                      width: 5,
-                    ),
-                    //!Copy
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        IconButton(
-                            onPressed: () {
-                              String textToCopy = "";
-                              for (int i = 0;
-                                  i < detailController.selectedVerses.length;
-                                  i++) {
-                                String tempTextToCopy = "";
-                                if (detailController.selectedBook
-                                    .contains("English")) {
-                                  tempTextToCopy =
-                                      "\"${selectedVerses[i].verseText!}\" — ${detailController.getBookTitle(selectedVerses[i].book!)} ${selectedVerses[i].chapter}:${selectedVerses[i].verseNumber}";
-                                } else {
-                                  tempTextToCopy =
-                                      "\"${selectedVerses[i].verseText!}\" — ${detailController.getBookTitle(selectedVerses[i].book!)} ${selectedVerses[i].chapter}፥${selectedVerses[i].verseNumber}";
+                                await share(textToCopy, "Share", context);
+                              },
+                              icon: Icon(
+                                Icons.share,
+                                color: themeData.themeData.value!.verseColor,
+                              )),
+                          Text(
+                            'share'.tr,
+                            style: TextStyle(
+                                color: themeData.themeData.value!.verseColor),
+                          )
+                        ],
+                      ),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      //!Copy
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          IconButton(
+                              onPressed: () {
+                                String textToCopy = "";
+                                for (int i = 0;
+                                    i < detailController.selectedVerses.length;
+                                    i++) {
+                                  String tempTextToCopy = "";
+                                  if (detailController.selectedBook
+                                      .contains("English")) {
+                                    tempTextToCopy =
+                                        "\"${selectedVerses[i].verseText!}\" — ${detailController.getBookTitle(selectedVerses[i].book!)} ${selectedVerses[i].chapter}:${selectedVerses[i].verseNumber}";
+                                  } else {
+                                    tempTextToCopy =
+                                        "\"${selectedVerses[i].verseText!}\" — ${detailController.getBookTitle(selectedVerses[i].book!)} ${selectedVerses[i].chapter}፥${selectedVerses[i].verseNumber}";
+                                  }
+                                  textToCopy =
+                                      textToCopy + "\n ${tempTextToCopy}";
                                 }
-                                textToCopy = textToCopy + "\n ${tempTextToCopy}";
-                              }
-                
-                              copyToClipboard(textToCopy);
-                            },
-                            icon: Icon(
-                              Icons.copy,
-                              color: themeData.themeData.value!.verseColor,
-                            )),
-                        Text(
-                          'copy'.tr,
-                          style: TextStyle(
-                              color: themeData.themeData.value!.verseColor),
-                        )
-                      ],
-                    ),
-                    const SizedBox(
-                      width: 8,
-                    ),
-                    //!Compare
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        IconButton(
-                            onPressed: () {
-                              // BuildContext context,
-                              // String selectedbookname,
-                              // String selectedbooktitle,
-                              // String verse
-                              compare(
-                                  context,
-                                  '${detailController.getBookTitle(selectedVerses[0].book!)}',
-                                  '${selectedVerses[0].chapter}',
-                                  '${selectedVerses[0].verseNumber}',
-                                  selectedVerses[0].verseText!,
-                                  selectedVerses[0].book!);
-                            },
-                            icon: Icon(
-                              Icons.compare_outlined,
-                              color: themeData.themeData.value!.verseColor,
-                            )),
-                        Text(
-                          'compare'.tr,
-                          style: TextStyle(
-                              color: themeData.themeData.value!.verseColor),
-                        )
-                      ],
-                    ),
-                    const SizedBox(
-                      width: 8,
-                    ),
-                    //!fontSize
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        IconButton(
-                            onPressed: () {
-                              showFontSizeBottomSheet(context);
-                            },
-                            icon: Icon(
-                              Icons.format_size_outlined,
-                              color: themeData.themeData.value!.verseColor,
-                            )),
-                        Text(
-                          'font_size'.tr,
-                          style: TextStyle(
-                              color: themeData.themeData.value!.verseColor),
-                        )
-                      ],
-                    ),
-                    const SizedBox(
-                      width: 8,
-                    ),
-                    //!Rate
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        IconButton(
-                            onPressed: () {
-                              detailController.rateApp();
-                            },
-                            icon: Icon(
-                              Icons.star,
-                              color: themeData.themeData.value!.verseColor,
-                            )),
-                        Text(
-                          'rate'.tr,
-                          style: TextStyle(
-                              color: themeData.themeData.value!.verseColor),
-                        )
-                      ],
-                    ),
-                  ],
+
+                                copyToClipboard(textToCopy);
+                              },
+                              icon: Icon(
+                                Icons.copy,
+                                color: themeData.themeData.value!.verseColor,
+                              )),
+                          Text(
+                            'copy'.tr,
+                            style: TextStyle(
+                                color: themeData.themeData.value!.verseColor),
+                          )
+                        ],
+                      ),
+                      const SizedBox(
+                        width: 8,
+                      ),
+                      //!Compare
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          IconButton(
+                              onPressed: () {
+                                // BuildContext context,
+                                // String selectedbookname,
+                                // String selectedbooktitle,
+                                // String verse
+                                compare(
+                                    context,
+                                    '${detailController.getBookTitle(selectedVerses[0].book!)}',
+                                    '${selectedVerses[0].chapter}',
+                                    '${selectedVerses[0].verseNumber}',
+                                    selectedVerses[0].verseText!,
+                                    selectedVerses[0].book!);
+                              },
+                              icon: Icon(
+                                Icons.compare_outlined,
+                                color: themeData.themeData.value!.verseColor,
+                              )),
+                          Text(
+                            'compare'.tr,
+                            style: TextStyle(
+                                color: themeData.themeData.value!.verseColor),
+                          )
+                        ],
+                      ),
+                      const SizedBox(
+                        width: 8,
+                      ),
+                      //!fontSize
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          IconButton(
+                              onPressed: () {
+                                showFontSizeBottomSheet(context);
+                              },
+                              icon: Icon(
+                                Icons.format_size_outlined,
+                                color: themeData.themeData.value!.verseColor,
+                              )),
+                          Text(
+                            'font_size'.tr,
+                            style: TextStyle(
+                                color: themeData.themeData.value!.verseColor),
+                          )
+                        ],
+                      ),
+                      const SizedBox(
+                        width: 8,
+                      ),
+                      //!Rate
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          IconButton(
+                              onPressed: () {
+                                detailController.rateApp();
+                              },
+                              icon: Icon(
+                                Icons.star,
+                                color: themeData.themeData.value!.verseColor,
+                              )),
+                          Text(
+                            'rate'.tr,
+                            style: TextStyle(
+                                color: themeData.themeData.value!.verseColor),
+                          )
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              const SizedBox(
-                height: 15,
-              ),
-            ],
+                const SizedBox(
+                  height: 15,
+                ),
+              ],
+            ),
           ),
         ),
       );

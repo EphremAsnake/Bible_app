@@ -713,22 +713,45 @@ class DetailView extends GetView<DetailController> {
                                                                 controller
                                                                         .allVerses[
                                                                     i][index]);
-                                                        // controller
-                                                        //         .showSelectionMenu =
-                                                        //     true;
-                                                        controller
-                                                            .updateshowSelectionMenu(
-                                                                true);
-
-                                                        controller.context =
-                                                            context;
-                                                        controller.index =
-                                                            index;
-                                                        controller
-                                                            .verse = controller
-                                                                .allVerses[i]
-                                                            [index];
                                                         controller.update();
+                                                        if (controller
+                                                                    .allVerses[
+                                                                        i]
+                                                                        [index]
+                                                                    .para !=
+                                                                "s1" &&
+                                                            controller
+                                                                    .allVerses[
+                                                                        i]
+                                                                        [index]
+                                                                    .para !=
+                                                                "s2" &&
+                                                            controller
+                                                                    .allVerses[
+                                                                        i]
+                                                                        [index]
+                                                                    .para !=
+                                                                "s3" &&
+                                                            controller
+                                                                    .allVerses[
+                                                                        i]
+                                                                        [index]
+                                                                    .para !=
+                                                                "d") {
+                                                          controller
+                                                              .updateshowSelectionMenu(
+                                                                  true);
+
+                                                          controller.context =
+                                                              context;
+                                                          controller.index =
+                                                              index;
+                                                          controller
+                                                              .verse = controller
+                                                                  .allVerses[i]
+                                                              [index];
+                                                          controller.update();
+                                                        }
                                                       },
                                                       child: Padding(
                                                         padding:
@@ -839,7 +862,7 @@ class DetailView extends GetView<DetailController> {
                                                                                         color: themeData.themeData.value!.primaryColor,
                                                                                         fontWeight: FontWeight.bold,
                                                                                         fontFamily: "Abyssinica",
-                                                                                        backgroundColor: controller.selectedRowIndex.any((element) => element == index) ? themeData.themeData.value!.primaryColor.withOpacity(0.5) : getHighlightColor(controller.allVerses[i][index].highlight!),
+                                                                                        backgroundColor: Colors.transparent,
                                                                                       ),
                                                                                     )),
                                                                         ),
@@ -878,13 +901,13 @@ class DetailView extends GetView<DetailController> {
                                                                                 Alignment.center,
                                                                             child:
                                                                                 Text(
-                                                                              '${controller.allVerses[i][index].verseText?.trimRight()}',
+                                                                              '${controller.allVerses[i][index].verseText?.trimRight()} ',
                                                                               style: TextStyle(
                                                                                 fontFamily: "Abyssinica",
                                                                                 fontSize: controller.allVerses[i][index].para == "d" ? (controller.fontSize.sp - 1) : controller.fontSize.sp,
                                                                                 color: themeData.themeData.value!.primaryColor,
                                                                                 fontWeight: FontWeight.bold,
-                                                                                backgroundColor: controller.selectedRowIndex.any((element) => element == index) ? themeData.themeData.value!.primaryColor.withOpacity(0.5) : getHighlightColor(controller.allVerses[i][index].highlight!),
+                                                                                backgroundColor: Colors.transparent,
                                                                               ),
                                                                             ),
                                                                           ),

@@ -964,21 +964,18 @@ class DetailView extends GetView<DetailController> {
                         ),
                         Visibility(
                           visible: controller.showSelectionMenu,
-                          child: Padding(
-                            padding: const EdgeInsets.only(bottom:20.0),
-                            child: Container(
-                              color: Colors.white,
-                              height: SizerUtil.deviceType == DeviceType.mobile
-                                  ? 21.h
-                                  : 18.h,
-                              child: controller.showSelectionMenu == true
-                                  ? textSelectionOptions(
-                                      context,
-                                      controller.selectedVerses,
-                                      controller.verse!,
-                                      controller.index)
-                                  : const SizedBox.shrink(),
-                            ),
+                          child: Container(
+                            color: Colors.white,
+                            height: SizerUtil.deviceType == DeviceType.mobile
+                                ? 21.h
+                                : 18.h,
+                            child: controller.showSelectionMenu == true
+                                ? textSelectionOptions(
+                                    context,
+                                    controller.selectedVerses,
+                                    controller.verse!,
+                                    controller.index)
+                                : const SizedBox.shrink(),
                           ),
                         )
                       ],

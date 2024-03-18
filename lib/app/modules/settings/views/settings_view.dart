@@ -223,7 +223,7 @@ void showFontSizeBottomSheet(BuildContext context) {
                 topRight: Radius.circular(10),
               ),
             ),
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.fromLTRB(16.0,16.0,16.0,40.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,

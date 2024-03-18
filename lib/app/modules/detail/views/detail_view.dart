@@ -763,7 +763,8 @@ class DetailView extends GetView<DetailController> {
                                                                               textAlign: TextAlign.left,
                                                                               style: TextStyle(
                                                                                 fontFamily: "Abyssinica",
-                                                                                fontSize: SizerUtil.deviceType == DeviceType.mobile ? (30 + controller.fontSize).sp : (15 + controller.fontSize).sp,
+                                                                                fontSize: controller.fontSize.sp * 3,
+                                                                                //SizerUtil.deviceType == DeviceType.mobile ? (30 + controller.fontSize.sp) : (15 + controller.fontSize.sp),
                                                                                 fontWeight: FontWeight.normal,
                                                                                 color: themeData.themeData.value!.numbersColor,
                                                                               ),
@@ -861,9 +862,10 @@ class DetailView extends GetView<DetailController> {
                                                                               index]
                                                                           .verseText !=
                                                                       " ")
-                                                                controller.allVerses[i][index]
-                                                                            .para ==
-                                                                        "s1"
+                                                                controller.allVerses[i][index].para ==
+                                                                            "s1" ||
+                                                                        controller.allVerses[i][index].para ==
+                                                                            "d"
                                                                     ? Center(
                                                                         child:
                                                                             Padding(
@@ -879,7 +881,7 @@ class DetailView extends GetView<DetailController> {
                                                                               '${controller.allVerses[i][index].verseText?.trimRight()}',
                                                                               style: TextStyle(
                                                                                 fontFamily: "Abyssinica",
-                                                                                fontSize: controller.fontSize.sp,
+                                                                                fontSize: controller.allVerses[i][index].para == "d" ? (controller.fontSize.sp - 1) : controller.fontSize.sp,
                                                                                 color: themeData.themeData.value!.primaryColor,
                                                                                 fontWeight: FontWeight.bold,
                                                                                 backgroundColor: controller.selectedRowIndex.any((element) => element == index) ? themeData.themeData.value!.primaryColor.withOpacity(0.5) : getHighlightColor(controller.allVerses[i][index].highlight!),
@@ -962,18 +964,21 @@ class DetailView extends GetView<DetailController> {
                         ),
                         Visibility(
                           visible: controller.showSelectionMenu,
-                          child: Container(
-                            color: Colors.white,
-                            height: SizerUtil.deviceType == DeviceType.mobile
-                                ? 21.h
-                                : 18.h,
-                            child: controller.showSelectionMenu == true
-                                ? textSelectionOptions(
-                                    context,
-                                    controller.selectedVerses,
-                                    controller.verse!,
-                                    controller.index)
-                                : const SizedBox.shrink(),
+                          child: Padding(
+                            padding: const EdgeInsets.only(bottom:20.0),
+                            child: Container(
+                              color: Colors.white,
+                              height: SizerUtil.deviceType == DeviceType.mobile
+                                  ? 21.h
+                                  : 18.h,
+                              child: controller.showSelectionMenu == true
+                                  ? textSelectionOptions(
+                                      context,
+                                      controller.selectedVerses,
+                                      controller.verse!,
+                                      controller.index)
+                                  : const SizedBox.shrink(),
+                            ),
                           ),
                         )
                       ],

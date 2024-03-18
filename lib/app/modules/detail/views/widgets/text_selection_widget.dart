@@ -506,167 +506,170 @@ Widget textSelectionOptions(BuildContext context, List<Verses> selectedVerses,
                       themeData.themeData.value!.grayTextColor.withOpacity(0.5),
                 ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  const SizedBox(
-                    width: 5,
-                  ),
-                  //!Share
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      IconButton(
-                          onPressed: () async {
-                            String textToCopy = "";
-                            for (int i = 0;
-                                i < detailController.selectedVerses.length;
-                                i++) {
-                              String tempTextToCopy = "";
-
-                              if (detailController.selectedBook
-                                  .contains("English")) {
-                                tempTextToCopy =
-                                    "\"${selectedVerses[i].verseText!}\" — ${detailController.getBookTitle(selectedVerses[i].book!)} ${selectedVerses[i].chapter}:${selectedVerses[i].verseNumber}";
-                              } else {
-                                tempTextToCopy =
-                                    "\"${selectedVerses[i].verseText!}\" — ${detailController.getBookTitle(selectedVerses[i].book!)} ${selectedVerses[i].chapter}፥${selectedVerses[i].verseNumber}";
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    //!Share
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        IconButton(
+                            onPressed: () async {
+                              String textToCopy = "";
+                              for (int i = 0;
+                                  i < detailController.selectedVerses.length;
+                                  i++) {
+                                String tempTextToCopy = "";
+                
+                                if (detailController.selectedBook
+                                    .contains("English")) {
+                                  tempTextToCopy =
+                                      "\"${selectedVerses[i].verseText!}\" — ${detailController.getBookTitle(selectedVerses[i].book!)} ${selectedVerses[i].chapter}:${selectedVerses[i].verseNumber}";
+                                } else {
+                                  tempTextToCopy =
+                                      "\"${selectedVerses[i].verseText!}\" — ${detailController.getBookTitle(selectedVerses[i].book!)} ${selectedVerses[i].chapter}፥${selectedVerses[i].verseNumber}";
+                                }
+                                textToCopy = textToCopy + "\n ${tempTextToCopy}";
                               }
-                              textToCopy = textToCopy + "\n ${tempTextToCopy}";
-                            }
-                            await share(textToCopy, "Share", context);
-                          },
-                          icon: Icon(
-                            Icons.share,
-                            color: themeData.themeData.value!.verseColor,
-                          )),
-                      Text(
-                        'share'.tr,
-                        style: TextStyle(
-                            color: themeData.themeData.value!.verseColor),
-                      )
-                    ],
-                  ),
-                  const SizedBox(
-                    width: 5,
-                  ),
-                  //!Copy
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      IconButton(
-                          onPressed: () {
-                            String textToCopy = "";
-                            for (int i = 0;
-                                i < detailController.selectedVerses.length;
-                                i++) {
-                              String tempTextToCopy = "";
-                              if (detailController.selectedBook
-                                  .contains("English")) {
-                                tempTextToCopy =
-                                    "\"${selectedVerses[i].verseText!}\" — ${detailController.getBookTitle(selectedVerses[i].book!)} ${selectedVerses[i].chapter}:${selectedVerses[i].verseNumber}";
-                              } else {
-                                tempTextToCopy =
-                                    "\"${selectedVerses[i].verseText!}\" — ${detailController.getBookTitle(selectedVerses[i].book!)} ${selectedVerses[i].chapter}፥${selectedVerses[i].verseNumber}";
+                              await share(textToCopy, "Share", context);
+                            },
+                            icon: Icon(
+                              Icons.share,
+                              color: themeData.themeData.value!.verseColor,
+                            )),
+                        Text(
+                          'share'.tr,
+                          style: TextStyle(
+                              color: themeData.themeData.value!.verseColor),
+                        )
+                      ],
+                    ),
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    //!Copy
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        IconButton(
+                            onPressed: () {
+                              String textToCopy = "";
+                              for (int i = 0;
+                                  i < detailController.selectedVerses.length;
+                                  i++) {
+                                String tempTextToCopy = "";
+                                if (detailController.selectedBook
+                                    .contains("English")) {
+                                  tempTextToCopy =
+                                      "\"${selectedVerses[i].verseText!}\" — ${detailController.getBookTitle(selectedVerses[i].book!)} ${selectedVerses[i].chapter}:${selectedVerses[i].verseNumber}";
+                                } else {
+                                  tempTextToCopy =
+                                      "\"${selectedVerses[i].verseText!}\" — ${detailController.getBookTitle(selectedVerses[i].book!)} ${selectedVerses[i].chapter}፥${selectedVerses[i].verseNumber}";
+                                }
+                                textToCopy = textToCopy + "\n ${tempTextToCopy}";
                               }
-                              textToCopy = textToCopy + "\n ${tempTextToCopy}";
-                            }
-
-                            copyToClipboard(textToCopy);
-                          },
-                          icon: Icon(
-                            Icons.copy,
-                            color: themeData.themeData.value!.verseColor,
-                          )),
-                      Text(
-                        'copy'.tr,
-                        style: TextStyle(
-                            color: themeData.themeData.value!.verseColor),
-                      )
-                    ],
-                  ),
-                  const SizedBox(
-                    width: 8,
-                  ),
-                  //!Compare
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      IconButton(
-                          onPressed: () {
-                            // BuildContext context,
-                            // String selectedbookname,
-                            // String selectedbooktitle,
-                            // String verse
-                            compare(
-                                context,
-                                '${detailController.getBookTitle(selectedVerses[0].book!)}',
-                                '${selectedVerses[0].chapter}',
-                                '${selectedVerses[0].verseNumber}',
-                                selectedVerses[0].verseText!,
-                                selectedVerses[0].book!);
-                          },
-                          icon: Icon(
-                            Icons.compare_outlined,
-                            color: themeData.themeData.value!.verseColor,
-                          )),
-                      Text(
-                        'compare'.tr,
-                        style: TextStyle(
-                            color: themeData.themeData.value!.verseColor),
-                      )
-                    ],
-                  ),
-                  const SizedBox(
-                    width: 8,
-                  ),
-                  //!fontSize
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      IconButton(
-                          onPressed: () {
-                            showFontSizeBottomSheet(context);
-                          },
-                          icon: Icon(
-                            Icons.format_size_outlined,
-                            color: themeData.themeData.value!.verseColor,
-                          )),
-                      Text(
-                        'font_size'.tr,
-                        style: TextStyle(
-                            color: themeData.themeData.value!.verseColor),
-                      )
-                    ],
-                  ),
-                  const SizedBox(
-                    width: 8,
-                  ),
-                  //!Rate
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      IconButton(
-                          onPressed: () {
-                            detailController.rateApp();
-                          },
-                          icon: Icon(
-                            Icons.star,
-                            color: themeData.themeData.value!.verseColor,
-                          )),
-                      Text(
-                        'rate'.tr,
-                        style: TextStyle(
-                            color: themeData.themeData.value!.verseColor),
-                      )
-                    ],
-                  ),
-                ],
+                
+                              copyToClipboard(textToCopy);
+                            },
+                            icon: Icon(
+                              Icons.copy,
+                              color: themeData.themeData.value!.verseColor,
+                            )),
+                        Text(
+                          'copy'.tr,
+                          style: TextStyle(
+                              color: themeData.themeData.value!.verseColor),
+                        )
+                      ],
+                    ),
+                    const SizedBox(
+                      width: 8,
+                    ),
+                    //!Compare
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        IconButton(
+                            onPressed: () {
+                              // BuildContext context,
+                              // String selectedbookname,
+                              // String selectedbooktitle,
+                              // String verse
+                              compare(
+                                  context,
+                                  '${detailController.getBookTitle(selectedVerses[0].book!)}',
+                                  '${selectedVerses[0].chapter}',
+                                  '${selectedVerses[0].verseNumber}',
+                                  selectedVerses[0].verseText!,
+                                  selectedVerses[0].book!);
+                            },
+                            icon: Icon(
+                              Icons.compare_outlined,
+                              color: themeData.themeData.value!.verseColor,
+                            )),
+                        Text(
+                          'compare'.tr,
+                          style: TextStyle(
+                              color: themeData.themeData.value!.verseColor),
+                        )
+                      ],
+                    ),
+                    const SizedBox(
+                      width: 8,
+                    ),
+                    //!fontSize
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        IconButton(
+                            onPressed: () {
+                              showFontSizeBottomSheet(context);
+                            },
+                            icon: Icon(
+                              Icons.format_size_outlined,
+                              color: themeData.themeData.value!.verseColor,
+                            )),
+                        Text(
+                          'font_size'.tr,
+                          style: TextStyle(
+                              color: themeData.themeData.value!.verseColor),
+                        )
+                      ],
+                    ),
+                    const SizedBox(
+                      width: 8,
+                    ),
+                    //!Rate
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        IconButton(
+                            onPressed: () {
+                              detailController.rateApp();
+                            },
+                            icon: Icon(
+                              Icons.star,
+                              color: themeData.themeData.value!.verseColor,
+                            )),
+                        Text(
+                          'rate'.tr,
+                          style: TextStyle(
+                              color: themeData.themeData.value!.verseColor),
+                        )
+                      ],
+                    ),
+                  ],
+                ),
               ),
               const SizedBox(
                 height: 15,

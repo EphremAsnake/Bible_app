@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 import 'package:bible_book_app/app/core/cache/shared_pereferance_storage.dart';
 import 'package:bible_book_app/app/core/shared_controllers/data_getter_and_setter_controller.dart';
@@ -14,6 +15,7 @@ import 'package:bible_book_app/app/modules/settings/views/settings_view.dart';
 import 'package:bible_book_app/app/utils/helpers/get_and_set_highlight_color.dart';
 import 'package:bible_book_app/app/utils/keys/keys.dart';
 import 'package:expandable_page_view/expandable_page_view.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
@@ -333,7 +335,7 @@ class DetailView extends GetView<DetailController> {
                                         "${controller.searchResultVerses[i].verseNumber} ",
                                     style: TextStyle(
                                         color: themeData
-                                            .themeData.value!.verseColor),
+                                            .themeData.value!.numbersColor),
                                   ),
                                 );
                                 int start = 0;
@@ -365,6 +367,10 @@ class DetailView extends GetView<DetailController> {
                                   start = index + searchText.length;
                                 }
 
+                                double getItemHeight(int index) {
+                                  return 30.0;
+                                }
+
                                 return Padding(
                                   padding: const EdgeInsets.symmetric(
                                       vertical: 0, horizontal: 4),
@@ -376,6 +382,20 @@ class DetailView extends GetView<DetailController> {
                                                   .searchResultVerses[i].book!,
                                               controller.searchResultVerses[i]
                                                   .chapter!);
+
+                                      //!Scroll to Selected Verse
+                                      controller.readerScrollController.jumpTo(
+                                        controller.searchResultVerses[i]
+                                                .verseNumber *
+                                            getItemHeight(controller
+                                                .searchResultVerses[i]
+                                                .verseNumber),
+                                      );
+                                      controller.updateblinkindex(controller
+                                          .searchResultVerses[i].verseNumber);
+                                      Timer(const Duration(seconds: 2), () {
+                                        controller.makeblinkindexnull();
+                                      });
                                     },
                                     child: Card(
                                       borderOnForeground: true,
@@ -733,11 +753,11 @@ class DetailView extends GetView<DetailController> {
                                                         }
 
                                                         controller.update();
-                                                        print(index);
-                                                        print(controller
-                                                                .allVerses[i]
-                                                                .length -
-                                                            1);
+                                                        // print(index);
+                                                        // print(controller
+                                                        //         .allVerses[i]
+                                                        //         .length -
+                                                        //     1);
 
                                                         if (controller
                                                                     .allVerses[
@@ -944,49 +964,65 @@ class DetailView extends GetView<DetailController> {
                                                                           ),
                                                                         ),
                                                                       )
-                                                                    : RichText(
-                                                                        text:
-                                                                            TextSpan(
-                                                                          text: controller.selectedBook.contains("አዲሱ")
-                                                                              ? '${controller.allVerses[i][index].verseNumber}፤  '
-                                                                              : controller.selectedBook.contains("1954")
-                                                                                  ? controller.allVerses[i][index - 1].verseText == " ፤"
-                                                                                      ? '${controller.allVerses[i][index - 1].verseNumber} - ${controller.allVerses[i][index].verseNumber} '
-                                                                                      : '${controller.allVerses[i][index].verseNumber}'
-                                                                                  : '${controller.allVerses[i][index].verseNumber}  ',
-                                                                          style:
-                                                                              TextStyle(
-                                                                            fontSize:
-                                                                                controller.fontSize.sp,
-                                                                            fontWeight:
-                                                                                FontWeight.bold,
-                                                                            color:
-                                                                                themeData.themeData.value!.numbersColor,
-                                                                          ),
-                                                                          children: <InlineSpan>[
-                                                                            TextSpan(
-                                                                              text: '${controller.allVerses[i][index].verseText?.trimRight()}',
-                                                                              style: TextStyle(
-                                                                                fontFamily: "Abyssinica",
-                                                                                fontSize: controller.fontSize.sp,
-                                                                                color: getHighlightColor(controller.allVerses[i][index].highlight!) != Colors.transparent ? themeData.themeData.value!.blackColor : themeData.themeData.value!.verseColor,
-                                                                                fontWeight: FontWeight.normal,
-                                                                                backgroundColor: controller.selectedRowIndex.any((element) => element == index) ? themeData.themeData.value!.primaryColor.withOpacity(0.5) : getHighlightColor(controller.allVerses[i][index].highlight!),
-                                                                              ),
+                                                                    : Container(
+                                                                        color: index ==
+                                                                                controller.blinkindex
+                                                                            ? const Color.fromARGB(255, 246, 111, 108)
+                                                                            : Colors.transparent,
+                                                                        child:
+                                                                            RichText(
+                                                                          text:
+                                                                              TextSpan(
+                                                                            text: controller.selectedBook.contains("አዲሱ")
+                                                                                ? '${controller.allVerses[i][index].verseNumber}፤  '
+                                                                                : controller.selectedBook.contains("1954")
+                                                                                    ? controller.allVerses[i][index - 1].verseText == " ፤"
+                                                                                        ? '${controller.allVerses[i][index - 1].verseNumber} - ${controller.allVerses[i][index].verseNumber} '
+                                                                                        : '${controller.allVerses[i][index].verseNumber}'
+                                                                                    : '${controller.allVerses[i][index].verseNumber}  ',
+                                                                            style:
+                                                                                TextStyle(
+                                                                              fontSize: controller.fontSize.sp,
+                                                                              fontWeight: FontWeight.bold,
+                                                                              color: themeData.themeData.value!.numbersColor,
                                                                             ),
-                                                                            // if (index == 1 &&
-                                                                            //     (controller.allVerses[i][index].verseNumber == controller.allVerses[i][index - 1].verseNumber))
-                                                                            //   TextSpan(
-                                                                            //     text: '${controller.allVerses[i][index].verseText?.trimRight()}',
-                                                                            //     style: TextStyle(
-                                                                            //       fontFamily: "Abyssinica",
-                                                                            //       fontSize: controller.fontSize.sp,
-                                                                            //       color: Colors.red,
-                                                                            //       fontWeight: FontWeight.normal,
-                                                                            //       backgroundColor: controller.selectedRowIndex.any((element) => element == index) ? themeData.themeData.value!.primaryColor.withOpacity(0.5) : getHighlightColor(controller.allVerses[i][index].highlight!),
-                                                                            //     ),
-                                                                            //   ),
-                                                                          ],
+                                                                            children: <InlineSpan>[
+                                                                              TextSpan(
+                                                                                text: '${controller.allVerses[i][index].verseText?.trimRight()}',
+                                                                                style: TextStyle(
+                                                                                  fontFamily: "Abyssinica",
+                                                                                  fontSize: controller.fontSize.sp,
+                                                                                  color: getHighlightColor(controller.allVerses[i][index].highlight!) != Colors.transparent ? themeData.themeData.value!.blackColor : themeData.themeData.value!.verseColor,
+                                                                                  fontWeight: FontWeight.normal,
+                                                                                  backgroundColor: controller.selectedRowIndex.any((element) => element == index) ? themeData.themeData.value!.primaryColor.withOpacity(0.5) : getHighlightColor(controller.allVerses[i][index].highlight!),
+                                                                                ),
+                                                                                // recognizer: TapGestureRecognizer()
+                                                                                //   ..onTap = () {
+                                                                                //     // Highlight the verse background
+                                                                                //     controller.highlightedVerseIndex = index;
+                                                                                //     controller.update();
+
+                                                                                //     // Start a timer to revert the background color after 2 seconds
+                                                                                //     Timer(Duration(seconds: 2), () {
+                                                                                //       controller.highlightedVerseIndex = null;
+                                                                                //       controller.update();
+                                                                                //     });
+                                                                                //   },
+                                                                              ),
+                                                                              // if (index == 1 &&
+                                                                              //     (controller.allVerses[i][index].verseNumber == controller.allVerses[i][index - 1].verseNumber))
+                                                                              //   TextSpan(
+                                                                              //     text: '${controller.allVerses[i][index].verseText?.trimRight()}',
+                                                                              //     style: TextStyle(
+                                                                              //       fontFamily: "Abyssinica",
+                                                                              //       fontSize: controller.fontSize.sp,
+                                                                              //       color: Colors.red,
+                                                                              //       fontWeight: FontWeight.normal,
+                                                                              //       backgroundColor: controller.selectedRowIndex.any((element) => element == index) ? themeData.themeData.value!.primaryColor.withOpacity(0.5) : getHighlightColor(controller.allVerses[i][index].highlight!),
+                                                                              //     ),
+                                                                              //   ),
+                                                                            ],
+                                                                          ),
                                                                         ),
                                                                       ),
                                                             if (index ==

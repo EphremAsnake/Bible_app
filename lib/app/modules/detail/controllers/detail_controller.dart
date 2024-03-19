@@ -38,6 +38,8 @@ class DetailController extends SuperController {
   String selectedBookTypeOptions = 'አዲሱ መደበኛ ትርጉም';
   List<Verses> searchResultVerses = [];
   List<Book> books = [];
+  bool blink = false;
+  int? blinkindex;
   List<Book> booksList = [];
   bool hidePageNavigators = false;
   int previousOpenedBookPageNumber = 0;
@@ -115,6 +117,21 @@ class DetailController extends SuperController {
 
   updateforsearch(String newvalue) {
     forsearch = newvalue;
+    update();
+  }
+
+  updateblink(bool newval) {
+    blink = newval;
+    update();
+  }
+
+  updateblinkindex(int newval) {
+    blinkindex = newval;
+    update();
+  }
+
+  makeblinkindexnull() {
+    blinkindex = null;
     update();
   }
 
@@ -485,12 +502,12 @@ class DetailController extends SuperController {
                 curve: Curves.easeInOut);
             scaffoldKey.currentState?.closeDrawer();
             scaffoldKey.currentState?.closeEndDrawer();
-            readerScrollController.animateTo(
-              0.0, // Scroll to the top
-              duration: const Duration(
-                  milliseconds: 500), // Adjust the duration as needed
-              curve: Curves.easeInOut, // Use a different curve if desired
-            );
+            // readerScrollController.animateTo(
+            //   0.0, // Scroll to the top
+            //   duration: const Duration(
+            //       milliseconds: 500), // Adjust the duration as needed
+            //   curve: Curves.easeInOut, // Use a different curve if desired
+            // );
           }
         }
       }

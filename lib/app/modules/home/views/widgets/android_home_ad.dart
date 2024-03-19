@@ -20,11 +20,7 @@ class AndroidHomeAD extends StatelessWidget {
       initState: (_) {},
       builder: (_) {
         if (detailController.apiStateHandler.apiState == ApiState.loading) {
-          return Container(
-            padding: const EdgeInsets.all(0),
-            height: 25,
-            decoration: BoxDecoration(color: themeData!.backgroundColor),
-          );
+          return const SizedBox.shrink();
         } else if (detailController.apiStateHandler.apiState ==
             ApiState.success) {
           if (detailController
@@ -75,13 +71,13 @@ class AndroidHomeAD extends StatelessWidget {
                         color: themeData!.shadowColor,
                         spreadRadius: 2,
                         blurRadius: 10,
-                        offset: Offset(0, 8), // horizontal, vertical offset
+                        offset: const Offset(0, 8), // horizontal, vertical offset
                       ),
                       BoxShadow(
                         color: themeData!.shadowColor,
                         spreadRadius: 2,
                         blurRadius: 10,
-                        offset: Offset(0, -8), // horizontal, vertical offset
+                        offset: const Offset(0, -8), // horizontal, vertical offset
                       ),
                     ],
                   ),
@@ -138,18 +134,10 @@ class AndroidHomeAD extends StatelessWidget {
               ),
             );
           } else {
-            return Container(
-              padding: const EdgeInsets.all(0),
-              height: 5,
-              decoration: BoxDecoration(color: themeData!.backgroundColor),
-            );
+            return const SizedBox.shrink();
           }
         } else {
-          return Container(
-            padding: const EdgeInsets.all(0),
-            height: 5,
-            decoration: BoxDecoration(color: themeData!.backgroundColor),
-          );
+          return const SizedBox.shrink();
         }
       },
     );

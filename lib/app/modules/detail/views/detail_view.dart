@@ -699,8 +699,7 @@ class DetailView extends GetView<DetailController> {
                                                     .width,
                                                 child: ListView.builder(
                                                   padding: EdgeInsets.only(
-                                                      bottom:  20.h
-                                                          ),
+                                                      bottom: 10.h),
                                                   controller: controller
                                                       .readerScrollController,
                                                   itemCount: controller
@@ -724,26 +723,22 @@ class DetailView extends GetView<DetailController> {
                                                                 .readerScrollController
                                                                 .position
                                                                 .maxScrollExtent,
-                                                            duration: Duration(
-                                                                milliseconds:
-                                                                    500),
+                                                            duration:
+                                                                const Duration(
+                                                                    milliseconds:
+                                                                        500),
                                                             curve: Curves
                                                                 .easeInOut,
                                                           );
                                                         }
-                                                        controller
-                                                            .toggleSelectedRowIndex(
-                                                                index,
-                                                                controller
-                                                                        .allVerses[
-                                                                    i][index]);
+
                                                         controller.update();
                                                         print(index);
                                                         print(controller
                                                                 .allVerses[i]
                                                                 .length -
                                                             1);
-                                                        
+
                                                         if (controller
                                                                     .allVerses[
                                                                         i]
@@ -768,6 +763,12 @@ class DetailView extends GetView<DetailController> {
                                                                         [index]
                                                                     .para !=
                                                                 "d") {
+                                                          controller
+                                                              .toggleSelectedRowIndex(
+                                                                  index,
+                                                                  controller
+                                                                          .allVerses[
+                                                                      i][index]);
                                                           controller
                                                               .updateshowSelectionMenu(
                                                                   true);
@@ -892,7 +893,7 @@ class DetailView extends GetView<DetailController> {
                                                                                         color: themeData.themeData.value!.primaryColor,
                                                                                         fontWeight: FontWeight.bold,
                                                                                         fontFamily: "Abyssinica",
-                                                                                        backgroundColor: Colors.transparent,
+                                                                                        backgroundColor: controller.selectedRowIndex.any((element) => element == index) ? themeData.themeData.value!.primaryColor.withOpacity(0.5) : getHighlightColor(controller.allVerses[i][index].highlight!),
                                                                                       ),
                                                                                     )),
                                                                         ),

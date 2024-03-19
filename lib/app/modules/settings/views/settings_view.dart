@@ -223,7 +223,7 @@ void showFontSizeBottomSheet(BuildContext context) {
                 topRight: Radius.circular(10),
               ),
             ),
-            padding: const EdgeInsets.fromLTRB(16.0,16.0,16.0,40.0),
+            padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 40.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
@@ -315,6 +315,30 @@ void showThemeConfigBottomSheet(BuildContext context) {
                           padding: const EdgeInsets.symmetric(horizontal: 4),
                           child: GestureDetector(
                             onTap: () {
+                              themeController.getLightThemeData();
+                              themeController.update();
+                            },
+                            child: Container(
+                              width: 60,
+                              height: 30,
+                              decoration: BoxDecoration(
+                                  border: Border.all(
+                                      color: const Color.fromARGB(
+                                          255, 192, 192, 192)),
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(5)),
+                              child: const Center(
+                                  child: Text(
+                                "Default",
+                                style: TextStyle(color: Colors.black),
+                              )),
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 4),
+                          child: GestureDetector(
+                            onTap: () {
                               themeController.getGreyThemeData();
                               themeController.update();
                             },
@@ -356,30 +380,6 @@ void showThemeConfigBottomSheet(BuildContext context) {
                                   child: Text(
                                 "Dark",
                                 style: TextStyle(color: Colors.white),
-                              )),
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 4),
-                          child: GestureDetector(
-                            onTap: () {
-                              themeController.getLightThemeData();
-                              themeController.update();
-                            },
-                            child: Container(
-                              width: 60,
-                              height: 30,
-                              decoration: BoxDecoration(
-                                  border: Border.all(
-                                      color: const Color.fromARGB(
-                                          255, 192, 192, 192)),
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(5)),
-                              child: const Center(
-                                  child: Text(
-                                "Default",
-                                style: TextStyle(color: Colors.black),
                               )),
                             ),
                           ),

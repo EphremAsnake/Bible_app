@@ -27,7 +27,9 @@ Widget textSelectionOptions(BuildContext context, List<Verses> selectedVerses,
     builder: (_) {
       return Container(
         padding: EdgeInsets.symmetric(
-            horizontal: SizerUtil.deviceType != DeviceType.mobile?MediaQuery.of(context).size.width / 7:0),
+            horizontal: SizerUtil.deviceType != DeviceType.mobile
+                ? MediaQuery.of(context).size.width / 7
+                : 0),
         color: Colors.transparent,
         child: Container(
           decoration: BoxDecoration(
@@ -612,13 +614,18 @@ Widget textSelectionOptions(BuildContext context, List<Verses> selectedVerses,
                                 // String selectedbookname,
                                 // String selectedbooktitle,
                                 // String verse
-                                compare(
-                                    context,
-                                    '${detailController.getBookTitle(selectedVerses[0].book!)}',
-                                    '${selectedVerses[0].chapter}',
-                                    '${selectedVerses[0].verseNumber}',
-                                    selectedVerses[0].verseText!,
-                                    selectedVerses[0].book!);
+                                if (selectedVerses.isNotEmpty) {
+                                  compare(
+                                      context,
+                                      '${detailController.getBookTitle(selectedVerses[0].book!)}',
+                                      '${selectedVerses[0].chapter}',
+                                      '${selectedVerses[0].verseNumber}',
+                                      selectedVerses[0].verseText!,
+                                      selectedVerses[0].book!);
+                                } else {
+                                  detailController
+                                      .updateshowSelectionMenu(false);
+                                }
                               },
                               icon: Icon(
                                 Icons.compare_outlined,

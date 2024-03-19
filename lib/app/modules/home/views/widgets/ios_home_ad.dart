@@ -20,11 +20,7 @@ class IosHomeAD extends StatelessWidget {
       initState: (_) {},
       builder: (_) {
         if (detailController.apiStateHandler.apiState == ApiState.loading) {
-          return Container(
-            padding: const EdgeInsets.all(0),
-            height: 25,
-            decoration: BoxDecoration(color: themeData!.whiteColor),
-          );
+          return const SizedBox.shrink();
         } else if (detailController.apiStateHandler.apiState ==
             ApiState.success) {
           if (detailController
@@ -134,18 +130,10 @@ class IosHomeAD extends StatelessWidget {
               ),
             );
           } else {
-            return Container(
-              padding: const EdgeInsets.all(0),
-              height: 5,
-              decoration: BoxDecoration(color: themeData!.whiteColor),
-            );
+            return const SizedBox.shrink();
           }
         } else {
-          return Container(
-            padding: const EdgeInsets.all(0),
-            height: 5,
-            decoration: BoxDecoration(color: themeData!.whiteColor),
-          );
+          return const SizedBox.shrink();
         }
       },
     );

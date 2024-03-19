@@ -110,8 +110,11 @@ class DatabaseService {
     Database database = await openDatabase(path);
 
     // Query the database
-    List<Map<String, dynamic>> rows = await database.rawQuery(
-        'SELECT * FROM $book WHERE chapter = $chapter AND verseNumber = $verseNumber AND book = $booknum');
+    List<Map<String, dynamic>> rows = await database.rawQuery(book ==
+                "AMHNIV" ||
+            book == "ENGNIV"
+        ? 'SELECT * FROM $book WHERE chapter = $chapter AND verseNumber = $verseNumber AND book = $booknum AND para NOT IN ("s1", "s2", "s3", "d")'
+        : 'SELECT * FROM $book WHERE chapter = $chapter AND verseNumber = $verseNumber AND book = $booknum');
     Logger logger = Logger();
     logger.e(rows);
     //thisverse = rows;

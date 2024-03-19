@@ -46,6 +46,7 @@ class DetailController extends SuperController {
   int currentPageNumber = 0;
   ScrollController readerScrollController = ScrollController();
   ScrollController drawerScrollController = ScrollController();
+  ScrollController drawerChapterScrollController = ScrollController();
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   PageController? pageController;
   final GlobalKey pageKey = GlobalKey();

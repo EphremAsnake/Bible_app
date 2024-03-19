@@ -32,7 +32,7 @@ class CustomDrawer extends StatelessWidget {
   //                                                                       .selectedOldTestamentBookIndex *
   //                                                                   40,
   //                                                             );
-  @override 
+  @override
   Widget build(BuildContext context) {
     return Drawer(
       backgroundColor: themeData!.backgroundColor,
@@ -198,7 +198,6 @@ class CustomDrawer extends StatelessWidget {
                   );
                 } else if (controller.cacheStateHandler.apiState ==
                     ApiState.success) {
-                  
                   return Container(
                     color: themeData!.backgroundColor,
                     child: Row(
@@ -222,8 +221,7 @@ class CustomDrawer extends StatelessWidget {
                                         CrossAxisAlignment.start,
                                     children: [
                                       TabBar(
-                                        indicatorColor:
-                                            themeData!.primaryColor,
+                                        indicatorColor: themeData!.primaryColor,
                                         tabs: [
                                           Tab(
                                             child: Align(
@@ -236,7 +234,8 @@ class CustomDrawer extends StatelessWidget {
                                                               DeviceType.mobile
                                                           ? 11.sp
                                                           : 9.sp,
-                                                  color: themeData?.primaryColor,
+                                                  color:
+                                                      themeData?.primaryColor,
                                                   fontWeight: FontWeight.bold,
                                                 ),
                                               ),
@@ -253,7 +252,8 @@ class CustomDrawer extends StatelessWidget {
                                                               DeviceType.mobile
                                                           ? 11.sp
                                                           : 9.sp,
-                                                  color: themeData?.primaryColor,
+                                                  color:
+                                                      themeData?.primaryColor,
                                                   fontWeight: FontWeight.bold,
                                                 ),
                                               ),
@@ -274,7 +274,28 @@ class CustomDrawer extends StatelessWidget {
                                               children: [
                                                 GetBuilder<HomeController>(
                                                   init: HomeController(),
-                                                  initState: (_) {},
+                                                  initState: (_) {
+                                                    WidgetsBinding.instance!
+                                                        .addPostFrameCallback(
+                                                            (_) {
+                                                      // controller
+                                                      //     .drawerScrollController
+                                                      //     .animateTo(
+                                                      //   // Calculate the scroll position based on the selected index and item height
+                                                      //   index * itemHeight,
+                                                      //   duration: Duration(
+                                                      //       milliseconds: 500),
+                                                      //   curve: Curves.ease,
+                                                      // );
+                                                      controller
+                                                          .drawerScrollController
+                                                          .jumpTo(
+                                                        controller
+                                                                .selectedOldTestamentBookIndex *
+                                                            45,
+                                                      );
+                                                    });
+                                                  },
                                                   builder: (_) {
                                                     return ListView.builder(
                                                       controller: controller
@@ -306,8 +327,8 @@ class CustomDrawer extends StatelessWidget {
                                                             dense: true,
                                                             visualDensity:
                                                                 const VisualDensity(
-                                                              vertical: -3,
-                                                            ),
+                                                                    vertical:
+                                                                        -3),
                                                             title: Text(
                                                               controller
                                                                   .oldTestamentBook[
@@ -371,7 +392,6 @@ class CustomDrawer extends StatelessWidget {
                                                               detailController
                                                                       .isSelectingBook =
                                                                   true;
-
                                                               detailController
                                                                   .update();
                                                             },
@@ -383,7 +403,28 @@ class CustomDrawer extends StatelessWidget {
                                                 ),
                                                 GetBuilder<HomeController>(
                                                   init: HomeController(),
-                                                  initState: (_) {},
+                                                  initState: (_) {
+                                                    WidgetsBinding.instance!
+                                                        .addPostFrameCallback(
+                                                            (_) {
+                                                      // controller
+                                                      //     .drawerScrollController
+                                                      //     .animateTo(
+                                                      //   // Calculate the scroll position based on the selected index and item height
+                                                      //   index * itemHeight,
+                                                      //   duration: Duration(
+                                                      //       milliseconds: 500),
+                                                      //   curve: Curves.ease,
+                                                      // );
+                                                      controller
+                                                          .drawerScrollController
+                                                          .jumpTo(
+                                                        controller
+                                                                .selectedNewTestamentBookIndex *
+                                                            45,
+                                                      );
+                                                    });
+                                                  },
                                                   builder: (_) {
                                                     return ListView.builder(
                                                       controller: controller
@@ -500,8 +541,7 @@ class CustomDrawer extends StatelessWidget {
                                 vertical: 0.sp, horizontal: 0),
                             child: VerticalDivider(
                               width: 1,
-                              color: themeData?.primaryColor
-                                  .withOpacity(0.5),
+                              color: themeData?.primaryColor.withOpacity(0.5),
                             ),
                           ),
                         ),
@@ -519,7 +559,25 @@ class CustomDrawer extends StatelessWidget {
                                 const SizedBox(height: 28),
                                 GetBuilder<HomeController>(
                                   init: HomeController(),
-                                  initState: (_) {},
+                                  initState: (_) {
+                                    WidgetsBinding.instance!
+                                        .addPostFrameCallback((_) {
+                                      // controller
+                                      //     .drawerScrollController
+                                      //     .animateTo(
+                                      //   // Calculate the scroll position based on the selected index and item height
+                                      //   index * itemHeight,
+                                      //   duration: Duration(
+                                      //       milliseconds: 500),
+                                      //   curve: Curves.ease,
+                                      // );
+                                      detailController
+                                          .drawerChapterScrollController
+                                          .jumpTo(
+                                        controller.selectedIndex * 30,
+                                      );
+                                    });
+                                  },
                                   builder: (_) {
                                     int bookChapters = 0;
 
@@ -549,7 +607,7 @@ class CustomDrawer extends StatelessWidget {
                                           width: 30.w,
                                           child: ListView.builder(
                                             controller: detailController
-                                                .drawerScrollController,
+                                                .drawerChapterScrollController,
                                             shrinkWrap: true,
                                             itemCount: chapters.length,
                                             itemBuilder: (context, index) {
@@ -617,16 +675,15 @@ class CustomDrawer extends StatelessWidget {
                                                                 .clear();
                                                             getterAndSetterController
                                                                 .selectedVersesAMH
-                                                                .addAll(getterAndSetterController
-                                                                    .getAMHBookChapters(
-                                                                        controller
-                                                                            .newTestamentBook[controller
-                                                                                .selectedNewTestamentBookIndex]
-                                                                            .id!,
-                                                                        chapters[
-                                                                            index],
-                                                                        controller
-                                                                            .versesAMH));
+                                                                .addAll(getterAndSetterController.getAMHBookChapters(
+                                                                    controller
+                                                                        .newTestamentBook[controller
+                                                                            .selectedNewTestamentBookIndex]
+                                                                        .id!,
+                                                                    chapters[
+                                                                        index],
+                                                                    controller
+                                                                        .versesAMH));
 
                                                             int page = detailController
                                                                 .navigateToSpecificBookDetailView(
@@ -650,16 +707,15 @@ class CustomDrawer extends StatelessWidget {
                                                                 .clear();
                                                             getterAndSetterController
                                                                 .selectedVersesAMH
-                                                                .addAll(getterAndSetterController
-                                                                    .getAMHBookChapters(
-                                                                        controller
-                                                                            .oldTestamentBook[controller
-                                                                                .selectedOldTestamentBookIndex]
-                                                                            .id!,
-                                                                        chapters[
-                                                                            index],
-                                                                        controller
-                                                                            .versesAMH));
+                                                                .addAll(getterAndSetterController.getAMHBookChapters(
+                                                                    controller
+                                                                        .oldTestamentBook[controller
+                                                                            .selectedOldTestamentBookIndex]
+                                                                        .id!,
+                                                                    chapters[
+                                                                        index],
+                                                                    controller
+                                                                        .versesAMH));
                                                           }
                                                           int page = detailController
                                                               .navigateToSpecificBookDetailView(

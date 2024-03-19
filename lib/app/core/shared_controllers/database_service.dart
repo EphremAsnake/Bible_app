@@ -132,7 +132,12 @@ class DatabaseService {
 
       versesSelected.add(selectedverse);
     }
-    thisverse = versesSelected[0].verseText ?? '';
+    if (versesSelected.isNotEmpty) {
+      thisverse =
+          versesSelected.map((verse) => (verse.verseText ?? '').trim()).join('');
+    }
+
+    //thisverse = versesSelected[0].verseText ?? '';
     // Close the database
     await database.close();
 

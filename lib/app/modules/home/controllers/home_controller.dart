@@ -21,6 +21,8 @@ class HomeController extends GetxController {
   List<Book> oldTestamentBook = [];
   List<Book> newTestamentBook = [];
   ScrollController drawerScrollController = ScrollController();
+
+  // ScrollController drawerXhapterScrollController = ScrollController();
   String selectedTestament = "OT";
   List<Verses> versesAMH = [];
   List<Verses> selectedVersesAMH = [];

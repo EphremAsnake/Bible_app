@@ -63,21 +63,21 @@ class AndroidHomeAD extends StatelessWidget {
                 child: Container(
                   width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
-                    color: themeData!.cardColor,
+                    color: Colors.white,
                     shape: BoxShape.rectangle,
                     borderRadius: BorderRadius.circular(5),
-                    boxShadow: [
+                    boxShadow: const [
                       BoxShadow(
-                        color: themeData!.shadowColor,
+                        color: Color(0xffEEEDED),
                         spreadRadius: 2,
                         blurRadius: 10,
-                        offset: const Offset(0, 8), // horizontal, vertical offset
+                        offset: Offset(0, 8), // horizontal, vertical offset
                       ),
                       BoxShadow(
-                        color: themeData!.shadowColor,
+                        color: Color(0xffEEEDED),
                         spreadRadius: 2,
                         blurRadius: 10,
-                        offset: const Offset(0, -8), // horizontal, vertical offset
+                        offset: Offset(0, -8), // horizontal, vertical offset
                       ),
                     ],
                   ),

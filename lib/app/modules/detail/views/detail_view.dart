@@ -368,9 +368,23 @@ class DetailView extends GetView<DetailController> {
                                 }
 
                                 double getItemHeight(int index) {
-                                  return 30.0;
+                                  return 40.0;
                                 }
 
+                                int selectedverseindex = controller
+                                                .selectedBook ==
+                                            "አዲሱ መደበኛ ትርጉም" ||
+                                        controller.selectedBook == "English NIV"
+                                    ? controller
+                                        .searchResultVerses[i].verseNumber
+                                    : controller.searchResultVerses[i]
+                                                .verseNumber !=
+                                            0
+                                        ? controller.searchResultVerses[i]
+                                                .verseNumber -
+                                            1
+                                        : controller
+                                            .searchResultVerses[i].verseNumber;
                                 return Padding(
                                   padding: const EdgeInsets.symmetric(
                                       vertical: 0, horizontal: 4),
@@ -384,15 +398,16 @@ class DetailView extends GetView<DetailController> {
                                                   .chapter!);
 
                                       //!Scroll to Selected Verse
+
                                       controller.readerScrollController.jumpTo(
-                                        controller.searchResultVerses[i]
-                                                .verseNumber *
+                                        selectedverseindex *
                                             getItemHeight(controller
                                                 .searchResultVerses[i]
                                                 .verseNumber),
                                       );
-                                      controller.updateblinkindex(controller
-                                          .searchResultVerses[i].verseNumber);
+                                      controller
+                                          .updateblinkindex(selectedverseindex);
+                                      print(controller.selectedBook);
                                       Timer(const Duration(seconds: 2), () {
                                         controller.makeblinkindexnull();
                                       });
@@ -719,7 +734,7 @@ class DetailView extends GetView<DetailController> {
                                                     .width,
                                                 child: ListView.builder(
                                                   padding: EdgeInsets.only(
-                                                      bottom: 10.h),
+                                                      bottom: 15.h),
                                                   controller: controller
                                                       .readerScrollController,
                                                   itemCount: controller
@@ -967,7 +982,7 @@ class DetailView extends GetView<DetailController> {
                                                                     : Container(
                                                                         color: index ==
                                                                                 controller.blinkindex
-                                                                            ? const Color.fromARGB(255, 246, 111, 108)
+                                                                            ? themeData.themeData.value!.primaryColor.withOpacity(0.5)
                                                                             : Colors.transparent,
                                                                         child:
                                                                             RichText(

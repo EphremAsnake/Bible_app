@@ -500,6 +500,7 @@ class DetailController extends SuperController {
             pageController!.animateToPage(indexOfBook,
                 duration: const Duration(milliseconds: 1),
                 curve: Curves.easeInOut);
+                
             scaffoldKey.currentState?.closeDrawer();
             scaffoldKey.currentState?.closeEndDrawer();
             // readerScrollController.animateTo(

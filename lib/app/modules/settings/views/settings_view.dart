@@ -339,7 +339,7 @@ void showThemeConfigBottomSheet(BuildContext context) {
                           padding: const EdgeInsets.symmetric(horizontal: 4),
                           child: GestureDetector(
                             onTap: () {
-                              themeController.getGreyThemeData();
+                              themeController.getAmberThemeData();
                               themeController.update();
                             },
                             child: Container(
@@ -350,37 +350,9 @@ void showThemeConfigBottomSheet(BuildContext context) {
                                       color: const Color.fromARGB(
                                           255, 192, 192, 192)),
                                   color:
-                                      const Color.fromARGB(255, 175, 175, 175),
+                                      const Color.fromARGB(255, 238, 225, 206),
                                   borderRadius: BorderRadius.circular(5)),
-                              child: const Center(
-                                  child: Text(
-                                "Grey",
-                                style: TextStyle(color: Colors.white),
-                              )),
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 4),
-                          child: GestureDetector(
-                            onTap: () {
-                              themeController.getDarkThemeData();
-                              themeController.update();
-                            },
-                            child: Container(
-                              width: 60,
-                              height: 30,
-                              decoration: BoxDecoration(
-                                  border: Border.all(
-                                      color: const Color.fromARGB(
-                                          255, 192, 192, 192)),
-                                  color: const Color.fromARGB(255, 77, 77, 77),
-                                  borderRadius: BorderRadius.circular(5)),
-                              child: const Center(
-                                  child: Text(
-                                "Dark",
-                                style: TextStyle(color: Colors.white),
-                              )),
+                              child: const Center(child: Text("Amber")),
                             ),
                           ),
                         ),
@@ -409,7 +381,7 @@ void showThemeConfigBottomSheet(BuildContext context) {
                           padding: const EdgeInsets.symmetric(horizontal: 4),
                           child: GestureDetector(
                             onTap: () {
-                              themeController.getAmberThemeData();
+                              themeController.getTealThemeData();
                               themeController.update();
                             },
                             child: Container(
@@ -420,9 +392,38 @@ void showThemeConfigBottomSheet(BuildContext context) {
                                       color: const Color.fromARGB(
                                           255, 192, 192, 192)),
                                   color:
-                                      const Color.fromARGB(255, 238, 225, 206),
+                                      const Color.fromARGB(255, 96, 187, 178),
                                   borderRadius: BorderRadius.circular(5)),
-                              child: const Center(child: Text("Amber")),
+                              child: const Center(
+                                  child: Text(
+                                "Teal",
+                                style: TextStyle(color: Colors.white),
+                              )),
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 4),
+                          child: GestureDetector(
+                            onTap: () {
+                              themeController.getGreyThemeData();
+                              themeController.update();
+                            },
+                            child: Container(
+                              width: 60,
+                              height: 30,
+                              decoration: BoxDecoration(
+                                  border: Border.all(
+                                      color: const Color.fromARGB(
+                                          255, 192, 192, 192)),
+                                  color:
+                                      const Color.fromARGB(255, 175, 175, 175),
+                                  borderRadius: BorderRadius.circular(5)),
+                              child: const Center(
+                                  child: Text(
+                                "Grey",
+                                style: TextStyle(color: Colors.white),
+                              )),
                             ),
                           ),
                         ),
@@ -475,7 +476,7 @@ void showThemeConfigBottomSheet(BuildContext context) {
                           padding: const EdgeInsets.symmetric(horizontal: 4),
                           child: GestureDetector(
                             onTap: () {
-                              themeController.getTealThemeData();
+                              themeController.getDarkThemeData();
                               themeController.update();
                             },
                             child: Container(
@@ -485,12 +486,11 @@ void showThemeConfigBottomSheet(BuildContext context) {
                                   border: Border.all(
                                       color: const Color.fromARGB(
                                           255, 192, 192, 192)),
-                                  color:
-                                      const Color.fromARGB(255, 96, 187, 178),
+                                  color: const Color.fromARGB(255, 77, 77, 77),
                                   borderRadius: BorderRadius.circular(5)),
                               child: const Center(
                                   child: Text(
-                                "Teal",
+                                "Dark",
                                 style: TextStyle(color: Colors.white),
                               )),
                             ),

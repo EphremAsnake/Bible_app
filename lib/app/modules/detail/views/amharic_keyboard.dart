@@ -38,94 +38,99 @@ class AmharicKeyboard extends StatelessWidget {
                       visible: detailController
                               .selectedAmharicLetter?.forms.isNotEmpty ??
                           false,
-                      child: SizedBox(
-                        height: SizerUtil.deviceType == DeviceType.mobile
-                            ? 6.5.h
-                            : 6.4.h,
-                        child: GridView.builder(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 0, horizontal: 1),
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemCount: detailController
-                              .selectedAmharicLetter?.forms.length,
-                          gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: detailController
-                                        .selectedAmharicLetter?.basicForm ==
-                                    '0'
-                                ? 10
-                                : 7,
-                            mainAxisSpacing: 4.0, // Adjust the spacing here
-                            crossAxisSpacing: 5.0, // Adjust the spacing here
-                          ),
-                          itemBuilder: (context, index) {
-                            final key = detailController
-                                .selectedAmharicLetter?.forms[index];
-                            return InkWell(
-                              onTap: () {
-                                if (detailController
-                                        .isKeyboardFormIsPressedFromBasicForm ==
-                                    true) {
-                                  bool isFirstForm = false;
-                                  int currentlySelectedKeyIndex =
-                                      _keyboardRows.indexOf(detailController
-                                          .selectedAmharicLetter!);
-                                  AmharicLetter letter =
-                                      _keyboardRows[currentlySelectedKeyIndex];
-                                  List<String> inputValues = detailController
-                                      .searchController.text
-                                      .split('');
+                      child: Padding(
+                        padding: SizerUtil.deviceType != DeviceType.mobile
+                            ? const EdgeInsets.fromLTRB(4.0, 0, 4, 10)
+                            : const EdgeInsets.all(0),
+                        child: SizedBox(
+                          height: SizerUtil.deviceType == DeviceType.mobile
+                              ? 6.5.h
+                              : 5.4.h,
+                          child: GridView.builder(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 0, horizontal: 1),
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: detailController
+                                .selectedAmharicLetter?.forms.length,
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: detailController
+                                          .selectedAmharicLetter?.basicForm ==
+                                      '0'
+                                  ? 10
+                                  : 7,
+                              mainAxisSpacing: 4.0, // Adjust the spacing here
+                              crossAxisSpacing: 5.0, // Adjust the spacing here
+                            ),
+                            itemBuilder: (context, index) {
+                              final key = detailController
+                                  .selectedAmharicLetter?.forms[index];
+                              return InkWell(
+                                onTap: () {
+                                  if (detailController
+                                          .isKeyboardFormIsPressedFromBasicForm ==
+                                      true) {
+                                    bool isFirstForm = false;
+                                    int currentlySelectedKeyIndex =
+                                        _keyboardRows.indexOf(detailController
+                                            .selectedAmharicLetter!);
+                                    AmharicLetter letter = _keyboardRows[
+                                        currentlySelectedKeyIndex];
+                                    List<String> inputValues = detailController
+                                        .searchController.text
+                                        .split('');
 
-                                  if (inputValues.isNotEmpty) {
-                                    if (letter.basicForm ==
-                                        inputValues[inputValues.length - 1]) {
-                                      isFirstForm = true;
-                                    }
+                                    if (inputValues.isNotEmpty) {
+                                      if (letter.basicForm ==
+                                          inputValues[inputValues.length - 1]) {
+                                        isFirstForm = true;
+                                      }
 
-                                    if (isFirstForm == true) {
-                                      inputValues[inputValues.length - 1] =
-                                          key!;
-                                      String inputValue = inputValues.join();
-                                      detailController.searchController.text =
-                                          inputValue;
-                                      detailController.update();
-                                    } else {
-                                      detailController.onKeyPressed(key!);
+                                      if (isFirstForm == true) {
+                                        inputValues[inputValues.length - 1] =
+                                            key!;
+                                        String inputValue = inputValues.join();
+                                        detailController.searchController.text =
+                                            inputValue;
+                                        detailController.update();
+                                      } else {
+                                        detailController.onKeyPressed(key!);
+                                      }
                                     }
+                                    detailController
+                                            .isKeyboardFormIsPressedFromBasicForm =
+                                        false;
+                                    detailController.update();
+                                  } else {
+                                    detailController.onKeyPressed(key!);
+                                    detailController
+                                            .isKeyboardFormIsPressedFromBasicForm =
+                                        false;
+                                    detailController.update();
                                   }
-                                  detailController
-                                          .isKeyboardFormIsPressedFromBasicForm =
-                                      false;
-                                  detailController.update();
-                                } else {
-                                  detailController.onKeyPressed(key!);
-                                  detailController
-                                          .isKeyboardFormIsPressedFromBasicForm =
-                                      false;
-                                  detailController.update();
-                                }
-                              },
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: themeData
-                                      .themeData.value!.backgroundColor,
-                                  borderRadius: BorderRadius.circular(4.0),
+                                },
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: themeData
+                                        .themeData.value!.backgroundColor,
+                                    borderRadius: BorderRadius.circular(4.0),
+                                  ),
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    key ?? "",
+                                    style: TextStyle(
+                                        fontSize: SizerUtil.deviceType ==
+                                                DeviceType.mobile
+                                            ? 10.sp
+                                            : 16.0,
+                                        color: themeData
+                                            .themeData.value!.verseColor),
+                                  ),
                                 ),
-                                alignment: Alignment.center,
-                                child: Text(
-                                  key ?? "",
-                                  style: TextStyle(
-                                      fontSize: SizerUtil.deviceType ==
-                                              DeviceType.mobile
-                                          ? 10.sp
-                                          : 16.0,
-                                      color: themeData
-                                          .themeData.value!.verseColor),
-                                ),
-                              ),
-                            );
-                          },
+                              );
+                            },
+                          ),
                         ),
                       ),
                     ),
@@ -147,7 +152,7 @@ class AmharicKeyboard extends StatelessWidget {
                                     ? 98.sp
                                     : 30.sp
                                 : key.basicForm == '―'
-                                    ? 76.sp
+                                    ? 74.8.sp
                                     : 24.sp,
                             height: 40,
                             child: InkWell(

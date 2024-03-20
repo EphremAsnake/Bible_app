@@ -320,7 +320,7 @@ void showThemeConfigBottomSheet(BuildContext context) {
                             },
                             child: Container(
                               width: 60,
-                              height: 30,
+                              height: 40,
                               decoration: BoxDecoration(
                                   border: Border.all(
                                       color: const Color.fromARGB(
@@ -344,7 +344,7 @@ void showThemeConfigBottomSheet(BuildContext context) {
                             },
                             child: Container(
                               width: 60,
-                              height: 30,
+                              height: 40,
                               decoration: BoxDecoration(
                                   border: Border.all(
                                       color: const Color.fromARGB(
@@ -365,7 +365,7 @@ void showThemeConfigBottomSheet(BuildContext context) {
                             padding: const EdgeInsets.symmetric(horizontal: 4),
                             child: Container(
                               width: 60,
-                              height: 30,
+                              height: 40,
                               decoration: BoxDecoration(
                                   border: Border.all(
                                       color: const Color.fromARGB(
@@ -386,7 +386,7 @@ void showThemeConfigBottomSheet(BuildContext context) {
                             },
                             child: Container(
                               width: 60,
-                              height: 30,
+                              height: 40,
                               decoration: BoxDecoration(
                                   border: Border.all(
                                       color: const Color.fromARGB(
@@ -411,7 +411,7 @@ void showThemeConfigBottomSheet(BuildContext context) {
                             },
                             child: Container(
                               width: 60,
-                              height: 30,
+                              height: 40,
                               decoration: BoxDecoration(
                                   border: Border.all(
                                       color: const Color.fromARGB(
@@ -436,7 +436,7 @@ void showThemeConfigBottomSheet(BuildContext context) {
                             },
                             child: Container(
                               width: 60,
-                              height: 30,
+                              height: 40,
                               decoration: BoxDecoration(
                                   border: Border.all(
                                       color: const Color.fromARGB(
@@ -457,7 +457,7 @@ void showThemeConfigBottomSheet(BuildContext context) {
                             },
                             child: Container(
                               width: 60,
-                              height: 30,
+                              height: 40,
                               decoration: BoxDecoration(
                                   border: Border.all(
                                       color: const Color.fromARGB(
@@ -481,7 +481,7 @@ void showThemeConfigBottomSheet(BuildContext context) {
                             },
                             child: Container(
                               width: 60,
-                              height: 30,
+                              height: 40,
                               decoration: BoxDecoration(
                                   border: Border.all(
                                       color: const Color.fromARGB(

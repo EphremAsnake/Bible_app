@@ -413,7 +413,7 @@ class DetailView extends GetView<DetailController> {
 
                                       controller
                                           .updateblinkindex(selectedverseindex);
-                                      //print(controller.selectedBook);
+                                      print(selectedverseindex.toString());
                                       Timer(const Duration(seconds: 2), () {
                                         controller.makeblinkindexnull();
                                         controller.makeSelectedVerseZero();
@@ -669,7 +669,7 @@ class DetailView extends GetView<DetailController> {
                                   () {
                                 controller.readerScrollController.animateTo(
                                   controller.selctedverse *
-                                      40, // Scroll to the top
+                                      45, // Scroll to the top
                                   duration: const Duration(
                                       milliseconds:
                                           500), // Adjust the duration as needed
@@ -884,7 +884,16 @@ class DetailView extends GetView<DetailController> {
                                                                             ),
                                                                           ),
                                                                         ),
-                                                                      if (!["s1", "s2", "s3"].contains(controller.allVerses[i][index].para))
+                                                                      if (![
+                                                                        "s1",
+                                                                        "s2",
+                                                                        "s3"
+                                                                      ].contains(controller
+                                                                          .allVerses[
+                                                                              i]
+                                                                              [
+                                                                              index]
+                                                                          .para))
                                                                         Text(
                                                                           index == 0
                                                                               ? '${controller.allVerses[i][index].chapter}'
@@ -917,46 +926,52 @@ class DetailView extends GetView<DetailController> {
                                                                         Expanded(
                                                                           child:
                                                                               Container(
-                                                                            color: index == controller.blinkindex
+                                                                            color: controller.allVerses[i][index].verseNumber == controller.blinkindex
                                                                                 ? themeData.themeData.value!.primaryColor.withOpacity(0.5)
                                                                                 : Colors.transparent,
-                                                                            child: RichText(
-                                                                                text: !["s1", "s2", "s3", "d"].contains(controller.allVerses[i][index].para)
-                                                                                    ? TextSpan(
-                                                                                        children: [
-                                                                                          TextSpan(
-                                                                                            text: controller.selectedBook.contains("አዲሱ")
-                                                                                                ? '${controller.allVerses[i][index].verseNumber}፤  '
-                                                                                                : controller.selectedBook.contains("1954")
-                                                                                                    ? '${controller.allVerses[i][index].verseNumber} '
-                                                                                                    : '${controller.allVerses[i][index].verseNumber}  ',
-                                                                                            style: TextStyle(
-                                                                                              fontSize: controller.fontSize.sp,
-                                                                                              fontWeight: FontWeight.bold,
-                                                                                              color: themeData.themeData.value!.numbersColor,
-                                                                                            ),
-                                                                                          ),
-                                                                                          TextSpan(
+                                                                            child:
+                                                                                RichText(
+                                                                                    text: ![
+                                                                              "s1",
+                                                                              "s2",
+                                                                              "s3",
+                                                                              "d"
+                                                                            ].contains(controller.allVerses[i][index].para)
+                                                                                        ? TextSpan(
+                                                                                            children: [
+                                                                                              TextSpan(
+                                                                                                text: controller.selectedBook.contains("አዲሱ")
+                                                                                                    ? '${controller.allVerses[i][index].verseNumber}፤  '
+                                                                                                    : controller.selectedBook.contains("1954")
+                                                                                                        ? '${controller.allVerses[i][index].verseNumber} '
+                                                                                                        : '${controller.allVerses[i][index].verseNumber}  ',
+                                                                                                style: TextStyle(
+                                                                                                  fontSize: controller.fontSize.sp,
+                                                                                                  fontWeight: FontWeight.bold,
+                                                                                                  color: themeData.themeData.value!.numbersColor,
+                                                                                                ),
+                                                                                              ),
+                                                                                              TextSpan(
+                                                                                                text: controller.allVerses[i][index].verseText,
+                                                                                                style: TextStyle(
+                                                                                                  fontSize: controller.fontSize.sp,
+                                                                                                  color: getHighlightColor(controller.allVerses[i][index].highlight!) != Colors.transparent ? themeData.themeData.value!.blackColor : themeData.themeData.value!.verseColor,
+                                                                                                  fontFamily: "Abyssinica",
+                                                                                                  backgroundColor: controller.selectedRowIndex.any((element) => element == index) ? themeData.themeData.value!.primaryColor.withOpacity(0.5) : getHighlightColor(controller.allVerses[i][index].highlight!),
+                                                                                                ),
+                                                                                              )
+                                                                                            ],
+                                                                                          )
+                                                                                        : TextSpan(
                                                                                             text: controller.allVerses[i][index].verseText,
                                                                                             style: TextStyle(
                                                                                               fontSize: controller.fontSize.sp,
-                                                                                              color: getHighlightColor(controller.allVerses[i][index].highlight!) != Colors.transparent ? themeData.themeData.value!.blackColor : themeData.themeData.value!.verseColor,
+                                                                                              color: themeData.themeData.value!.primaryColor,
+                                                                                              fontWeight: FontWeight.bold,
                                                                                               fontFamily: "Abyssinica",
                                                                                               backgroundColor: controller.selectedRowIndex.any((element) => element == index) ? themeData.themeData.value!.primaryColor.withOpacity(0.5) : getHighlightColor(controller.allVerses[i][index].highlight!),
                                                                                             ),
-                                                                                          )
-                                                                                        ],
-                                                                                      )
-                                                                                    : TextSpan(
-                                                                                        text: controller.allVerses[i][index].verseText,
-                                                                                        style: TextStyle(
-                                                                                          fontSize: controller.fontSize.sp,
-                                                                                          color: themeData.themeData.value!.primaryColor,
-                                                                                          fontWeight: FontWeight.bold,
-                                                                                          fontFamily: "Abyssinica",
-                                                                                          backgroundColor: controller.selectedRowIndex.any((element) => element == index) ? themeData.themeData.value!.primaryColor.withOpacity(0.5) : getHighlightColor(controller.allVerses[i][index].highlight!),
-                                                                                        ),
-                                                                                      )),
+                                                                                          )),
                                                                           ),
                                                                         ),
                                                                     ],
@@ -978,7 +993,16 @@ class DetailView extends GetView<DetailController> {
                                                                               index]
                                                                           .verseText !=
                                                                       " ")
-                                                                ["s1", "s2", "s3", "d"].contains(controller.allVerses[i][index].para)
+                                                                [
+                                                                  "s1",
+                                                                  "s2",
+                                                                  "s3",
+                                                                  "d"
+                                                                ].contains(controller
+                                                                        .allVerses[
+                                                                            i][
+                                                                            index]
+                                                                        .para)
                                                                     ? Center(
                                                                         child:
                                                                             Padding(
@@ -1004,8 +1028,7 @@ class DetailView extends GetView<DetailController> {
                                                                         ),
                                                                       )
                                                                     : Container(
-                                                                        color: index ==
-                                                                                controller.blinkindex
+                                                                        color: controller.allVerses[i][index].verseNumber == controller.blinkindex
                                                                             ? themeData.themeData.value!.primaryColor.withOpacity(0.5)
                                                                             : Colors.transparent,
                                                                         child:

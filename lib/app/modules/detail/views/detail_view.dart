@@ -372,18 +372,7 @@ class DetailView extends GetView<DetailController> {
                                 }
 
                                 int selectedverseindex = controller
-                                                .selectedBook ==
-                                            "አዲሱ መደበኛ ትርጉም" ||
-                                        controller.selectedBook == "English NIV"
-                                    ? controller
-                                        .searchResultVerses[i].verseNumber
-                                    : controller.searchResultVerses[i]
-                                                .verseNumber !=
-                                            0
-                                        ? controller.searchResultVerses[i]
-                                                .verseNumber
-                                        : controller
-                                            .searchResultVerses[i].verseNumber;
+                                    .searchResultVerses[i].verseNumber;
                                 return Padding(
                                   padding: const EdgeInsets.symmetric(
                                       vertical: 0, horizontal: 4),
@@ -1027,7 +1016,8 @@ class DetailView extends GetView<DetailController> {
                                                                         ),
                                                                       )
                                                                     : Container(
-                                                                        color: controller.allVerses[i][index].verseNumber == controller.blinkindex
+                                                                        color: controller.allVerses[i][index].verseNumber ==
+                                                                                controller.blinkindex
                                                                             ? themeData.themeData.value!.primaryColor.withOpacity(0.5)
                                                                             : Colors.transparent,
                                                                         child:

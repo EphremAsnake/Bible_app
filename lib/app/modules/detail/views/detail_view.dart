@@ -693,8 +693,8 @@ class DetailView extends GetView<DetailController> {
                               controller.detachScrollController();
                               controller.selectedRowIndex = [];
                               controller.readerScrollController.dispose();
-                              controller.readerScrollController =
-                                  ScrollController();
+                              // controller.readerScrollController =
+                              //     ScrollController();
                               controller.update();
                             },
                             itemBuilder: (context, i) {
@@ -704,8 +704,8 @@ class DetailView extends GetView<DetailController> {
                                     controller.allVerses[i][0]);
                                 controller.update();
                               });
-                              // controller.readerScrollController =
-                              //     ScrollController();
+                              controller.readerScrollController =
+                                  ScrollController();
                               controller.readerScrollController.addListener(() {
                                 WidgetsBinding.instance
                                     .addPostFrameCallback((_) {

@@ -381,8 +381,7 @@ class DetailView extends GetView<DetailController> {
                                                 .verseNumber !=
                                             0
                                         ? controller.searchResultVerses[i]
-                                                .verseNumber -
-                                            1
+                                                .verseNumber
                                         : controller
                                             .searchResultVerses[i].verseNumber;
                                 return Padding(

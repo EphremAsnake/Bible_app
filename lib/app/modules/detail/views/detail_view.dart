@@ -398,18 +398,25 @@ class DetailView extends GetView<DetailController> {
                                                   .chapter!);
 
                                       //!Scroll to Selected Verse
+                                      // WidgetsBinding.instance!
+                                      //     .addPostFrameCallback((_) {
+                                      //   controller.readerScrollController
+                                      //       .jumpTo(
+                                      //     selectedverseindex *
+                                      //         getItemHeight(controller
+                                      //             .searchResultVerses[i]
+                                      //             .verseNumber),
+                                      //   );
+                                      // });
+                                      controller
+                                          .setSelectedVerse(selectedverseindex);
 
-                                      controller.readerScrollController.jumpTo(
-                                        selectedverseindex *
-                                            getItemHeight(controller
-                                                .searchResultVerses[i]
-                                                .verseNumber),
-                                      );
                                       controller
                                           .updateblinkindex(selectedverseindex);
-                                      print(controller.selectedBook);
+                                      //print(controller.selectedBook);
                                       Timer(const Duration(seconds: 2), () {
                                         controller.makeblinkindexnull();
+                                        controller.makeSelectedVerseZero();
                                       });
                                     },
                                     child: Card(
@@ -660,20 +667,33 @@ class DetailView extends GetView<DetailController> {
                             onPageChanged: (value) {
                               Future.delayed(const Duration(milliseconds: 500),
                                   () {
-                                //scroll to top
-                                controller.readerScrollController.animateTo(
-                                  0.0, // Scroll to the top
+                                    controller.readerScrollController.animateTo(
+                                  controller.selctedverse * 40, // Scroll to the top
                                   duration: const Duration(
                                       milliseconds:
                                           500), // Adjust the duration as needed
                                   curve: Curves
                                       .easeInOut, // Use a different curve if desired
                                 );
+                                // controller.readerScrollController.jumpTo(
+                                //   controller.selctedverse * 40,
+                                // );
+                                //scroll to top
+                                // controller.readerScrollController.animateTo(
+                                //   0.0, // Scroll to the top
+                                //   duration: const Duration(
+                                //       milliseconds:
+                                //           500), // Adjust the duration as needed
+                                //   curve: Curves
+                                //       .easeInOut, // Use a different curve if desired
+                                // );
                               });
-                              //detach the scroll controller and re initialize
+                              //!detach the scroll controller and re initialize
                               controller.detachScrollController();
                               controller.selectedRowIndex = [];
                               controller.readerScrollController.dispose();
+                              controller.readerScrollController =
+                                  ScrollController();
                               controller.update();
                             },
                             itemBuilder: (context, i) {
@@ -683,20 +703,23 @@ class DetailView extends GetView<DetailController> {
                                     controller.allVerses[i][0]);
                                 controller.update();
                               });
-                              controller.readerScrollController =
-                                  ScrollController();
+                              // controller.readerScrollController =
+                              //     ScrollController();
                               controller.readerScrollController.addListener(() {
-                                if (controller.readerScrollController.position
-                                        .userScrollDirection ==
-                                    ScrollDirection.reverse) {
-                                  // Scrolling down, hide widgets
-                                  controller.hidePageNavigators = true;
-                                } else if (controller.readerScrollController
-                                        .position.userScrollDirection ==
-                                    ScrollDirection.forward) {
-                                  // Scrolling up, show widgets
-                                  controller.hidePageNavigators = false;
-                                }
+                                WidgetsBinding.instance
+                                    .addPostFrameCallback((_) {
+                                  if (controller.readerScrollController.position
+                                          .userScrollDirection ==
+                                      ScrollDirection.reverse) {
+                                    // Scrolling down, hide widgets
+                                    controller.hidePageNavigators = true;
+                                  } else if (controller.readerScrollController
+                                          .position.userScrollDirection ==
+                                      ScrollDirection.forward) {
+                                    // Scrolling up, show widgets
+                                    controller.hidePageNavigators = false;
+                                  }
+                                });
                               });
                               return Container(
                                 color:
@@ -894,43 +917,49 @@ class DetailView extends GetView<DetailController> {
                                                                               .verseText !=
                                                                           "፤")
                                                                         Expanded(
-                                                                          child: RichText(
-                                                                              text: controller.allVerses[i][index].para != "s1"
-                                                                                  ? TextSpan(
-                                                                                      children: [
-                                                                                        TextSpan(
-                                                                                          text: controller.selectedBook.contains("አዲሱ")
-                                                                                              ? '${controller.allVerses[i][index].verseNumber}፤  '
-                                                                                              : controller.selectedBook.contains("1954")
-                                                                                                  ? '${controller.allVerses[i][index].verseNumber} '
-                                                                                                  : '${controller.allVerses[i][index].verseNumber}  ',
-                                                                                          style: TextStyle(
-                                                                                            fontSize: controller.fontSize.sp,
-                                                                                            fontWeight: FontWeight.bold,
-                                                                                            color: themeData.themeData.value!.numbersColor,
+                                                                          child:
+                                                                              Container(
+                                                                            color: index == controller.blinkindex
+                                                                                ? themeData.themeData.value!.primaryColor.withOpacity(0.5)
+                                                                                : Colors.transparent,
+                                                                            child: RichText(
+                                                                                text: controller.allVerses[i][index].para != "s1"
+                                                                                    ? TextSpan(
+                                                                                        children: [
+                                                                                          TextSpan(
+                                                                                            text: controller.selectedBook.contains("አዲሱ")
+                                                                                                ? '${controller.allVerses[i][index].verseNumber}፤  '
+                                                                                                : controller.selectedBook.contains("1954")
+                                                                                                    ? '${controller.allVerses[i][index].verseNumber} '
+                                                                                                    : '${controller.allVerses[i][index].verseNumber}  ',
+                                                                                            style: TextStyle(
+                                                                                              fontSize: controller.fontSize.sp,
+                                                                                              fontWeight: FontWeight.bold,
+                                                                                              color: themeData.themeData.value!.numbersColor,
+                                                                                            ),
                                                                                           ),
+                                                                                          TextSpan(
+                                                                                            text: controller.allVerses[i][index].verseText,
+                                                                                            style: TextStyle(
+                                                                                              fontSize: controller.fontSize.sp,
+                                                                                              color: getHighlightColor(controller.allVerses[i][index].highlight!) != Colors.transparent ? themeData.themeData.value!.blackColor : themeData.themeData.value!.verseColor,
+                                                                                              fontFamily: "Abyssinica",
+                                                                                              backgroundColor: controller.selectedRowIndex.any((element) => element == index) ? themeData.themeData.value!.primaryColor.withOpacity(0.5) : getHighlightColor(controller.allVerses[i][index].highlight!),
+                                                                                            ),
+                                                                                          )
+                                                                                        ],
+                                                                                      )
+                                                                                    : TextSpan(
+                                                                                        text: controller.allVerses[i][index].verseText,
+                                                                                        style: TextStyle(
+                                                                                          fontSize: controller.fontSize.sp,
+                                                                                          color: themeData.themeData.value!.primaryColor,
+                                                                                          fontWeight: FontWeight.bold,
+                                                                                          fontFamily: "Abyssinica",
+                                                                                          backgroundColor: controller.selectedRowIndex.any((element) => element == index) ? themeData.themeData.value!.primaryColor.withOpacity(0.5) : getHighlightColor(controller.allVerses[i][index].highlight!),
                                                                                         ),
-                                                                                        TextSpan(
-                                                                                          text: controller.allVerses[i][index].verseText,
-                                                                                          style: TextStyle(
-                                                                                            fontSize: controller.fontSize.sp,
-                                                                                            color: getHighlightColor(controller.allVerses[i][index].highlight!) != Colors.transparent ? themeData.themeData.value!.blackColor : themeData.themeData.value!.verseColor,
-                                                                                            fontFamily: "Abyssinica",
-                                                                                            backgroundColor: controller.selectedRowIndex.any((element) => element == index) ? themeData.themeData.value!.primaryColor.withOpacity(0.5) : getHighlightColor(controller.allVerses[i][index].highlight!),
-                                                                                          ),
-                                                                                        )
-                                                                                      ],
-                                                                                    )
-                                                                                  : TextSpan(
-                                                                                      text: controller.allVerses[i][index].verseText,
-                                                                                      style: TextStyle(
-                                                                                        fontSize: controller.fontSize.sp,
-                                                                                        color: themeData.themeData.value!.primaryColor,
-                                                                                        fontWeight: FontWeight.bold,
-                                                                                        fontFamily: "Abyssinica",
-                                                                                        backgroundColor: controller.selectedRowIndex.any((element) => element == index) ? themeData.themeData.value!.primaryColor.withOpacity(0.5) : getHighlightColor(controller.allVerses[i][index].highlight!),
-                                                                                      ),
-                                                                                    )),
+                                                                                      )),
+                                                                          ),
                                                                         ),
                                                                     ],
                                                                   )

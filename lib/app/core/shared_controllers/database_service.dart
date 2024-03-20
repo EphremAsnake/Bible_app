@@ -133,8 +133,9 @@ class DatabaseService {
       versesSelected.add(selectedverse);
     }
     if (versesSelected.isNotEmpty) {
-      thisverse =
-          versesSelected.map((verse) => (verse.verseText ?? '').trim()).join('');
+      thisverse = versesSelected
+          .map((verse) => (verse.verseText ?? '').trim())
+          .join('');
     }
 
     //thisverse = versesSelected[0].verseText ?? '';

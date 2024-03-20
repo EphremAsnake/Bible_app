@@ -40,6 +40,7 @@ class DetailController extends SuperController {
   List<Book> books = [];
   bool blink = false;
   int? blinkindex;
+  int selctedverse = 0;
   List<Book> booksList = [];
   bool hidePageNavigators = false;
   int previousOpenedBookPageNumber = 0;
@@ -128,6 +129,16 @@ class DetailController extends SuperController {
 
   updateblinkindex(int newval) {
     blinkindex = newval;
+    update();
+  }
+
+  setSelectedVerse(int newVal) {
+    selctedverse = newVal;
+    update();
+  }
+
+  makeSelectedVerseZero() {
+    selctedverse = 0;
     update();
   }
 
@@ -501,7 +512,7 @@ class DetailController extends SuperController {
             pageController!.animateToPage(indexOfBook,
                 duration: const Duration(milliseconds: 1),
                 curve: Curves.easeInOut);
-                
+
             scaffoldKey.currentState?.closeDrawer();
             scaffoldKey.currentState?.closeEndDrawer();
             // readerScrollController.animateTo(

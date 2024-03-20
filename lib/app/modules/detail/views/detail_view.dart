@@ -667,8 +667,9 @@ class DetailView extends GetView<DetailController> {
                             onPageChanged: (value) {
                               Future.delayed(const Duration(milliseconds: 500),
                                   () {
-                                    controller.readerScrollController.animateTo(
-                                  controller.selctedverse * 40, // Scroll to the top
+                                controller.readerScrollController.animateTo(
+                                  controller.selctedverse *
+                                      40, // Scroll to the top
                                   duration: const Duration(
                                       milliseconds:
                                           500), // Adjust the duration as needed
@@ -883,10 +884,7 @@ class DetailView extends GetView<DetailController> {
                                                                             ),
                                                                           ),
                                                                         ),
-                                                                      if (controller
-                                                                              .allVerses[i][index]
-                                                                              .para !=
-                                                                          "s1")
+                                                                      if (!["s1", "s2", "s3"].contains(controller.allVerses[i][index].para))
                                                                         Text(
                                                                           index == 0
                                                                               ? '${controller.allVerses[i][index].chapter}'
@@ -923,7 +921,7 @@ class DetailView extends GetView<DetailController> {
                                                                                 ? themeData.themeData.value!.primaryColor.withOpacity(0.5)
                                                                                 : Colors.transparent,
                                                                             child: RichText(
-                                                                                text: controller.allVerses[i][index].para != "s1"
+                                                                                text: !["s1", "s2", "s3", "d"].contains(controller.allVerses[i][index].para)
                                                                                     ? TextSpan(
                                                                                         children: [
                                                                                           TextSpan(
@@ -980,10 +978,7 @@ class DetailView extends GetView<DetailController> {
                                                                               index]
                                                                           .verseText !=
                                                                       " ")
-                                                                controller.allVerses[i][index].para ==
-                                                                            "s1" ||
-                                                                        controller.allVerses[i][index].para ==
-                                                                            "d"
+                                                                ["s1", "s2", "s3", "d"].contains(controller.allVerses[i][index].para)
                                                                     ? Center(
                                                                         child:
                                                                             Padding(
@@ -1018,7 +1013,7 @@ class DetailView extends GetView<DetailController> {
                                                                           text:
                                                                               TextSpan(
                                                                             text: controller.selectedBook.contains("አዲሱ")
-                                                                                ? '${controller.allVerses[i][index].verseNumber}፤  '
+                                                                                ? '${controller.allVerses[i][index].verseNumber}  '
                                                                                 : controller.selectedBook.contains("1954")
                                                                                     ? controller.allVerses[i][index - 1].verseText == " ፤"
                                                                                         ? '${controller.allVerses[i][index - 1].verseNumber} - ${controller.allVerses[i][index].verseNumber} '
@@ -1032,7 +1027,7 @@ class DetailView extends GetView<DetailController> {
                                                                             ),
                                                                             children: <InlineSpan>[
                                                                               TextSpan(
-                                                                                text: '${controller.allVerses[i][index].verseText?.trimRight()}',
+                                                                                text: ' ${controller.allVerses[i][index].verseText?.trimRight()}',
                                                                                 style: TextStyle(
                                                                                   fontFamily: "Abyssinica",
                                                                                   fontSize: controller.fontSize.sp,

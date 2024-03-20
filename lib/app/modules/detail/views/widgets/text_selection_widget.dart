@@ -925,6 +925,7 @@ class _CompareDialogState extends State<CompareDialog> {
       actions: <Widget>[
         TextButton(
           onPressed: () {
+            detailController.updateshowSelectionMenu(false);
             Navigator.of(context).pop();
           },
           child: Text(

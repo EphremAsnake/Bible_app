@@ -129,7 +129,7 @@ class DataGetterAndSetter extends GetxController {
       int currentVerseNumber = -1;
 
       for (var verse in versesList) {
-        if (verse.para != "s1" && verse.para != "s2" && verse.para != "s3" &&verse.para != "d") {
+        if (verse.para != "s1" && verse.para != "s2" && verse.para != "s3" && verse.para != "d") {
           if (mergedVerses.isNotEmpty &&
               verse.chapter == currentChapter &&
               verse.verseNumber == currentVerseNumber) {

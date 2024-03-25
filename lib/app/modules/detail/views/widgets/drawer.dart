@@ -14,7 +14,7 @@ import 'package:sizer/sizer.dart';
 
 import '../../../../utils/helpers/app_translation.dart';
 
-class CustomDrawer extends StatelessWidget {
+class CustomDrawer extends StatefulWidget {
   CustomDrawer({
     super.key,
     required this.themeData,
@@ -24,18 +24,39 @@ class CustomDrawer extends StatelessWidget {
   final ThemeDataModel? themeData;
   final DataGetterAndSetter getterAndSetterController;
 
+  @override
+  State<CustomDrawer> createState() => _CustomDrawerState();
+}
+
+class _CustomDrawerState extends State<CustomDrawer> {
   final DetailController detailController = Get.find();
+  final HomeController homeController = Get.find();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      
+      homeController.drawerScrollController.jumpTo(
+        homeController.selectedOldTestamentBookIndex * 45,
+      );
+      homeController.drawerScrollController.jumpTo(
+        homeController.selectedNewTestamentBookIndex * 45,
+      );
+    });
+    // WidgetsBinding.instance!.addPostFrameCallback((_) {
+    //   homeController.drawerScrollController.jumpTo(
+    //     homeController.selectedNewTestamentBookIndex * 45,
+    //   );
+    // });
+  }
+
   //  controller
-  //                                                                 .drawerScrollController
-  //                                                                 .jumpTo(
-  //                                                               controller
-  //                                                                       .selectedOldTestamentBookIndex *
-  //                                                                   40,
-  //                                                             );
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      backgroundColor: themeData!.backgroundColor,
+      backgroundColor: widget.themeData!.backgroundColor,
       width: SizerUtil.deviceType == DeviceType.mobile ? 90.w : 60.w,
       child: Column(
         children: [
@@ -80,7 +101,7 @@ class CustomDrawer extends StatelessWidget {
                               child: Text(
                                 detailController.drawerQuote,
                                 style: TextStyle(
-                                    color: themeData!.whiteColor,
+                                    color: widget.themeData!.whiteColor,
                                     fontFamily: "Abyssinica",
                                     fontSize: 16),
                               ),
@@ -120,7 +141,7 @@ class CustomDrawer extends StatelessWidget {
                               child: Text(
                                 detailController.drawerQuote,
                                 style: TextStyle(
-                                    color: themeData!.whiteColor,
+                                    color: widget.themeData!.whiteColor,
                                     fontFamily: "Abyssinica",
                                     fontSize: 16),
                               ),
@@ -155,7 +176,7 @@ class CustomDrawer extends StatelessWidget {
                           child: Text(
                             detailController.drawerQuote,
                             style: TextStyle(
-                                color: themeData!.whiteColor,
+                                color: widget.themeData!.whiteColor,
                                 fontFamily: "Abyssinica",
                                 fontSize: 16),
                           ),
@@ -189,7 +210,7 @@ class CustomDrawer extends StatelessWidget {
                             child: Container(
                               width: double.infinity,
                               height: 80,
-                              color: themeData!.whiteColor,
+                              color: widget.themeData!.whiteColor,
                             ),
                           );
                         },
@@ -199,7 +220,7 @@ class CustomDrawer extends StatelessWidget {
                 } else if (controller.cacheStateHandler.apiState ==
                     ApiState.success) {
                   return Container(
-                    color: themeData!.backgroundColor,
+                    color: widget.themeData!.backgroundColor,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -221,7 +242,8 @@ class CustomDrawer extends StatelessWidget {
                                         CrossAxisAlignment.start,
                                     children: [
                                       TabBar(
-                                        indicatorColor: themeData!.primaryColor,
+                                        indicatorColor:
+                                            widget.themeData!.primaryColor,
                                         tabs: [
                                           Tab(
                                             child: Align(
@@ -234,8 +256,8 @@ class CustomDrawer extends StatelessWidget {
                                                               DeviceType.mobile
                                                           ? 11.sp
                                                           : 9.sp,
-                                                  color:
-                                                      themeData?.primaryColor,
+                                                  color: widget
+                                                      .themeData?.primaryColor,
                                                   fontWeight: FontWeight.bold,
                                                 ),
                                               ),
@@ -252,8 +274,8 @@ class CustomDrawer extends StatelessWidget {
                                                               DeviceType.mobile
                                                           ? 11.sp
                                                           : 9.sp,
-                                                  color:
-                                                      themeData?.primaryColor,
+                                                  color: widget
+                                                      .themeData?.primaryColor,
                                                   fontWeight: FontWeight.bold,
                                                 ),
                                               ),
@@ -275,26 +297,26 @@ class CustomDrawer extends StatelessWidget {
                                                 GetBuilder<HomeController>(
                                                   init: HomeController(),
                                                   initState: (_) {
-                                                    WidgetsBinding.instance!
-                                                        .addPostFrameCallback(
-                                                            (_) {
-                                                      // controller
-                                                      //     .drawerScrollController
-                                                      //     .animateTo(
-                                                      //   // Calculate the scroll position based on the selected index and item height
-                                                      //   index * itemHeight,
-                                                      //   duration: Duration(
-                                                      //       milliseconds: 500),
-                                                      //   curve: Curves.ease,
-                                                      // );
-                                                      controller
-                                                          .drawerScrollController
-                                                          .jumpTo(
-                                                        controller
-                                                                .selectedOldTestamentBookIndex *
-                                                            45,
-                                                      );
-                                                    });
+                                                    // WidgetsBinding.instance!
+                                                    //     .addPostFrameCallback(
+                                                    //         (_) {
+                                                    //   // controller
+                                                    //   //     .drawerScrollController
+                                                    //   //     .animateTo(
+                                                    //   //   // Calculate the scroll position based on the selected index and item height
+                                                    //   //   index * itemHeight,
+                                                    //   //   duration: Duration(
+                                                    //   //       milliseconds: 500),
+                                                    //   //   curve: Curves.ease,
+                                                    //   // );
+                                                    //   controller
+                                                    //       .drawerScrollController
+                                                    //       .jumpTo(
+                                                    //     controller
+                                                    //             .selectedOldTestamentBookIndex *
+                                                    //         45,
+                                                    //   );
+                                                    // });
                                                   },
                                                   builder: (_) {
                                                     return ListView.builder(
@@ -315,7 +337,8 @@ class CustomDrawer extends StatelessWidget {
                                                             color: index ==
                                                                     controller
                                                                         .selectedOldTestamentBookIndex
-                                                                ? themeData
+                                                                ? widget
+                                                                    .themeData
                                                                     ?.lightPrimary
                                                                 : null,
                                                             borderRadius:
@@ -338,9 +361,11 @@ class CustomDrawer extends StatelessWidget {
                                                                 color: index ==
                                                                         controller
                                                                             .selectedOldTestamentBookIndex
-                                                                    ? themeData
+                                                                    ? widget
+                                                                        .themeData
                                                                         ?.whiteColor
-                                                                    : themeData
+                                                                    : widget
+                                                                        .themeData
                                                                         ?.verseColor,
                                                                 fontSize: SizerUtil
                                                                             .deviceType ==
@@ -366,9 +391,11 @@ class CustomDrawer extends StatelessWidget {
                                                                 color: index ==
                                                                         controller
                                                                             .selectedOldTestamentBookIndex
-                                                                    ? themeData
+                                                                    ? widget
+                                                                        .themeData
                                                                         ?.whiteColor
-                                                                    : themeData
+                                                                    : widget
+                                                                        .themeData
                                                                         ?.verseColor,
                                                                 fontSize: SizerUtil
                                                                             .deviceType ==
@@ -404,26 +431,18 @@ class CustomDrawer extends StatelessWidget {
                                                 GetBuilder<HomeController>(
                                                   init: HomeController(),
                                                   initState: (_) {
-                                                    WidgetsBinding.instance!
-                                                        .addPostFrameCallback(
-                                                            (_) {
-                                                      // controller
-                                                      //     .drawerScrollController
-                                                      //     .animateTo(
-                                                      //   // Calculate the scroll position based on the selected index and item height
-                                                      //   index * itemHeight,
-                                                      //   duration: Duration(
-                                                      //       milliseconds: 500),
-                                                      //   curve: Curves.ease,
-                                                      // );
-                                                      controller
-                                                          .drawerScrollController
-                                                          .jumpTo(
-                                                        controller
-                                                                .selectedNewTestamentBookIndex *
-                                                            45,
-                                                      );
-                                                    });
+                                                    // WidgetsBinding.instance!
+                                                    //     .addPostFrameCallback(
+                                                    //         (_) {
+
+                                                    //   controller
+                                                    //       .drawerScrollController
+                                                    //       .jumpTo(
+                                                    //     controller
+                                                    //             .selectedNewTestamentBookIndex *
+                                                    //         45,
+                                                    //   );
+                                                    // });
                                                   },
                                                   builder: (_) {
                                                     return ListView.builder(
@@ -444,7 +463,8 @@ class CustomDrawer extends StatelessWidget {
                                                             color: index ==
                                                                     controller
                                                                         .selectedNewTestamentBookIndex
-                                                                ? themeData
+                                                                ? widget
+                                                                    .themeData
                                                                     ?.lightPrimary
                                                                 : null,
                                                             borderRadius:
@@ -467,9 +487,11 @@ class CustomDrawer extends StatelessWidget {
                                                                 color: index ==
                                                                         controller
                                                                             .selectedNewTestamentBookIndex
-                                                                    ? themeData
+                                                                    ? widget
+                                                                        .themeData
                                                                         ?.whiteColor
-                                                                    : themeData
+                                                                    : widget
+                                                                        .themeData
                                                                         ?.verseColor,
                                                                 fontSize: 16,
                                                                 fontWeight: index ==
@@ -490,9 +512,11 @@ class CustomDrawer extends StatelessWidget {
                                                                 color: index ==
                                                                         controller
                                                                             .selectedNewTestamentBookIndex
-                                                                    ? themeData
+                                                                    ? widget
+                                                                        .themeData
                                                                         ?.whiteColor
-                                                                    : themeData
+                                                                    : widget
+                                                                        .themeData
                                                                         ?.verseColor,
                                                                 fontSize: 14,
                                                                 fontWeight: index ==
@@ -541,7 +565,8 @@ class CustomDrawer extends StatelessWidget {
                                 vertical: 0.sp, horizontal: 0),
                             child: VerticalDivider(
                               width: 1,
-                              color: themeData?.primaryColor.withOpacity(0.5),
+                              color: widget.themeData?.primaryColor
+                                  .withOpacity(0.5),
                             ),
                           ),
                         ),
@@ -571,6 +596,7 @@ class CustomDrawer extends StatelessWidget {
                                       //       milliseconds: 500),
                                       //   curve: Curves.ease,
                                       // );
+
                                       detailController
                                           .drawerChapterScrollController
                                           .jumpTo(
@@ -620,7 +646,7 @@ class CustomDrawer extends StatelessWidget {
                                                     color: index ==
                                                             controller
                                                                 .selectedIndex
-                                                        ? themeData
+                                                        ? widget.themeData
                                                             ?.lightPrimary
                                                         : null,
                                                     borderRadius:
@@ -640,9 +666,11 @@ class CustomDrawer extends StatelessWidget {
                                                             color: index ==
                                                                     controller
                                                                         .selectedIndex
-                                                                ? themeData
+                                                                ? widget
+                                                                    .themeData
                                                                     ?.whiteColor
-                                                                : themeData
+                                                                : widget
+                                                                    .themeData
                                                                     ?.verseColor,
                                                             fontSize: SizerUtil
                                                                         .deviceType ==
@@ -670,20 +698,24 @@ class CustomDrawer extends StatelessWidget {
                                                           if (controller
                                                                   .selectedNewTestamentBookIndex !=
                                                               -1) {
-                                                            getterAndSetterController
+                                                            widget
+                                                                .getterAndSetterController
                                                                 .selectedVersesAMH
                                                                 .clear();
-                                                            getterAndSetterController
+                                                            widget
+                                                                .getterAndSetterController
                                                                 .selectedVersesAMH
-                                                                .addAll(getterAndSetterController.getAMHBookChapters(
-                                                                    controller
-                                                                        .newTestamentBook[controller
-                                                                            .selectedNewTestamentBookIndex]
-                                                                        .id!,
-                                                                    chapters[
-                                                                        index],
-                                                                    controller
-                                                                        .versesAMH));
+                                                                .addAll(widget
+                                                                    .getterAndSetterController
+                                                                    .getAMHBookChapters(
+                                                                        controller
+                                                                            .newTestamentBook[controller
+                                                                                .selectedNewTestamentBookIndex]
+                                                                            .id!,
+                                                                        chapters[
+                                                                            index],
+                                                                        controller
+                                                                            .versesAMH));
 
                                                             int page = detailController
                                                                 .navigateToSpecificBookDetailView(
@@ -702,20 +734,24 @@ class CustomDrawer extends StatelessWidget {
                                                           } else if (controller
                                                                   .selectedOldTestamentBookIndex !=
                                                               -1) {
-                                                            getterAndSetterController
+                                                            widget
+                                                                .getterAndSetterController
                                                                 .selectedVersesAMH
                                                                 .clear();
-                                                            getterAndSetterController
+                                                            widget
+                                                                .getterAndSetterController
                                                                 .selectedVersesAMH
-                                                                .addAll(getterAndSetterController.getAMHBookChapters(
-                                                                    controller
-                                                                        .oldTestamentBook[controller
-                                                                            .selectedOldTestamentBookIndex]
-                                                                        .id!,
-                                                                    chapters[
-                                                                        index],
-                                                                    controller
-                                                                        .versesAMH));
+                                                                .addAll(widget
+                                                                    .getterAndSetterController
+                                                                    .getAMHBookChapters(
+                                                                        controller
+                                                                            .oldTestamentBook[controller
+                                                                                .selectedOldTestamentBookIndex]
+                                                                            .id!,
+                                                                        chapters[
+                                                                            index],
+                                                                        controller
+                                                                            .versesAMH));
                                                           }
                                                           int page = detailController
                                                               .navigateToSpecificBookDetailView(

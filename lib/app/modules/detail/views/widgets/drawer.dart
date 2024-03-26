@@ -37,13 +37,13 @@ class _CustomDrawerState extends State<CustomDrawer> {
     // TODO: implement initState
     super.initState();
     WidgetsBinding.instance!.addPostFrameCallback((_) {
-      
-      homeController.drawerScrollController.jumpTo(
+      homeController.drawerchScrollController.jumpTo(
         homeController.selectedOldTestamentBookIndex * 45,
       );
-      homeController.drawerScrollController.jumpTo(
-        homeController.selectedNewTestamentBookIndex * 45,
-      );
+
+      // detailController.drawerChapterScrollController.jumpTo(
+      //   homeController.selectedIndex * 30,
+      // );
     });
     // WidgetsBinding.instance!.addPostFrameCallback((_) {
     //   homeController.drawerScrollController.jumpTo(
@@ -321,7 +321,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                                                   builder: (_) {
                                                     return ListView.builder(
                                                       controller: controller
-                                                          .drawerScrollController,
+                                                          .drawerchScrollController,
                                                       padding:
                                                           const EdgeInsets.only(
                                                               top: 10,
@@ -431,23 +431,22 @@ class _CustomDrawerState extends State<CustomDrawer> {
                                                 GetBuilder<HomeController>(
                                                   init: HomeController(),
                                                   initState: (_) {
-                                                    // WidgetsBinding.instance!
-                                                    //     .addPostFrameCallback(
-                                                    //         (_) {
-
-                                                    //   controller
-                                                    //       .drawerScrollController
-                                                    //       .jumpTo(
-                                                    //     controller
-                                                    //             .selectedNewTestamentBookIndex *
-                                                    //         45,
-                                                    //   );
-                                                    // });
+                                                    WidgetsBinding.instance!
+                                                        .addPostFrameCallback(
+                                                            (_) {
+                                                      controller
+                                                          .drawerchScrollController
+                                                          .jumpTo(
+                                                        controller
+                                                                .selectedNewTestamentBookIndex *
+                                                            45,
+                                                      );
+                                                    });
                                                   },
                                                   builder: (_) {
                                                     return ListView.builder(
                                                       controller: controller
-                                                          .drawerScrollController,
+                                                          .drawerchScrollController,
                                                       padding:
                                                           const EdgeInsets.only(
                                                               top: 10,

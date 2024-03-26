@@ -20,7 +20,9 @@ class HomeController extends GetxController {
   var httpService = Get.find<HttpService>();
   List<Book> oldTestamentBook = [];
   List<Book> newTestamentBook = [];
-  ScrollController drawerScrollController = ScrollController();
+  //ScrollController drawerScrollController = ScrollController();
+    ScrollController drawerchScrollController = ScrollController();
+
 
   // ScrollController drawerXhapterScrollController = ScrollController();
   String selectedTestament = "OT";

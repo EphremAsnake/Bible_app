@@ -135,7 +135,7 @@ class DatabaseService {
     if (versesSelected.isNotEmpty) {
       thisverse = versesSelected
           .map((verse) => (verse.verseText ?? '').trim())
-          .join('');
+          .join(' ');
     }
 
     //thisverse = versesSelected[0].verseText ?? '';

@@ -39,8 +39,8 @@ Widget textSelectionOptions(BuildContext context, List<Verses> selectedVerses,
           child: SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
@@ -518,7 +518,8 @@ Widget textSelectionOptions(BuildContext context, List<Verses> selectedVerses,
                 SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       const SizedBox(
                         width: 5,

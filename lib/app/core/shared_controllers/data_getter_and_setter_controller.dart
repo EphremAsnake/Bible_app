@@ -8,6 +8,7 @@ import 'package:bible_book_app/app/utils/helpers/api_state_handler.dart';
 import 'package:bible_book_app/app/utils/keys/keys.dart';
 import 'package:get/get.dart';
 import 'package:collection/collection.dart';
+import 'package:logger/logger.dart';
 
 class DataGetterAndSetter extends GetxController {
   int selectedIndex = -1;
@@ -127,12 +128,23 @@ class DataGetterAndSetter extends GetxController {
       List<Verses> mergedVerses = [];
       int currentChapter = -1;
       int currentVerseNumber = -1;
+      int skipversenum = 912345;
+      for (var i = 0; i < versesList.length; i++) {
+        var verse = versesList[i];
 
-      for (var verse in versesList) {
+        var previousVerse = i > 0 ? versesList[i - 1] : null;
+        var nextVerse = i < versesList.length - 1 ? versesList[i + 1] : null;
+
         if (verse.para != "s1" &&
             verse.para != "s2" &&
             verse.para != "s3" &&
             verse.para != "d") {
+          //Logger logger = Logger();
+          // if (skipversenum != 912345) {
+          //   logger.e(skipversenum);
+          // }
+
+          if (skipversenum != verse.verseNumber) {
           if (verse.para == "p") {
             mergedVerses.add(verse);
           } else {
@@ -140,17 +152,39 @@ class DataGetterAndSetter extends GetxController {
                 verse.chapter == currentChapter &&
                 verse.verseNumber == currentVerseNumber) {
               // Merge verses with the same verse number within the same chapter
+
               mergedVerses.last.verseText =
                   "${(mergedVerses.last.verseText ?? '').trim()} ${(verse.verseText ?? '').trim()}";
             } else {
               // Add the verse if it's a new chapter or verse number
+
               mergedVerses.add(verse);
               currentChapter = verse.chapter!;
               currentVerseNumber = verse.verseNumber!;
             }
           }
+           }
         } else {
-          // Add title verses directly without merging
+          if (previousVerse != null && nextVerse != null) {
+            if (previousVerse.verseNumber == nextVerse.verseNumber) {
+              // if (mergedVerses.isNotEmpty &&
+              //   verse.chapter == currentChapter &&
+              //   verse.verseNumber == currentVerseNumber) {
+              // Merge verses with the same verse number within the same chapter
+
+              mergedVerses.last.verseText =
+                  "${(previousVerse.verseText ?? '').trim()} ${(nextVerse.verseText ?? '').trim()}";
+              skipversenum = nextVerse.verseNumber;
+              // } else {
+              //   // Add the verse if it's a new chapter or verse number
+              //   mergedVerses.add(verse);
+              //   currentChapter = verse.chapter!;
+              //   currentVerseNumber = verse.verseNumber!;
+              // }
+            }
+          }
+
+          //! Add title verses directly without merging
           mergedVerses.add(verse);
         }
       }

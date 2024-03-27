@@ -929,7 +929,7 @@ class DetailView extends GetView<DetailController> {
                                                                                             children: [
                                                                                               TextSpan(
                                                                                                 text: controller.selectedBook.contains("አዲሱ")
-                                                                                                    ? '${controller.allVerses[i][index].verseNumber}፤  '
+                                                                                                    ? '${controller.allVerses[i][index].verseNumber}  '
                                                                                                     : controller.selectedBook.contains("1954")
                                                                                                         ? '${controller.allVerses[i][index].verseNumber} '
                                                                                                         : '${controller.allVerses[i][index].verseNumber}  ',

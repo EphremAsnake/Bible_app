@@ -36,10 +36,13 @@ class _CustomDrawerState extends State<CustomDrawer> {
   void initState() {
     super.initState();
     WidgetsBinding.instance!.addPostFrameCallback((_) {
-      homeController.drawerchScrollController.jumpTo(
-        homeController.selectedOldTestamentBookIndex * 45,
-      );
-
+      detailController.defaultTabBarViewInitialIndex == 0
+          ? homeController.drawerchScrollController.jumpTo(
+              homeController.selectedOldTestamentBookIndex * 45,
+            )
+          : homeController.drawerchScrollController.jumpTo(
+              homeController.selectedNewTestamentBookIndex * 45,
+            );
       // detailController.drawerChapterScrollController.jumpTo(
       //   homeController.selectedIndex * 30,
       // );
@@ -430,17 +433,17 @@ class _CustomDrawerState extends State<CustomDrawer> {
                                                 GetBuilder<HomeController>(
                                                   init: HomeController(),
                                                   initState: (_) {
-                                                    WidgetsBinding.instance!
-                                                        .addPostFrameCallback(
-                                                            (_) {
-                                                      controller
-                                                          .drawerchScrollController
-                                                          .jumpTo(
-                                                        controller
-                                                                .selectedNewTestamentBookIndex *
-                                                            45,
-                                                      );
-                                                    });
+                                                    // WidgetsBinding.instance!
+                                                    //     .addPostFrameCallback(
+                                                    //         (_) {
+                                                    //   controller
+                                                    //       .drawerchScrollController
+                                                    //       .jumpTo(
+                                                    //     controller
+                                                    //             .selectedNewTestamentBookIndex *
+                                                    //         45,
+                                                    //   );
+                                                    // });
                                                   },
                                                   builder: (_) {
                                                     return ListView.builder(

@@ -893,7 +893,7 @@ class _CompareDialogState extends State<CompareDialog> {
             if (detailController.selectedBook != 'አማርኛ 1954')
               buildVerseContainer(
                   'አማርኛ 1954',
-                  aMHKJVverseText,
+                  ' $aMHKJVverseText',
                   '',
                   detailController.selectedBook.contains('Eng')
                       ? detailController.getAMHBookinfo(widget.chapterName)

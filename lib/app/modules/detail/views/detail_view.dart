@@ -677,6 +677,10 @@ class DetailView extends GetView<DetailController> {
                                 //       .easeInOut, // Use a different curve if desired
                                 // );
                               });
+                              controller.selectedRowIndex = [];
+                              controller.selectedVerses = [];
+                              controller.showSelectionMenu = false;
+                              controller.update();
                               //!detach the scroll controller and re initialize
                               controller.detachScrollController();
                               controller.selectedRowIndex = [];
@@ -1313,7 +1317,7 @@ Future<dynamic> showBookSelectionMenu(BuildContext context) {
                           await DatabaseService().changeBibleType("AMHNIV");
                       getterAndSetterController.update();
                       controller.allVerses.assignAll(
-                          getterAndSetterController.groupedBookList());
+                          getterAndSetterController.groupedBookListAMHNIV());
                       //saving selected book to local storage
                       sharedPreferencesStorage.saveStringData(
                           Keys.selectedBookKey, "አዲሱ መደበኛ ትርጉም");

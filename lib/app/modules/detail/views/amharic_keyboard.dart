@@ -117,15 +117,19 @@ class AmharicKeyboard extends StatelessWidget {
                                     borderRadius: BorderRadius.circular(4.0),
                                   ),
                                   alignment: Alignment.center,
-                                  child: Text(
-                                    key ?? "",
-                                    style: TextStyle(
-                                        fontSize: SizerUtil.deviceType ==
-                                                DeviceType.mobile
-                                            ? 10.sp
-                                            : 16.0,
-                                        color: themeData
-                                            .themeData.value!.verseColor),
+                                  child: Padding(
+                                    //!padding: const EdgeInsets.only(bottom:10.0),
+                                    padding: const EdgeInsets.only(bottom:0.0),
+                                    child: Text(
+                                      key ?? "",
+                                      style: TextStyle(
+                                          fontSize: SizerUtil.deviceType ==
+                                                  DeviceType.mobile
+                                              ? 10.sp
+                                              : 16.0,
+                                          color: themeData
+                                              .themeData.value!.verseColor),
+                                    ),
                                   ),
                                 ),
                               );

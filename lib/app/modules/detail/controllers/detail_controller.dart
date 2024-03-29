@@ -98,11 +98,13 @@ class DetailController extends SuperController {
     super.onInit();
     loadData();
     getPreviousPageNumber();
-    getSelectedBookName();setInitialSelectedBookTypeOptions();
-    allVerses.addAll(selectedBookTypeOptions.contains("አዲሱ")
+    getSelectedBookName();
+    setInitialSelectedBookTypeOptions();
+    allVerses.addAll(selectedBookTypeOptions.contains("አዲሱ") ||
+            selectedBookTypeOptions.contains("NIV")
         ? getterAndSetterController.groupedBookListAMHNIV()
         : getterAndSetterController.groupedBookList());
-    
+
     getBooks();
     loadInitialPage();
     fetchConfigsData();
@@ -362,7 +364,7 @@ class DetailController extends SuperController {
     getterAndSetterController.versesAMH =
         await DatabaseService().changeBibleType(bibleType);
     getterAndSetterController.update();
-    allVerses.assignAll(saveName.contains("አዲሱ")
+    allVerses.assignAll(saveName.contains("አዲሱ") || saveName.contains("NIV")
         ? getterAndSetterController.groupedBookListAMHNIV()
         : getterAndSetterController.groupedBookList());
     //saving selected book to local storage

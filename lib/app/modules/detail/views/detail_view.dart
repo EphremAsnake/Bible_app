@@ -1370,7 +1370,7 @@ Future<dynamic> showBookSelectionMenu(BuildContext context) {
                           await DatabaseService().changeBibleType("ENGNIV");
                       getterAndSetterController.update();
                       controller.allVerses.assignAll(
-                          getterAndSetterController.groupedBookList());
+                          getterAndSetterController.groupedBookListAMHNIV());
                       //saving selected book to local storage
                       sharedPreferencesStorage.saveStringData(
                           Keys.selectedBookKey, "English NIV");

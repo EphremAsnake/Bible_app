@@ -145,28 +145,36 @@ class DataGetterAndSetter extends GetxController {
           // }
 
           if (skipversenum != verse.verseNumber) {
-            if (verse.para == "p") {
-              mergedVerses.add(verse);
+            // if (verse.para == "p") {
+            //   mergedVerses.add(verse);
+            // } else {
+            if (mergedVerses.isNotEmpty &&
+                verse.chapter == currentChapter &&
+                verse.verseNumber == currentVerseNumber) {
+              // Merge verses with the same verse number within the same chapter
+
+              mergedVerses.last.verseText =
+                  "${(mergedVerses.last.verseText ?? '').trim()} ${(verse.verseText ?? '').trim()}";
             } else {
-              if (mergedVerses.isNotEmpty &&
-                  verse.chapter == currentChapter &&
-                  verse.verseNumber == currentVerseNumber) {
-                // Merge verses with the same verse number within the same chapter
+              // Add the verse if it's a new chapter or verse number
 
-                mergedVerses.last.verseText =
-                    "${(mergedVerses.last.verseText ?? '').trim()} ${(verse.verseText ?? '').trim()}";
-              } else {
-                // Add the verse if it's a new chapter or verse number
-
-                mergedVerses.add(verse);
-                currentChapter = verse.chapter!;
-                currentVerseNumber = verse.verseNumber!;
-              }
+              mergedVerses.add(verse);
+              currentChapter = verse.chapter!;
+              currentVerseNumber = verse.verseNumber!;
+              // }
             }
           }
         } else {
           if (previousVerse != null && nextVerse != null) {
-            if (previousVerse.verseNumber == nextVerse.verseNumber) {
+            if ((previousVerse.para != "s1" &&
+                    previousVerse.para != "s2" &&
+                    previousVerse.para != "s3" &&
+                    previousVerse.para != "d") &&
+                (nextVerse.para != "s1" &&
+                    nextVerse.para != "s2" &&
+                    nextVerse.para != "s3" &&
+                    nextVerse.para != "d") &&
+                previousVerse.verseNumber == nextVerse.verseNumber) {
               // if (mergedVerses.isNotEmpty &&
               //   verse.chapter == currentChapter &&
               //   verse.verseNumber == currentVerseNumber) {

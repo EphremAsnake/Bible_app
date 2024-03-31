@@ -475,6 +475,7 @@ class DetailView extends GetView<DetailController> {
                 ),
               ),
               appBar: AppBar(
+                notificationPredicate: (_) => false,
                 systemOverlayStyle: SystemUiOverlayStyle(
                     statusBarColor: themeData.themeData.value!.primaryColor,
                     statusBarIconBrightness: Brightness.light),

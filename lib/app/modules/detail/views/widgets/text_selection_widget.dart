@@ -550,7 +550,7 @@ Widget textSelectionOptions(BuildContext context, List<Verses> selectedVerses,
                                     textToCopy =
                                         textToCopy + "\n ${tempTextToCopy}";
                                   }
-                                  await share(textToCopy, "Share", context);
+                                  await share(textToCopy.trimLeft(), "Share", context);
                                 },
                                 icon: Icon(
                                   Icons.share,

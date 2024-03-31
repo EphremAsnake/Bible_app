@@ -1108,22 +1108,23 @@ class DetailView extends GetView<DetailController> {
                             },
                           ),
                         ),
-                        Visibility(
-                          visible: controller.showSelectionMenu,
-                          child: Container(
-                            color: Colors.white,
-                            height: SizerUtil.deviceType == DeviceType.mobile
-                                ? 21.h
-                                : 18.h,
-                            child: controller.showSelectionMenu == true
-                                ? textSelectionOptions(
-                                    context,
-                                    controller.selectedVerses,
-                                    controller.verse!,
-                                    controller.index)
-                                : const SizedBox.shrink(),
-                          ),
-                        )
+                        if (detailController.selectedVerses.isNotEmpty)
+                          Visibility(
+                            visible: controller.showSelectionMenu,
+                            child: Container(
+                              color: Colors.white,
+                              height: SizerUtil.deviceType == DeviceType.mobile
+                                  ? 21.h
+                                  : 18.h,
+                              child: controller.showSelectionMenu == true
+                                  ? textSelectionOptions(
+                                      context,
+                                      controller.selectedVerses,
+                                      controller.verse!,
+                                      controller.index)
+                                  : const SizedBox.shrink(),
+                            ),
+                          )
                       ],
                     )
                   : Container(),

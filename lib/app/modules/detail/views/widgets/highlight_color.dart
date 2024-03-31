@@ -8,8 +8,8 @@ class HighlightColors {
   static const Color highlightBlue = Color(0xfface8df);
   static const Color highlightPink = Color(0xffffc3c3);
   static const Color highlightDarkGreen = Color(0xffb2eec8);
-  static const Color highlightDarkYellow = Color(0xffc48f12);
-  static const Color highlightDarkTeal = Color(0xff3ac2de);
-  static const Color highlightBrown = Color(0xffd1b9a5);
-  static const Color highlightLightRed = Color(0xfffc8f79);
+  static const Color highlightDarkYellow = Color(0xffe5d6cf);
+  static const Color highlightDarkTeal = Color(0xffc0d8fe);
+  static const Color highlightBrown = Color(0xffd2a8fa);
+  static const Color highlightLightRed = Color(0xffcff255);
 }

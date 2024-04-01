@@ -643,502 +643,487 @@ class DetailView extends GetView<DetailController> {
                   themeData: themeData.themeData.value,
                   getterAndSetterController: getterAndSetterController),
               body: controller.pageController != null
-                  ? Column(
-                      mainAxisSize: MainAxisSize.min,
+                  ? Stack(
                       children: [
-                        Platform.isIOS ? IosHomeAD() : AndroidHomeAD(),
-                        Expanded(
-                          child: ExpandablePageView.builder(
-                            controller: controller.pageController,
-                            physics: const ClampingScrollPhysics(),
-                            itemCount: controller.allVerses.length,
-                            animationCurve: Curves.easeIn,
-                            onPageChanged: (value) {
-                              Future.delayed(const Duration(milliseconds: 500),
-                                  () {
-                                controller.readerScrollController.animateTo(
-                                  controller.selctedverse *
-                                      45, // Scroll to the top
-                                  duration: const Duration(
-                                      milliseconds:
-                                          500), // Adjust the duration as needed
-                                  curve: Curves
-                                      .easeInOut, // Use a different curve if desired
-                                );
-                                // controller.readerScrollController.jumpTo(
-                                //   controller.selctedverse * 40,
-                                // );
-                                //scroll to top
-                                // controller.readerScrollController.animateTo(
-                                //   0.0, // Scroll to the top
-                                //   duration: const Duration(
-                                //       milliseconds:
-                                //           500), // Adjust the duration as needed
-                                //   curve: Curves
-                                //       .easeInOut, // Use a different curve if desired
-                                // );
-                              });
-                              controller.selectedRowIndex = [];
-                              controller.selectedVerses = [];
-                              controller.showSelectionMenu = false;
-                              controller.update();
-                              //!detach the scroll controller and re initialize
-                              controller.detachScrollController();
-                              controller.selectedRowIndex = [];
-                              controller.readerScrollController.dispose();
-                              // controller.readerScrollController =
-                              //     ScrollController();
-                              controller.update();
-                            },
-                            itemBuilder: (context, i) {
-                              controller.setPreviousPageNumber(i);
-                              WidgetsBinding.instance.addPostFrameCallback((_) {
-                                controller.setCurrentBookAndChapter(
-                                    controller.allVerses[i][0]);
-                                controller.update();
-                              });
-                              controller.readerScrollController =
-                                  ScrollController();
-                              controller.readerScrollController.addListener(() {
-                                WidgetsBinding.instance
-                                    .addPostFrameCallback((_) {
-                                  if (controller.readerScrollController.position
-                                          .userScrollDirection ==
-                                      ScrollDirection.reverse) {
-                                    // Scrolling down, hide widgets
-                                    controller.hidePageNavigators = true;
-                                  } else if (controller.readerScrollController
-                                          .position.userScrollDirection ==
-                                      ScrollDirection.forward) {
-                                    // Scrolling up, show widgets
-                                    controller.hidePageNavigators = false;
-                                  }
-                                });
-                              });
-                              return Container(
-                                color:
-                                    themeData.themeData.value!.backgroundColor,
-                                child: Column(
-                                  children: [
-                                    const SizedBox(height: 20),
-                                    Column(
+                        Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Platform.isIOS ? IosHomeAD() : AndroidHomeAD(),
+                            Expanded(
+                              child: ExpandablePageView.builder(
+                                controller: controller.pageController,
+                                physics: const ClampingScrollPhysics(),
+                                itemCount: controller.allVerses.length,
+                                animationCurve: Curves.easeIn,
+                                onPageChanged: (value) {
+                                  Future.delayed(
+                                      const Duration(milliseconds: 500), () {
+                                    controller.readerScrollController.animateTo(
+                                      controller.selctedverse *
+                                          45, // Scroll to the top
+                                      duration: const Duration(
+                                          milliseconds:
+                                              500), // Adjust the duration as needed
+                                      curve: Curves
+                                          .easeInOut, // Use a different curve if desired
+                                    );
+                                    // controller.readerScrollController.jumpTo(
+                                    //   controller.selctedverse * 40,
+                                    // );
+                                    //scroll to top
+                                    // controller.readerScrollController.animateTo(
+                                    //   0.0, // Scroll to the top
+                                    //   duration: const Duration(
+                                    //       milliseconds:
+                                    //           500), // Adjust the duration as needed
+                                    //   curve: Curves
+                                    //       .easeInOut, // Use a different curve if desired
+                                    // );
+                                  });
+                                  controller.selectedRowIndex = [];
+                                  controller.selectedVerses = [];
+                                  controller.showSelectionMenu = false;
+                                  controller.update();
+                                  //!detach the scroll controller and re initialize
+                                  controller.detachScrollController();
+                                  controller.selectedRowIndex = [];
+                                  controller.readerScrollController.dispose();
+                                  // controller.readerScrollController =
+                                  //     ScrollController();
+                                  controller.update();
+                                },
+                                itemBuilder: (context, i) {
+                                  controller.setPreviousPageNumber(i);
+                                  WidgetsBinding.instance
+                                      .addPostFrameCallback((_) {
+                                    controller.setCurrentBookAndChapter(
+                                        controller.allVerses[i][0]);
+                                    controller.update();
+                                  });
+                                  controller.readerScrollController =
+                                      ScrollController();
+                                  controller.readerScrollController
+                                      .addListener(() {
+                                    WidgetsBinding.instance
+                                        .addPostFrameCallback((_) {
+                                      if (controller.readerScrollController
+                                              .position.userScrollDirection ==
+                                          ScrollDirection.reverse) {
+                                        // Scrolling down, hide widgets
+                                        controller.hidePageNavigators = true;
+                                      } else if (controller
+                                              .readerScrollController
+                                              .position
+                                              .userScrollDirection ==
+                                          ScrollDirection.forward) {
+                                        // Scrolling up, show widgets
+                                        controller.hidePageNavigators = false;
+                                      }
+                                    });
+                                  });
+                                  return Container(
+                                    color: themeData
+                                        .themeData.value!.backgroundColor,
+                                    child: Column(
                                       children: [
-                                        Text(
-                                          controller.selectedBook
-                                                  .contains("English")
-                                              ? '${controller.getBookTitle(controller.allVerses[i][0].book!)} | Chapter ${controller.allVerses[i][0].chapter}'
-                                              : '${controller.getBookTitle(controller.allVerses[i][0].book!)} | ምዕራፍ ${controller.allVerses[i][0].chapter}',
-                                          style: TextStyle(
-                                              fontSize: controller.fontSize.sp,
-                                              fontFamily: "Abyssinica",
-                                              fontWeight: FontWeight.bold,
-                                              color: themeData
-                                                  .themeData.value!.verseColor),
-                                        ),
-                                        const SizedBox(height: 10),
-                                        Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              vertical: 5),
-                                          child: SizedBox(
-                                            width: 100.w,
-                                            //! 100% of the screen
-                                            height: 100.h,
-                                            child: Padding(
-                                              padding: const EdgeInsets.only(
-                                                  bottom: 30),
+                                        const SizedBox(height: 20),
+                                        Column(
+                                          children: [
+                                            Text(
+                                              controller.selectedBook
+                                                      .contains("English")
+                                                  ? '${controller.getBookTitle(controller.allVerses[i][0].book!)} | Chapter ${controller.allVerses[i][0].chapter}'
+                                                  : '${controller.getBookTitle(controller.allVerses[i][0].book!)} | ምዕራፍ ${controller.allVerses[i][0].chapter}',
+                                              style: TextStyle(
+                                                  fontSize:
+                                                      controller.fontSize.sp,
+                                                  fontFamily: "Abyssinica",
+                                                  fontWeight: FontWeight.bold,
+                                                  color: themeData.themeData
+                                                      .value!.verseColor),
+                                            ),
+                                            const SizedBox(height: 10),
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      vertical: 5),
                                               child: SizedBox(
-                                                width: MediaQuery.of(context)
-                                                    .size
-                                                    .width,
-                                                child: ListView.builder(
-                                                  padding: EdgeInsets.only(
-                                                      bottom: SizerUtil
-                                                                  .deviceType ==
-                                                              DeviceType.mobile
-                                                          ? 35.h
-                                                          : 20.h),
-                                                  controller: controller
-                                                      .readerScrollController,
-                                                  itemCount: controller
-                                                      .allVerses[i].length,
-                                                  shrinkWrap: true,
-                                                  itemBuilder:
-                                                      (context, index) {
-                                                    return GestureDetector(
-                                                      onTap: () async {
-                                                        if (index ==
-                                                            controller
-                                                                    .allVerses[
-                                                                        i]
-                                                                    .length -
-                                                                1) {
-                                                          // Scroll to the bottom
-                                                          controller
-                                                              .readerScrollController
-                                                              .animateTo(
-                                                            controller
-                                                                .readerScrollController
-                                                                .position
-                                                                .maxScrollExtent,
-                                                            duration:
-                                                                const Duration(
-                                                                    milliseconds:
-                                                                        500),
-                                                            curve: Curves
-                                                                .easeInOut,
-                                                          );
-                                                        }
-
-                                                        controller.update();
-                                                        // print(index);
-                                                        // print(controller
-                                                        //         .allVerses[i]
-                                                        //         .length -
-                                                        //     1);
-
-                                                        if (controller
-                                                                    .allVerses[
-                                                                        i]
-                                                                        [index]
-                                                                    .para !=
-                                                                "s1" &&
-                                                            controller
-                                                                    .allVerses[
-                                                                        i]
-                                                                        [index]
-                                                                    .para !=
-                                                                "s2" &&
-                                                            controller
-                                                                    .allVerses[
-                                                                        i]
-                                                                        [index]
-                                                                    .para !=
-                                                                "s3" &&
-                                                            controller
-                                                                    .allVerses[
-                                                                        i]
-                                                                        [index]
-                                                                    .para !=
-                                                                "d" &&
-                                                            controller
-                                                                    .allVerses[
-                                                                        i]
-                                                                        [index]
-                                                                    .para !=
-                                                                "sp") {
-                                                          controller
-                                                              .toggleSelectedRowIndex(
-                                                                  index,
-                                                                  controller
-                                                                          .allVerses[
-                                                                      i][index]);
-                                                          controller
-                                                              .updateshowSelectionMenu(
-                                                                  true);
-
-                                                          controller.context =
-                                                              context;
-                                                          controller.index =
-                                                              index;
-                                                          controller
-                                                              .verse = controller
-                                                                  .allVerses[i]
-                                                              [index];
-                                                          controller.update();
-                                                        }
-                                                      },
-                                                      child: Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .symmetric(
-                                                                horizontal:
-                                                                    14.0,
-                                                                vertical: 3),
-                                                        child: Column(
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
-                                                          children: [
-                                                            index == 0
-                                                                ? Row(
-                                                                    crossAxisAlignment:
-                                                                        CrossAxisAlignment
-                                                                            .center,
-                                                                    children: <Widget>[
-                                                                      if (controller
-                                                                              .allVerses[i][index]
-                                                                              .para ==
-                                                                          "s1")
-                                                                        Align(
-                                                                          alignment:
-                                                                              Alignment.center,
-                                                                          child:
-                                                                              Center(
-                                                                            child:
-                                                                                Text(
-                                                                              index == 0 ? '${controller.allVerses[i][index].chapter}' : '',
-                                                                              textAlign: TextAlign.left,
-                                                                              style: TextStyle(
-                                                                                fontFamily: "Abyssinica",
-                                                                                fontSize: controller.fontSize.sp * 3,
-                                                                                //SizerUtil.deviceType == DeviceType.mobile ? (30 + controller.fontSize.sp) : (15 + controller.fontSize.sp),
-                                                                                fontWeight: FontWeight.normal,
-                                                                                color: themeData.themeData.value!.numbersColor,
-                                                                              ),
-                                                                            ),
-                                                                          ),
-                                                                        ),
-                                                                      if (![
-                                                                        "s1",
-                                                                        "s2",
-                                                                        "s3",
-                                                                        "sp"
-                                                                      ].contains(controller
-                                                                          .allVerses[
-                                                                              i]
-                                                                              [
-                                                                              index]
-                                                                          .para))
-                                                                        Text(
-                                                                          index == 0
-                                                                              ? '${controller.allVerses[i][index].chapter}'
-                                                                              : '',
-                                                                          textAlign:
-                                                                              TextAlign.left,
-                                                                          style:
-                                                                              TextStyle(
-                                                                            fontFamily:
-                                                                                "Abyssinica",
-                                                                            fontSize: SizerUtil.deviceType == DeviceType.mobile
-                                                                                ? (30 + controller.fontSize).sp
-                                                                                : (15 + controller.fontSize).sp,
-                                                                            fontWeight:
-                                                                                FontWeight.normal,
-                                                                            color:
-                                                                                themeData.themeData.value!.numbersColor,
-                                                                          ),
-                                                                        ),
-                                                                      const SizedBox(
-                                                                        width:
-                                                                            10,
-                                                                      ),
-
-                                                                      //!Title
-                                                                      if (controller
-                                                                              .allVerses[i][index]
-                                                                              .verseText !=
-                                                                          "፤")
-                                                                        Expanded(
-                                                                          child:
-                                                                              Container(
-                                                                            color: controller.allVerses[i][index].verseNumber == controller.blinkindex
-                                                                                ? themeData.themeData.value!.primaryColor.withOpacity(0.5)
-                                                                                : Colors.transparent,
-                                                                            child:
-                                                                                RichText(
-                                                                                    text: ![
-                                                                              "s1",
-                                                                              "s2",
-                                                                              "s3",
-                                                                              "d",
-                                                                              "sp"
-                                                                            ].contains(controller.allVerses[i][index].para)
-                                                                                        ? TextSpan(
-                                                                                            children: [
-                                                                                              TextSpan(
-                                                                                                text: controller.selectedBook.contains("አዲሱ")
-                                                                                                    ? '${controller.allVerses[i][index].verseNumber}  '
-                                                                                                    : controller.selectedBook.contains("1954")
-                                                                                                        ? '${controller.allVerses[i][index].verseNumber} '
-                                                                                                        : '${controller.allVerses[i][index].verseNumber}  ',
-                                                                                                style: TextStyle(
-                                                                                                  fontSize: controller.fontSize.sp,
-                                                                                                  fontWeight: FontWeight.bold,
-                                                                                                  color: themeData.themeData.value!.numbersColor,
-                                                                                                ),
-                                                                                              ),
-                                                                                              TextSpan(
-                                                                                                text: controller.allVerses[i][index].verseText,
-                                                                                                style: TextStyle(
-                                                                                                  fontSize: controller.fontSize.sp,
-                                                                                                  color: getHighlightColor(controller.allVerses[i][index].highlight!) != Colors.transparent ? themeData.themeData.value!.blackColor : themeData.themeData.value!.verseColor,
-                                                                                                  fontFamily: "Abyssinica",
-                                                                                                  backgroundColor: controller.selectedRowIndex.any((element) => element == index) ? themeData.themeData.value!.primaryColor.withOpacity(0.5) : getHighlightColor(controller.allVerses[i][index].highlight!),
-                                                                                                ),
-                                                                                              )
-                                                                                            ],
-                                                                                          )
-                                                                                        : TextSpan(
-                                                                                            text: controller.allVerses[i][index].verseText,
-                                                                                            style: TextStyle(
-                                                                                              fontSize: controller.fontSize.sp,
-                                                                                              color: themeData.themeData.value!.primaryColor,
-                                                                                              fontWeight: FontWeight.bold,
-                                                                                              fontFamily: "Abyssinica",
-                                                                                              backgroundColor: controller.selectedRowIndex.any((element) => element == index) ? themeData.themeData.value!.primaryColor.withOpacity(0.5) : getHighlightColor(controller.allVerses[i][index].highlight!),
-                                                                                            ),
-                                                                                          )),
-                                                                          ),
-                                                                        ),
-                                                                    ],
-                                                                  )
-                                                                : const SizedBox
-                                                                    .shrink(),
-                                                            if (index != 0)
-                                                              if (controller
-                                                                          .allVerses[
-                                                                              i]
-                                                                              [
-                                                                              index]
-                                                                          .verseText !=
-                                                                      " ፤" &&
-                                                                  controller
-                                                                          .allVerses[
-                                                                              i]
-                                                                              [
-                                                                              index]
-                                                                          .verseText !=
-                                                                      " ")
-                                                                [
-                                                                  "s1",
-                                                                  "s2",
-                                                                  "s3",
-                                                                  "d",
-                                                                  "sp"
-                                                                ].contains(controller
-                                                                        .allVerses[
-                                                                            i][
-                                                                            index]
-                                                                        .para)
-                                                                    ? Center(
-                                                                        child:
-                                                                            Padding(
-                                                                          padding: const EdgeInsets
-                                                                              .symmetric(
-                                                                              vertical: 15),
-                                                                          child:
-                                                                              Align(
-                                                                            alignment:
-                                                                                Alignment.center,
-                                                                            child:
-                                                                                Text(
-                                                                              '${controller.allVerses[i][index].verseText?.trimRight()} ',
-                                                                              style: TextStyle(
-                                                                                fontFamily: "Abyssinica",
-                                                                                fontSize: controller.allVerses[i][index].para == "d" || controller.allVerses[i][index].para == "sp" ? (controller.fontSize.sp - 1) : controller.fontSize.sp,
-                                                                                color: themeData.themeData.value!.primaryColor,
-                                                                                fontWeight: FontWeight.bold,
-                                                                                backgroundColor: Colors.transparent,
-                                                                              ),
-                                                                            ),
-                                                                          ),
-                                                                        ),
-                                                                      )
-                                                                    : Container(
-                                                                        color: controller.allVerses[i][index].verseNumber ==
-                                                                                controller.blinkindex
-                                                                            ? themeData.themeData.value!.primaryColor.withOpacity(0.5)
-                                                                            : Colors.transparent,
-                                                                        child:
-                                                                            RichText(
-                                                                          text:
-                                                                              TextSpan(
-                                                                            text: controller.selectedBook.contains("አዲሱ")
-                                                                                ? '${controller.allVerses[i][index].verseNumber}  '
-                                                                                : controller.selectedBook.contains("1954")
-                                                                                    ? controller.allVerses[i][index - 1].verseText == " ፤"
-                                                                                        ? '${controller.allVerses[i][index - 1].verseNumber} - ${controller.allVerses[i][index].verseNumber} '
-                                                                                        : '${controller.allVerses[i][index].verseNumber}'
-                                                                                    : '${controller.allVerses[i][index].verseNumber}  ',
-                                                                            style:
-                                                                                TextStyle(
-                                                                              fontSize: controller.fontSize.sp,
-                                                                              fontWeight: FontWeight.bold,
-                                                                              color: themeData.themeData.value!.numbersColor,
-                                                                            ),
-                                                                            children: <InlineSpan>[
-                                                                              TextSpan(
-                                                                                text: ' ${controller.allVerses[i][index].verseText?.trimRight()}',
-                                                                                style: TextStyle(
-                                                                                  fontFamily: "Abyssinica",
-                                                                                  fontSize: controller.fontSize.sp,
-                                                                                  color: getHighlightColor(controller.allVerses[i][index].highlight!) != Colors.transparent ? themeData.themeData.value!.blackColor : themeData.themeData.value!.verseColor,
-                                                                                  fontWeight: FontWeight.normal,
-                                                                                  backgroundColor: controller.selectedRowIndex.any((element) => element == index) ? themeData.themeData.value!.primaryColor.withOpacity(0.5) : getHighlightColor(controller.allVerses[i][index].highlight!),
-                                                                                ),
-                                                                                // recognizer: TapGestureRecognizer()
-                                                                                //   ..onTap = () {
-                                                                                //     // Highlight the verse background
-                                                                                //     controller.highlightedVerseIndex = index;
-                                                                                //     controller.update();
-
-                                                                                //     // Start a timer to revert the background color after 2 seconds
-                                                                                //     Timer(Duration(seconds: 2), () {
-                                                                                //       controller.highlightedVerseIndex = null;
-                                                                                //       controller.update();
-                                                                                //     });
-                                                                                //   },
-                                                                              ),
-                                                                              // if (index == 1 &&
-                                                                              //     (controller.allVerses[i][index].verseNumber == controller.allVerses[i][index - 1].verseNumber))
-                                                                              //   TextSpan(
-                                                                              //     text: '${controller.allVerses[i][index].verseText?.trimRight()}',
-                                                                              //     style: TextStyle(
-                                                                              //       fontFamily: "Abyssinica",
-                                                                              //       fontSize: controller.fontSize.sp,
-                                                                              //       color: Colors.red,
-                                                                              //       fontWeight: FontWeight.normal,
-                                                                              //       backgroundColor: controller.selectedRowIndex.any((element) => element == index) ? themeData.themeData.value!.primaryColor.withOpacity(0.5) : getHighlightColor(controller.allVerses[i][index].highlight!),
-                                                                              //     ),
-                                                                              //   ),
-                                                                            ],
-                                                                          ),
-                                                                        ),
-                                                                      ),
+                                                width: 100.w,
+                                                //! 100% of the screen
+                                                height: 100.h,
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          bottom: 30),
+                                                  child: SizedBox(
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                            .size
+                                                            .width,
+                                                    child: ListView.builder(
+                                                      padding: EdgeInsets.only(
+                                                          bottom: SizerUtil
+                                                                      .deviceType ==
+                                                                  DeviceType
+                                                                      .mobile
+                                                              ? 35.h
+                                                              : 20.h),
+                                                      controller: controller
+                                                          .readerScrollController,
+                                                      itemCount: controller
+                                                          .allVerses[i].length,
+                                                      shrinkWrap: true,
+                                                      itemBuilder:
+                                                          (context, index) {
+                                                        // if(controller.allVerses[i][index].book == 22 && controller.allVerses[i][index].verseNumber == 4 && controller.allVerses[i][index].chapter == 1){ }
+                                                        return GestureDetector(
+                                                          onTap: () async {
                                                             if (index ==
                                                                 controller
                                                                         .allVerses[
                                                                             i]
                                                                         .length -
-                                                                    1)
-                                                              const SizedBox(
-                                                                height: 25,
-                                                              ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    );
-                                                  },
+                                                                    1) {
+                                                              // Scroll to the bottom
+                                                              controller
+                                                                  .readerScrollController
+                                                                  .animateTo(
+                                                                controller
+                                                                    .readerScrollController
+                                                                    .position
+                                                                    .maxScrollExtent,
+                                                                duration:
+                                                                    const Duration(
+                                                                        milliseconds:
+                                                                            500),
+                                                                curve: Curves
+                                                                    .easeInOut,
+                                                              );
+                                                            }
+
+                                                            controller.update();
+                                                            // print(index);
+                                                            // print(controller
+                                                            //         .allVerses[i]
+                                                            //         .length -
+                                                            //     1);
+
+                                                            if (controller.allVerses[i][index].para != "s1" &&
+                                                                controller
+                                                                        .allVerses[
+                                                                            i][
+                                                                            index]
+                                                                        .para !=
+                                                                    "s2" &&
+                                                                controller
+                                                                        .allVerses[
+                                                                            i][
+                                                                            index]
+                                                                        .para !=
+                                                                    "s3" &&
+                                                                controller
+                                                                        .allVerses[
+                                                                            i][
+                                                                            index]
+                                                                        .para !=
+                                                                    "d" &&
+                                                                controller
+                                                                        .allVerses[
+                                                                            i][
+                                                                            index]
+                                                                        .para !=
+                                                                    "sp") {
+                                                              controller.toggleSelectedRowIndex(
+                                                                  index,
+                                                                  controller
+                                                                          .allVerses[
+                                                                      i][index]);
+                                                              controller
+                                                                  .updateshowSelectionMenu(
+                                                                      true);
+
+                                                              controller
+                                                                      .context =
+                                                                  context;
+                                                              controller.index =
+                                                                  index;
+                                                              controller.verse =
+                                                                  controller
+                                                                          .allVerses[
+                                                                      i][index];
+                                                              controller
+                                                                  .update();
+                                                            }
+                                                          },
+                                                          child: Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .symmetric(
+                                                                    horizontal:
+                                                                        14.0,
+                                                                    vertical:
+                                                                        3),
+                                                            child: Column(
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .start,
+                                                              children: [
+                                                                index == 0
+                                                                    ? Row(
+                                                                        crossAxisAlignment:
+                                                                            CrossAxisAlignment.center,
+                                                                        children: <Widget>[
+                                                                          if (controller.allVerses[i][index].para ==
+                                                                              "s1")
+                                                                            Align(
+                                                                              alignment: Alignment.center,
+                                                                              child: Center(
+                                                                                child: Text(
+                                                                                  index == 0 ? '${controller.allVerses[i][index].chapter}' : '',
+                                                                                  textAlign: TextAlign.left,
+                                                                                  style: TextStyle(
+                                                                                    fontFamily: "Abyssinica",
+                                                                                    fontSize: controller.fontSize.sp * 3,
+                                                                                    //SizerUtil.deviceType == DeviceType.mobile ? (30 + controller.fontSize.sp) : (15 + controller.fontSize.sp),
+                                                                                    fontWeight: FontWeight.normal,
+                                                                                    color: themeData.themeData.value!.numbersColor,
+                                                                                  ),
+                                                                                ),
+                                                                              ),
+                                                                            ),
+                                                                          if (![
+                                                                            "s1",
+                                                                            "s2",
+                                                                            "s3",
+                                                                            "sp"
+                                                                          ].contains(controller
+                                                                              .allVerses[i][index]
+                                                                              .para))
+                                                                            Text(
+                                                                              index == 0 ? '${controller.allVerses[i][index].chapter}' : '',
+                                                                              textAlign: TextAlign.left,
+                                                                              style: TextStyle(
+                                                                                fontFamily: "Abyssinica",
+                                                                                fontSize: SizerUtil.deviceType == DeviceType.mobile ? (30 + controller.fontSize).sp : (15 + controller.fontSize).sp,
+                                                                                fontWeight: FontWeight.normal,
+                                                                                color: themeData.themeData.value!.numbersColor,
+                                                                              ),
+                                                                            ),
+                                                                          const SizedBox(
+                                                                            width:
+                                                                                10,
+                                                                          ),
+
+                                                                          //!Title
+                                                                          if (controller.allVerses[i][index].verseText !=
+                                                                              "፤")
+                                                                            Expanded(
+                                                                              child: Container(
+                                                                                color: controller.allVerses[i][index].verseNumber == controller.blinkindex ? themeData.themeData.value!.primaryColor.withOpacity(0.5) : Colors.transparent,
+                                                                                child:
+                                                                                    RichText(
+                                                                                        text: ![
+                                                                                  "s1",
+                                                                                  "s2",
+                                                                                  "s3",
+                                                                                  "d",
+                                                                                  "sp"
+                                                                                ].contains(controller.allVerses[i][index].para)
+                                                                                            ? TextSpan(
+                                                                                                children: [
+                                                                                                  TextSpan(
+                                                                                                    text: controller.selectedBook.contains("አዲሱ")
+                                                                                                        ? '${controller.allVerses[i][index].verseNumber}  '
+                                                                                                        : controller.selectedBook.contains("1954")
+                                                                                                            ? '${controller.allVerses[i][index].verseNumber} '
+                                                                                                            : '${controller.allVerses[i][index].verseNumber}  ',
+                                                                                                    style: TextStyle(
+                                                                                                      fontSize: controller.fontSize.sp,
+                                                                                                      fontWeight: FontWeight.bold,
+                                                                                                      color: themeData.themeData.value!.numbersColor,
+                                                                                                    ),
+                                                                                                  ),
+                                                                                                  TextSpan(
+                                                                                                    text: controller.allVerses[i][index].verseText,
+                                                                                                    style: TextStyle(
+                                                                                                      fontSize: controller.fontSize.sp,
+                                                                                                      color: getHighlightColor(controller.allVerses[i][index].highlight!) != Colors.transparent ? themeData.themeData.value!.blackColor : themeData.themeData.value!.verseColor,
+                                                                                                      fontFamily: "Abyssinica",
+                                                                                                      backgroundColor: controller.selectedRowIndex.any((element) => element == index) ? themeData.themeData.value!.primaryColor.withOpacity(0.5) : getHighlightColor(controller.allVerses[i][index].highlight!),
+                                                                                                    ),
+                                                                                                  )
+                                                                                                ],
+                                                                                              )
+                                                                                            : TextSpan(
+                                                                                                text: controller.allVerses[i][index].verseText,
+                                                                                                style: TextStyle(
+                                                                                                  fontSize: controller.fontSize.sp,
+                                                                                                  color: themeData.themeData.value!.primaryColor,
+                                                                                                  fontWeight: FontWeight.bold,
+                                                                                                  fontFamily: "Abyssinica",
+                                                                                                  backgroundColor: controller.selectedRowIndex.any((element) => element == index) ? themeData.themeData.value!.primaryColor.withOpacity(0.5) : getHighlightColor(controller.allVerses[i][index].highlight!),
+                                                                                                ),
+                                                                                              )),
+                                                                              ),
+                                                                            ),
+                                                                        ],
+                                                                      )
+                                                                    : const SizedBox
+                                                                        .shrink(),
+                                                                if (index != 0)
+                                                                  if (controller
+                                                                              .allVerses[i][
+                                                                                  index]
+                                                                              .verseText !=
+                                                                          " ፤" &&
+                                                                      controller
+                                                                              .allVerses[i][
+                                                                                  index]
+                                                                              .verseText !=
+                                                                          " ")
+                                                                    [
+                                                                      "s1",
+                                                                      "s2",
+                                                                      "s3",
+                                                                      "d",
+                                                                      "sp"
+                                                                    ].contains(controller
+                                                                            .allVerses[i][index]
+                                                                            .para)
+                                                                        ? Center(
+                                                                            child:
+                                                                                Padding(
+                                                                              padding: EdgeInsets.symmetric(vertical: controller.allVerses[i][index].para == "sp" && controller.allVerses[i][index].book == 22 && controller.allVerses[i][index].verseNumber == 4 ? 2 : 15),
+                                                                              child: Align(
+                                                                                alignment: Alignment.center,
+                                                                                child: Text(
+                                                                                  '${controller.allVerses[i][index].verseText?.trimRight()} ',
+                                                                                  style: TextStyle(
+                                                                                    fontFamily: "Abyssinica",
+                                                                                    fontSize: controller.allVerses[i][index].para == "d" || controller.allVerses[i][index].para == "sp" ? (controller.fontSize.sp - 1) : controller.fontSize.sp,
+                                                                                    color: themeData.themeData.value!.primaryColor,
+                                                                                    fontWeight: FontWeight.bold,
+                                                                                    backgroundColor: Colors.transparent,
+                                                                                  ),
+                                                                                ),
+                                                                              ),
+                                                                            ),
+                                                                          )
+                                                                        : Container(
+                                                                            color: controller.allVerses[i][index].verseNumber == controller.blinkindex
+                                                                                ? themeData.themeData.value!.primaryColor.withOpacity(0.5)
+                                                                                : Colors.transparent,
+                                                                            child:
+                                                                                RichText(
+                                                                              text: TextSpan(
+                                                                                text: controller.selectedBook.contains("አዲሱ")
+                                                                                    ? '${controller.allVerses[i][index].verseNumber} '
+                                                                                    : controller.selectedBook.contains("1954")
+                                                                                        ? controller.allVerses[i][index - 1].verseText == " ፤"
+                                                                                            ? '${controller.allVerses[i][index - 1].verseNumber} - ${controller.allVerses[i][index].verseNumber} '
+                                                                                            : '${controller.allVerses[i][index].verseNumber}'
+                                                                                        : '${controller.allVerses[i][index].verseNumber}  ',
+                                                                                style: TextStyle(
+                                                                                  fontSize: controller.fontSize.sp,
+                                                                                  fontWeight: FontWeight.bold,
+                                                                                  color: themeData.themeData.value!.numbersColor,
+                                                                                ),
+                                                                                children: <InlineSpan>[
+                                                                                  TextSpan(
+                                                                                    text: ' ${controller.allVerses[i][index].verseText?.trimRight()}',
+                                                                                    style: TextStyle(
+                                                                                      fontFamily: "Abyssinica",
+                                                                                      fontSize: controller.fontSize.sp,
+                                                                                      color: getHighlightColor(controller.allVerses[i][index].highlight!) != Colors.transparent ? themeData.themeData.value!.blackColor : themeData.themeData.value!.verseColor,
+                                                                                      fontWeight: FontWeight.normal,
+                                                                                      backgroundColor: controller.selectedRowIndex.any((element) => element == index) ? themeData.themeData.value!.primaryColor.withOpacity(0.5) : getHighlightColor(controller.allVerses[i][index].highlight!),
+                                                                                    ),
+                                                                                    // recognizer: TapGestureRecognizer()
+                                                                                    //   ..onTap = () {
+                                                                                    //     // Highlight the verse background
+                                                                                    //     controller.highlightedVerseIndex = index;
+                                                                                    //     controller.update();
+
+                                                                                    //     // Start a timer to revert the background color after 2 seconds
+                                                                                    //     Timer(Duration(seconds: 2), () {
+                                                                                    //       controller.highlightedVerseIndex = null;
+                                                                                    //       controller.update();
+                                                                                    //     });
+                                                                                    //   },
+                                                                                  ),
+                                                                                  // if (index == 1 &&
+                                                                                  //     (controller.allVerses[i][index].verseNumber == controller.allVerses[i][index - 1].verseNumber))
+                                                                                  //   TextSpan(
+                                                                                  //     text: '${controller.allVerses[i][index].verseText?.trimRight()}',
+                                                                                  //     style: TextStyle(
+                                                                                  //       fontFamily: "Abyssinica",
+                                                                                  //       fontSize: controller.fontSize.sp,
+                                                                                  //       color: Colors.red,
+                                                                                  //       fontWeight: FontWeight.normal,
+                                                                                  //       backgroundColor: controller.selectedRowIndex.any((element) => element == index) ? themeData.themeData.value!.primaryColor.withOpacity(0.5) : getHighlightColor(controller.allVerses[i][index].highlight!),
+                                                                                  //     ),
+                                                                                  //   ),
+                                                                                ],
+                                                                              ),
+                                                                            ),
+                                                                          ),
+                                                                if (index ==
+                                                                    controller
+                                                                            .allVerses[i]
+                                                                            .length -
+                                                                        1)
+                                                                  const SizedBox(
+                                                                    height: 25,
+                                                                  ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        );
+                                                      },
+                                                    ),
+                                                  ),
                                                 ),
                                               ),
-                                            ),
-                                          ),
-                                        )
+                                            )
+                                          ],
+                                        ),
                                       ],
                                     ),
-                                  ],
-                                ),
-                              );
-                            },
-                          ),
+                                  );
+                                },
+                              ),
+                            ),
+                          ],
                         ),
                         if (detailController.selectedVerses.isNotEmpty)
-                          Visibility(
-                            visible: controller.showSelectionMenu,
-                            child: Container(
-                              color: Colors.white,
-                              height: SizerUtil.deviceType == DeviceType.mobile
-                                  ? 21.h
-                                  : 18.h,
-                              child: controller.showSelectionMenu == true
-                                  ? textSelectionOptions(
-                                      context,
-                                      controller.selectedVerses,
-                                      controller.verse!,
-                                      controller.index)
-                                  : const SizedBox.shrink(),
+                          Positioned(
+                            left: 0,
+                            bottom: 0,
+                            right: 0,
+                            child: Visibility(
+                              visible: controller.showSelectionMenu,
+                              child: Container(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: SizerUtil.deviceType ==
+                                            DeviceType.mobile
+                                        ? 0
+                                        : 15.w),
+                                color: Colors.transparent,
+                                width: MediaQuery.of(context).size.width * 0.8,
+                                height:
+                                    SizerUtil.deviceType == DeviceType.mobile
+                                        ? 21.h
+                                        : 18.h,
+                                child: controller.showSelectionMenu == true
+                                    ? textSelectionOptions(
+                                        context,
+                                        controller.selectedVerses,
+                                        controller.verse!,
+                                        controller.index)
+                                    : const SizedBox.shrink(),
+                              ),
                             ),
-                          ),
+                          )
                       ],
                     )
                   : Container(),

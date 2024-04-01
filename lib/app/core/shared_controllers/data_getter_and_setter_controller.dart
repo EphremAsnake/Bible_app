@@ -126,36 +126,55 @@ class DataGetterAndSetter extends GetxController {
 
       // Merge verses with the same verse number within the same chapter
       List<Verses> mergedVerses = [];
+      List<Verses> exceptionverse = [];
       int currentChapter = -1;
       int currentVerseNumber = -1;
       int skipversenum = 912345;
+      int skipversechp = 912345;
+      int skipversebook = 912345;
+      bool on = false;
+
       for (var i = 0; i < versesList.length; i++) {
         var verse = versesList[i];
 
         var previousVerse = i > 0 ? versesList[i - 1] : null;
         var nextVerse = i < versesList.length - 1 ? versesList[i + 1] : null;
 
-        //!2
-        var previousVerse1 = i > 1 ? versesList[i - 2] : null;
-        var nextVerse1 = i < versesList.length - 2 ? versesList[i + 2] : null;
+        if (verse.book == 22 && verse.chapter == 1 && verse.verseNumber == 4) {
+          // if (verse.para != "sp") {
+          //   if (exceptionverse.isNotEmpty) {
+          //     exceptionverse.last.verseText =
+          //         "${(exceptionverse.last.verseText ?? '').trim()} ${(verse.verseText ?? '').trim()}";
+          //   } else {
+          //     exceptionverse.add(verse);
+          //   }
+          // } else {
+          //   // Add sp separately
+          //   mergedVerses.addAll(exceptionverse);
+          //   mergedVerses.add(verse);
+          //   exceptionverse.clear();
+          // }
+          if (verse.para != "sp") {
+            if (exceptionverse.isNotEmpty) {
+              exceptionverse.last.verseText =
+                  "${(exceptionverse.last.verseText ?? '').trim()} ${(verse.verseText ?? '').trim()}";
+            } else {
+              exceptionverse.add(verse);
+            }
 
-        //!3
-        var previousVerse2 = i > 2 ? versesList[i - 3] : null;
-        var nextVerse2 = i < versesList.length - 3 ? versesList[i + 3] : null;
-
-        //!4
-        var previousVerse3 = i > 3 ? versesList[i - 4] : null;
-        var nextVerse3 = i < versesList.length - 4 ? versesList[i + 4] : null;
-
-        //!5
-        var previousVerse4 = i > 4 ? versesList[i - 5] : null;
-        var nextVerse4 = i < versesList.length - 5 ? versesList[i + 5] : null;
-
-        //!6
-        var previousVerse5 = i > 5 ? versesList[i - 6] : null;
-        var nextVerse5 = i < versesList.length - 6 ? versesList[i + 6] : null;
-
-        if (verse.para != "s1" &&
+            //print(verse.verseText);
+          } else {
+            //exceptionverse.add(verse);
+            print("spspsp");
+            mergedVerses.add(verse);
+          }
+          if (!on) {
+            mergedVerses.addAll(exceptionverse);
+            on = true;
+          }
+          //print(verse.verseText);
+          //exceptionverse ??= [];
+        } else if (verse.para != "s1" &&
             verse.para != "s2" &&
             verse.para != "s3" &&
             verse.para != "d" &&
@@ -164,8 +183,9 @@ class DataGetterAndSetter extends GetxController {
           // if (skipversenum != 912345) {
           //   logger.e(skipversenum);
           // }
-
-          if (skipversenum != verse.verseNumber) {
+          if (skipversenum != verse.verseNumber &&
+              skipversechp != verse.chapter &&
+              skipversebook != verse.book) {
             // if (verse.para == "p") {
             //   mergedVerses.add(verse);
             // } else {
@@ -206,6 +226,9 @@ class DataGetterAndSetter extends GetxController {
               mergedVerses.last.verseText =
                   "${(previousVerse.verseText ?? '').trim()} ${(nextVerse.verseText ?? '').trim()}";
               skipversenum = nextVerse.verseNumber;
+              skipversechp = nextVerse.chapter ?? 912345;
+              skipversebook = nextVerse.book ?? 912345;
+
               // } else {
               //   // Add the verse if it's a new chapter or verse number
               //   mergedVerses.add(verse);

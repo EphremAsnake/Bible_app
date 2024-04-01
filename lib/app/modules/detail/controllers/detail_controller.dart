@@ -27,6 +27,7 @@ class DetailController extends SuperController {
   final DataGetterAndSetter getterAndSetterController =
       Get.find<DataGetterAndSetter>();
   List<List<Verses>> allVerses = [];
+  bool exception = false;
   AmharicLetter? selectedAmharicLetter;
   FocusNode focusNode = FocusNode();
   String forsearch = '';
@@ -120,6 +121,11 @@ class DetailController extends SuperController {
   setTabBarViewInitialIndex(int index) {
     defaultTabBarViewInitialIndex = index;
     update();
+  }
+
+  updateexception() {
+    exception = true;
+    update;
   }
 
   updateforsearch(String newvalue) {

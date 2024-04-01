@@ -30,7 +30,7 @@ Widget textSelectionOptions(BuildContext context, List<Verses> selectedVerses,
         child: Container(
           padding: EdgeInsets.symmetric(
               horizontal: SizerUtil.deviceType != DeviceType.mobile
-                  ? MediaQuery.of(context).size.width / 7
+                  ? 0
                   : 0),
           color: Colors.transparent,
           child: Container(
@@ -511,7 +511,7 @@ Widget textSelectionOptions(BuildContext context, List<Verses> selectedVerses,
                   ),
                   Padding(
                     padding: const EdgeInsets.only(
-                        top: 5, left: 10, right: 10, bottom: 1),
+                        top: 5, left: 0, right: 0, bottom: 1),
                     child: Divider(
                       color: themeData.themeData.value!.grayTextColor
                           .withOpacity(0.5),
@@ -859,7 +859,7 @@ class _CompareDialogState extends State<CompareDialog> {
             ),
             const SizedBox(height: 8.0),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              padding: const EdgeInsets.symmetric(horizontal: 5.0),
               child: RichText(
                 text: TextSpan(
                   children: [

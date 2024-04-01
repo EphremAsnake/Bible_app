@@ -135,10 +135,31 @@ class DataGetterAndSetter extends GetxController {
         var previousVerse = i > 0 ? versesList[i - 1] : null;
         var nextVerse = i < versesList.length - 1 ? versesList[i + 1] : null;
 
+        //!2
+        var previousVerse1 = i > 1 ? versesList[i - 2] : null;
+        var nextVerse1 = i < versesList.length - 2 ? versesList[i + 2] : null;
+
+        //!3
+        var previousVerse2 = i > 2 ? versesList[i - 3] : null;
+        var nextVerse2 = i < versesList.length - 3 ? versesList[i + 3] : null;
+
+        //!4
+        var previousVerse3 = i > 3 ? versesList[i - 4] : null;
+        var nextVerse3 = i < versesList.length - 4 ? versesList[i + 4] : null;
+
+        //!5
+        var previousVerse4 = i > 4 ? versesList[i - 5] : null;
+        var nextVerse4 = i < versesList.length - 5 ? versesList[i + 5] : null;
+
+        //!6
+        var previousVerse5 = i > 5 ? versesList[i - 6] : null;
+        var nextVerse5 = i < versesList.length - 6 ? versesList[i + 6] : null;
+
         if (verse.para != "s1" &&
             verse.para != "s2" &&
             verse.para != "s3" &&
-            verse.para != "d") {
+            verse.para != "d" &&
+            verse.para != "sp") {
           //Logger logger = Logger();
           // if (skipversenum != 912345) {
           //   logger.e(skipversenum);
@@ -169,11 +190,13 @@ class DataGetterAndSetter extends GetxController {
             if ((previousVerse.para != "s1" &&
                     previousVerse.para != "s2" &&
                     previousVerse.para != "s3" &&
-                    previousVerse.para != "d") &&
+                    previousVerse.para != "d" &&
+                    previousVerse.para != "sp") &&
                 (nextVerse.para != "s1" &&
                     nextVerse.para != "s2" &&
                     nextVerse.para != "s3" &&
-                    nextVerse.para != "d") &&
+                    nextVerse.para != "d" &&
+                    nextVerse.para != "sp") &&
                 previousVerse.verseNumber == nextVerse.verseNumber) {
               // if (mergedVerses.isNotEmpty &&
               //   verse.chapter == currentChapter &&

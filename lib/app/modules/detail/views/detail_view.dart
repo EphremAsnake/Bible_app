@@ -741,7 +741,8 @@ class DetailView extends GetView<DetailController> {
                                               vertical: 5),
                                           child: SizedBox(
                                             width: 100.w,
-                                            height: 79.h,
+                                            //! 100% of the screen
+                                            height: 100.h,
                                             child: Padding(
                                               padding: const EdgeInsets.only(
                                                   bottom: 30),
@@ -751,7 +752,11 @@ class DetailView extends GetView<DetailController> {
                                                     .width,
                                                 child: ListView.builder(
                                                   padding: EdgeInsets.only(
-                                                      bottom: 15.h),
+                                                      bottom: SizerUtil
+                                                                  .deviceType ==
+                                                              DeviceType.mobile
+                                                          ? 35.h
+                                                          : 20.h),
                                                   controller: controller
                                                       .readerScrollController,
                                                   itemCount: controller
@@ -814,7 +819,13 @@ class DetailView extends GetView<DetailController> {
                                                                         i]
                                                                         [index]
                                                                     .para !=
-                                                                "d") {
+                                                                "d" &&
+                                                            controller
+                                                                    .allVerses[
+                                                                        i]
+                                                                        [index]
+                                                                    .para !=
+                                                                "sp") {
                                                           controller
                                                               .toggleSelectedRowIndex(
                                                                   index,
@@ -880,7 +891,8 @@ class DetailView extends GetView<DetailController> {
                                                                       if (![
                                                                         "s1",
                                                                         "s2",
-                                                                        "s3"
+                                                                        "s3",
+                                                                        "sp"
                                                                       ].contains(controller
                                                                           .allVerses[
                                                                               i]
@@ -928,7 +940,8 @@ class DetailView extends GetView<DetailController> {
                                                                               "s1",
                                                                               "s2",
                                                                               "s3",
-                                                                              "d"
+                                                                              "d",
+                                                                              "sp"
                                                                             ].contains(controller.allVerses[i][index].para)
                                                                                         ? TextSpan(
                                                                                             children: [
@@ -990,7 +1003,8 @@ class DetailView extends GetView<DetailController> {
                                                                   "s1",
                                                                   "s2",
                                                                   "s3",
-                                                                  "d"
+                                                                  "d",
+                                                                  "sp"
                                                                 ].contains(controller
                                                                         .allVerses[
                                                                             i][
@@ -1011,7 +1025,7 @@ class DetailView extends GetView<DetailController> {
                                                                               '${controller.allVerses[i][index].verseText?.trimRight()} ',
                                                                               style: TextStyle(
                                                                                 fontFamily: "Abyssinica",
-                                                                                fontSize: controller.allVerses[i][index].para == "d" ? (controller.fontSize.sp - 1) : controller.fontSize.sp,
+                                                                                fontSize: controller.allVerses[i][index].para == "d" || controller.allVerses[i][index].para == "sp" ? (controller.fontSize.sp - 1) : controller.fontSize.sp,
                                                                                 color: themeData.themeData.value!.primaryColor,
                                                                                 fontWeight: FontWeight.bold,
                                                                                 backgroundColor: Colors.transparent,
@@ -1099,7 +1113,7 @@ class DetailView extends GetView<DetailController> {
                                               ),
                                             ),
                                           ),
-                                        ),
+                                        )
                                       ],
                                     ),
                                   ],
@@ -1124,7 +1138,7 @@ class DetailView extends GetView<DetailController> {
                                       controller.index)
                                   : const SizedBox.shrink(),
                             ),
-                          )
+                          ),
                       ],
                     )
                   : Container(),

@@ -870,6 +870,7 @@ class _CompareDialogState extends State<CompareDialog> {
             itemCount: widget.selectedVerses.length,
             itemBuilder: (context, index) {
               var lVerse = widget.selectedVerses[index];
+              String valch = lVerse.chapter!.toString();
               return Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -892,8 +893,7 @@ class _CompareDialogState extends State<CompareDialog> {
                       text: TextSpan(
                         children: [
                           TextSpan(
-                            text:
-                                '${lVerse.verseNumber!}$sepa ',
+                            text: '${lVerse.verseNumber!}$sepa ',
                             style: TextStyle(
                               fontSize: detailController.fontSize.sp,
                               color: themeData.themeData.value!.numbersColor,
@@ -912,6 +912,7 @@ class _CompareDialogState extends State<CompareDialog> {
                       ),
                     ),
                   ),
+
                   // አዲሱ መደበኛ ትርጉም
                   if (detailController.selectedBook != 'አዲሱ መደበኛ ትርጉም')
                     buildVerseContainer(
@@ -919,10 +920,10 @@ class _CompareDialogState extends State<CompareDialog> {
                         aMHNIVverseText,
                         '፤ ',
                         detailController.selectedBook.contains('Eng')
-                            ? detailController.getAMHBookinfo(
-                                lVerse.chapter!.toString())
-                            : detailController
-                                .getBookTitle(lVerse.book!),lVerse),
+                            ? detailController
+                                .getAMHBookinfo(detailController.getBookTitle(lVerse.book!))
+                            : detailController.getBookTitle(lVerse.book!),
+                        lVerse),
                   // አማርኛ 1954
                   if (detailController.selectedBook != 'አማርኛ 1954')
                     buildVerseContainer(
@@ -930,10 +931,10 @@ class _CompareDialogState extends State<CompareDialog> {
                         ' $aMHKJVverseText',
                         '',
                         detailController.selectedBook.contains('Eng')
-                            ? detailController.getAMHBookinfo(detailController
-                                .getBookTitle(lVerse.book!))
-                            : detailController
-                                .getBookTitle(lVerse.book!),lVerse),
+                            ? detailController.getAMHBookinfo(
+                                detailController.getBookTitle(lVerse.book!))
+                            : detailController.getBookTitle(lVerse.book!),
+                        lVerse),
                   // English KJV
                   if (detailController.selectedBook != 'English KJV')
                     buildVerseContainer(
@@ -941,11 +942,10 @@ class _CompareDialogState extends State<CompareDialog> {
                         eNGKJVverseText,
                         ': ',
                         detailController.selectedBook.contains('Eng')
-                            ? detailController
-                                .getBookTitle(lVerse.book!)
+                            ? detailController.getBookTitle(lVerse.book!)
                             : detailController.getENGBookinfofromAMH(
-                                detailController.getBookTitle(
-                                    lVerse.book!)),lVerse),
+                                detailController.getBookTitle(lVerse.book!)),
+                        lVerse),
                   // English NIV
                   if (detailController.selectedBook != 'English NIV')
                     buildVerseContainer(
@@ -953,12 +953,11 @@ class _CompareDialogState extends State<CompareDialog> {
                         eNGNIVverseText,
                         ': ',
                         detailController.selectedBook.contains('Eng')
-                            ? detailController
-                                .getBookTitle(lVerse.book!)
+                            ? detailController.getBookTitle(lVerse.book!)
                             : detailController.getENGBookinfofromAMH(
-                                detailController.getBookTitle(
-                                    lVerse.book!)),lVerse),
-        
+                                detailController.getBookTitle(lVerse.book!)),
+                        lVerse),
+
                   const SizedBox(height: 8.0),
                 ],
               );
@@ -979,8 +978,8 @@ class _CompareDialogState extends State<CompareDialog> {
     );
   }
 
-  Widget buildVerseContainer(
-      String title, String verseText, String separ, String chapName, Verses lverse) {
+  Widget buildVerseContainer(String title, String verseText, String separ,
+      String chapName, Verses lverse) {
     return Column(
       children: [
         Container(

@@ -1024,7 +1024,8 @@ class DetailView extends GetView<DetailController> {
                                                                                         ? controller.allVerses[i][index - 1].verseText == " ፤"
                                                                                             ? '${controller.allVerses[i][index - 1].verseNumber} - ${controller.allVerses[i][index].verseNumber} '
                                                                                             : '${controller.allVerses[i][index].verseNumber}'
-                                                                                        : '${controller.allVerses[i][index].verseNumber}  ',
+                                                                                        : index != 0 && controller.allVerses[i][index].verseNumber != controller.allVerses[i][index - 1].verseNumber
+                                                                                        ?'${controller.allVerses[i][index].verseNumber}  ':'',
                                                                                 style: TextStyle(
                                                                                   fontSize: controller.fontSize.sp,
                                                                                   fontWeight: FontWeight.bold,

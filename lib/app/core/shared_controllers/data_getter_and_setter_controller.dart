@@ -126,76 +126,30 @@ class DataGetterAndSetter extends GetxController {
 
       // Merge verses with the same verse number within the same chapter
       List<Verses> mergedVerses = [];
-      List<Verses> exceptionverse = [];
       int currentChapter = -1;
       int currentVerseNumber = -1;
       int skipversenum = 912345;
-      int skipversechp = 912345;
-      int skipversebook = 912345;
-      bool on = false;
-
       for (var i = 0; i < versesList.length; i++) {
         var verse = versesList[i];
 
         var previousVerse = i > 0 ? versesList[i - 1] : null;
         var nextVerse = i < versesList.length - 1 ? versesList[i + 1] : null;
 
-        if (verse.book == 22 && verse.chapter == 1 && verse.verseNumber == 4) {
-          // if (verse.para != "sp") {
-          //   if (exceptionverse.isNotEmpty) {
-          //     exceptionverse.last.verseText =
-          //         "${(exceptionverse.last.verseText ?? '').trim()} ${(verse.verseText ?? '').trim()}";
-          //   } else {
-          //     exceptionverse.add(verse);
-          //   }
-          // } else {
-          //   // Add sp separately
-          //   mergedVerses.addAll(exceptionverse);
+        if (verse.book == 22) {
+          // if (verse.para == "p") {
           //   mergedVerses.add(verse);
-          //   exceptionverse.clear();
-          // }
+          // } else {
           if (verse.para != "sp") {
-            if (exceptionverse.isNotEmpty) {
-              exceptionverse.last.verseText =
-                  "${(exceptionverse.last.verseText ?? '').trim()} ${(verse.verseText ?? '').trim()}";
-            } else {
-              exceptionverse.add(verse);
-            }
-
-            //print(verse.verseText);
-          } else {
-            //exceptionverse.add(verse);
-            print("spspsp");
-            mergedVerses.add(verse);
-          }
-          if (!on) {
-            mergedVerses.addAll(exceptionverse);
-            on = true;
-          }
-          //print(verse.verseText);
-          //exceptionverse ??= [];
-        } else if (verse.para != "s1" &&
-            verse.para != "s2" &&
-            verse.para != "s3" &&
-            verse.para != "d" &&
-            verse.para != "sp") {
-          //Logger logger = Logger();
-          // if (skipversenum != 912345) {
-          //   logger.e(skipversenum);
-          // }
-          if (skipversenum != verse.verseNumber &&
-              skipversechp != verse.chapter &&
-              skipversebook != verse.book) {
-            // if (verse.para == "p") {
-            //   mergedVerses.add(verse);
-            // } else {
             if (mergedVerses.isNotEmpty &&
                 verse.chapter == currentChapter &&
                 verse.verseNumber == currentVerseNumber) {
               // Merge verses with the same verse number within the same chapter
-
-              mergedVerses.last.verseText =
-                  "${(mergedVerses.last.verseText ?? '').trim()} ${(verse.verseText ?? '').trim()}";
+              if (mergedVerses.last.para == "sp") {
+                mergedVerses.add(verse);
+              } else {
+                mergedVerses.last.verseText =
+                    "${(mergedVerses.last.verseText ?? '').trim()} ${(verse.verseText ?? '').trim()}";
+              }
             } else {
               // Add the verse if it's a new chapter or verse number
 
@@ -204,46 +158,79 @@ class DataGetterAndSetter extends GetxController {
               currentVerseNumber = verse.verseNumber!;
               // }
             }
+          } else {
+            mergedVerses.add(verse);
           }
         } else {
-          if (previousVerse != null && nextVerse != null) {
-            if ((previousVerse.para != "s1" &&
-                    previousVerse.para != "s2" &&
-                    previousVerse.para != "s3" &&
-                    previousVerse.para != "d" &&
-                    previousVerse.para != "sp") &&
-                (nextVerse.para != "s1" &&
-                    nextVerse.para != "s2" &&
-                    nextVerse.para != "s3" &&
-                    nextVerse.para != "d" &&
-                    nextVerse.para != "sp") &&
-                previousVerse.verseNumber == nextVerse.verseNumber) {
-              // if (mergedVerses.isNotEmpty &&
-              //   verse.chapter == currentChapter &&
-              //   verse.verseNumber == currentVerseNumber) {
-              // Merge verses with the same verse number within the same chapter
+          if (verse.para != "sp" &&
+              verse.para != "s1" &&
+              verse.para != "s2" &&
+              verse.para != "s3" &&
+              verse.para != "d") {
+            //Logger logger = Logger();
+            // if (skipversenum != 912345) {
+            //   logger.e(skipversenum);
+            // }
 
-              mergedVerses.last.verseText =
-                  "${(previousVerse.verseText ?? '').trim()} ${(nextVerse.verseText ?? '').trim()}";
-              skipversenum = nextVerse.verseNumber;
-              skipversechp = nextVerse.chapter ?? 912345;
-              skipversebook = nextVerse.book ?? 912345;
-
-              // } else {
-              //   // Add the verse if it's a new chapter or verse number
+            if (skipversenum != verse.verseNumber) {
+              // if (verse.para == "p") {
               //   mergedVerses.add(verse);
-              //   currentChapter = verse.chapter!;
-              //   currentVerseNumber = verse.verseNumber!;
-              // }
+              // } else {
+              if (mergedVerses.isNotEmpty &&
+                  verse.chapter == currentChapter &&
+                  verse.verseNumber == currentVerseNumber) {
+                // Merge verses with the same verse number within the same chapter
+
+                mergedVerses.last.verseText =
+                    "${(mergedVerses.last.verseText ?? '').trim()} ${(verse.verseText ?? '').trim()}";
+              } else {
+                // Add the verse if it's a new chapter or verse number
+
+                mergedVerses.add(verse);
+                currentChapter = verse.chapter!;
+                currentVerseNumber = verse.verseNumber!;
+                // }
+              }
             }
+          } else {
+            if (verse.para == "sp") {
+              //mergedVerses.add(verse);
+            } else if (previousVerse != null && nextVerse != null) {
+              if ((previousVerse.para != "s1" &&
+                      previousVerse.para != "s2" &&
+                      previousVerse.para != "s3" &&
+                      previousVerse.para != "d" &&
+                      previousVerse.para != "sp") &&
+                  (nextVerse.para != "s1" &&
+                      nextVerse.para != "s2" &&
+                      nextVerse.para != "s3" &&
+                      nextVerse.para != "d" &&
+                      previousVerse.para != "sp") &&
+                  previousVerse.verseNumber == nextVerse.verseNumber) {
+                // if (mergedVerses.isNotEmpty &&
+                //   verse.chapter == currentChapter &&
+                //   verse.verseNumber == currentVerseNumber) {
+                // Merge verses with the same verse number within the same chapter
+
+                mergedVerses.last.verseText =
+                    "${(previousVerse.verseText ?? '').trim()} ${(nextVerse.verseText ?? '').trim()}";
+                skipversenum = nextVerse.verseNumber;
+                // } else {
+                //   // Add the verse if it's a new chapter or verse number
+                //   mergedVerses.add(verse);
+                //   currentChapter = verse.chapter!;
+                //   currentVerseNumber = verse.verseNumber!;
+                // }
+              }
+            }
+
+            //! Add title verses directly without merging
+            mergedVerses.add(verse);
           }
-
-          //! Add title verses directly without merging
-          mergedVerses.add(verse);
         }
-      }
 
-      groupedVerseList.add(mergedVerses);
+        groupedVerseList.add(mergedVerses);
+      }
     });
 
     return groupedVerseList;

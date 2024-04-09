@@ -1017,7 +1017,9 @@ class DetailView extends GetView<DetailController> {
                                                                                 RichText(
                                                                               text: TextSpan(
                                                                                 text: controller.selectedBook.contains("አዲሱ")
-                                                                                    ? '${controller.allVerses[i][index].verseNumber} '
+                                                                                    ? index != 0 && controller.allVerses[i][index].verseNumber != controller.allVerses[i][index - 1].verseNumber
+                                                                                        ? '${controller.allVerses[i][index].verseNumber} '
+                                                                                        : ''
                                                                                     : controller.selectedBook.contains("1954")
                                                                                         ? controller.allVerses[i][index - 1].verseText == " ፤"
                                                                                             ? '${controller.allVerses[i][index - 1].verseNumber} - ${controller.allVerses[i][index].verseNumber} '

@@ -29,15 +29,14 @@ Widget textSelectionOptions(BuildContext context, List<Verses> selectedVerses,
         color: themeData.themeData.value!.backgroundColor,
         child: Container(
           padding: EdgeInsets.symmetric(
-              horizontal: SizerUtil.deviceType != DeviceType.mobile
-                  ? 0
-                  : 0),
+              horizontal: SizerUtil.deviceType != DeviceType.mobile ? 0 : 0),
           color: Colors.transparent,
           child: Container(
             decoration: BoxDecoration(
                 color: themeData.themeData.value!.backgroundColor,
                 border: const Border(top: BorderSide(color: Colors.grey))),
-            padding: const EdgeInsets.only(bottom: 5, top: 15, left: 5, right: 5),
+            padding:
+                const EdgeInsets.only(bottom: 5, top: 15, left: 5, right: 5),
             child: SingleChildScrollView(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -81,7 +80,8 @@ Widget textSelectionOptions(BuildContext context, List<Verses> selectedVerses,
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
                               border: Border.all(
-                                color: Colors.grey, // Set the color of the border
+                                color:
+                                    Colors.grey, // Set the color of the border
                                 width: 1.0, // Set the width of the border
                               ),
                             ),
@@ -122,8 +122,8 @@ Widget textSelectionOptions(BuildContext context, List<Verses> selectedVerses,
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
                                 border: Border.all(
-                                  color:
-                                      Colors.grey, // Set the color of the border
+                                  color: Colors
+                                      .grey, // Set the color of the border
                                   width: 1.0, // Set the width of the border
                                 ),
                               ),
@@ -159,7 +159,8 @@ Widget textSelectionOptions(BuildContext context, List<Verses> selectedVerses,
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
                               border: Border.all(
-                                color: Colors.grey, // Set the color of the border
+                                color:
+                                    Colors.grey, // Set the color of the border
                                 width: 1.0, // Set the width of the border
                               ),
                             ),
@@ -196,7 +197,8 @@ Widget textSelectionOptions(BuildContext context, List<Verses> selectedVerses,
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
                               border: Border.all(
-                                color: Colors.grey, // Set the color of the border
+                                color:
+                                    Colors.grey, // Set the color of the border
                                 width: 1.0, // Set the width of the border
                               ),
                             ),
@@ -233,7 +235,8 @@ Widget textSelectionOptions(BuildContext context, List<Verses> selectedVerses,
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
                               border: Border.all(
-                                color: Colors.grey, // Set the color of the border
+                                color:
+                                    Colors.grey, // Set the color of the border
                                 width: 1.0, // Set the width of the border
                               ),
                             ),
@@ -248,8 +251,8 @@ Widget textSelectionOptions(BuildContext context, List<Verses> selectedVerses,
                         ),
                         GestureDetector(
                           onTap: () async {
-                            int color =
-                                setHighlightColor(HighlightColors.highlightBlue);
+                            int color = setHighlightColor(
+                                HighlightColors.highlightBlue);
                             for (int i = 0;
                                 i < detailController.selectedVerses.length;
                                 i++) {
@@ -270,7 +273,8 @@ Widget textSelectionOptions(BuildContext context, List<Verses> selectedVerses,
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
                               border: Border.all(
-                                color: Colors.grey, // Set the color of the border
+                                color:
+                                    Colors.grey, // Set the color of the border
                                 width: 1.0, // Set the width of the border
                               ),
                             ),
@@ -285,8 +289,8 @@ Widget textSelectionOptions(BuildContext context, List<Verses> selectedVerses,
                         ),
                         GestureDetector(
                           onTap: () async {
-                            int color =
-                                setHighlightColor(HighlightColors.highlightPink);
+                            int color = setHighlightColor(
+                                HighlightColors.highlightPink);
                             for (int i = 0;
                                 i < detailController.selectedVerses.length;
                                 i++) {
@@ -307,7 +311,8 @@ Widget textSelectionOptions(BuildContext context, List<Verses> selectedVerses,
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
                               border: Border.all(
-                                color: Colors.grey, // Set the color of the border
+                                color:
+                                    Colors.grey, // Set the color of the border
                                 width: 1.0, // Set the width of the border
                               ),
                             ),
@@ -344,12 +349,14 @@ Widget textSelectionOptions(BuildContext context, List<Verses> selectedVerses,
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
                               border: Border.all(
-                                color: Colors.grey, // Set the color of the border
+                                color:
+                                    Colors.grey, // Set the color of the border
                                 width: 1.0, // Set the width of the border
                               ),
                             ),
                             child: const CircleAvatar(
-                              backgroundColor: HighlightColors.highlightDarkGreen,
+                              backgroundColor:
+                                  HighlightColors.highlightDarkGreen,
                               radius: 20,
                             ),
                           ),
@@ -381,7 +388,8 @@ Widget textSelectionOptions(BuildContext context, List<Verses> selectedVerses,
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
                               border: Border.all(
-                                color: Colors.grey, // Set the color of the border
+                                color:
+                                    Colors.grey, // Set the color of the border
                                 width: 1.0, // Set the width of the border
                               ),
                             ),
@@ -419,12 +427,14 @@ Widget textSelectionOptions(BuildContext context, List<Verses> selectedVerses,
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
                               border: Border.all(
-                                color: Colors.grey, // Set the color of the border
+                                color:
+                                    Colors.grey, // Set the color of the border
                                 width: 1.0, // Set the width of the border
                               ),
                             ),
                             child: const CircleAvatar(
-                              backgroundColor: HighlightColors.highlightDarkTeal,
+                              backgroundColor:
+                                  HighlightColors.highlightDarkTeal,
                               radius: 20,
                             ),
                           ),
@@ -434,8 +444,8 @@ Widget textSelectionOptions(BuildContext context, List<Verses> selectedVerses,
                         ),
                         GestureDetector(
                           onTap: () async {
-                            int color =
-                                setHighlightColor(HighlightColors.highlightBrown);
+                            int color = setHighlightColor(
+                                HighlightColors.highlightBrown);
                             for (int i = 0;
                                 i < detailController.selectedVerses.length;
                                 i++) {
@@ -456,7 +466,8 @@ Widget textSelectionOptions(BuildContext context, List<Verses> selectedVerses,
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
                               border: Border.all(
-                                color: Colors.grey, // Set the color of the border
+                                color:
+                                    Colors.grey, // Set the color of the border
                                 width: 1.0, // Set the width of the border
                               ),
                             ),
@@ -493,12 +504,14 @@ Widget textSelectionOptions(BuildContext context, List<Verses> selectedVerses,
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
                               border: Border.all(
-                                color: Colors.grey, // Set the color of the border
+                                color:
+                                    Colors.grey, // Set the color of the border
                                 width: 1.0, // Set the width of the border
                               ),
                             ),
                             child: const CircleAvatar(
-                              backgroundColor: HighlightColors.highlightLightRed,
+                              backgroundColor:
+                                  HighlightColors.highlightLightRed,
                               radius: 20,
                             ),
                           ),
@@ -535,10 +548,12 @@ Widget textSelectionOptions(BuildContext context, List<Verses> selectedVerses,
                                 onPressed: () async {
                                   String textToCopy = "";
                                   for (int i = 0;
-                                      i < detailController.selectedVerses.length;
+                                      i <
+                                          detailController
+                                              .selectedVerses.length;
                                       i++) {
                                     String tempTextToCopy = "";
-        
+
                                     if (detailController.selectedBook
                                         .contains("English")) {
                                       tempTextToCopy =
@@ -550,7 +565,8 @@ Widget textSelectionOptions(BuildContext context, List<Verses> selectedVerses,
                                     textToCopy =
                                         textToCopy + "\n ${tempTextToCopy}";
                                   }
-                                  await share(textToCopy.trimLeft(), "Share", context);
+                                  await share(
+                                      textToCopy.trimLeft(), "Share", context);
                                 },
                                 icon: Icon(
                                   Icons.share,
@@ -575,7 +591,9 @@ Widget textSelectionOptions(BuildContext context, List<Verses> selectedVerses,
                                 onPressed: () {
                                   String textToCopy = "";
                                   for (int i = 0;
-                                      i < detailController.selectedVerses.length;
+                                      i <
+                                          detailController
+                                              .selectedVerses.length;
                                       i++) {
                                     String tempTextToCopy = "";
                                     if (detailController.selectedBook
@@ -589,7 +607,7 @@ Widget textSelectionOptions(BuildContext context, List<Verses> selectedVerses,
                                     textToCopy =
                                         textToCopy + "\n ${tempTextToCopy}";
                                   }
-        
+
                                   copyToClipboard(textToCopy);
                                 },
                                 icon: Icon(
@@ -618,13 +636,14 @@ Widget textSelectionOptions(BuildContext context, List<Verses> selectedVerses,
                                   // String selectedbooktitle,
                                   // String verse
                                   if (selectedVerses.isNotEmpty) {
-                                    compare(
-                                        context,
-                                        '${detailController.getBookTitle(selectedVerses[0].book!)}',
-                                        '${selectedVerses[0].chapter}',
-                                        '${selectedVerses[0].verseNumber}',
-                                        selectedVerses[0].verseText!,
-                                        selectedVerses[0].book!);
+                                    compare(context, selectedVerses
+                                        // '${detailController.getBookTitle(selectedVerses[0].book!)}',
+                                        // '${selectedVerses[0].chapter}',
+                                        // '${selectedVerses[0].verseNumber}',
+                                        // selectedVerses[0].verseText!,
+                                        // selectedVerses[0].book!
+
+                                        );
                                   } else {
                                     detailController
                                         .updateshowSelectionMenu(false);
@@ -735,42 +754,49 @@ Future<void> share(String text, String subject, BuildContext context) async {
   detailController.update();
 }
 
-Future<void> compare(
-  BuildContext context,
-  String chapterName,
-  String chapterNumber,
-  String versrNumber,
-  String verse,
-  int book,
-) async {
+Future<void> compare(BuildContext context, List<Verses> selectedVerse
+    // String chapterName,
+    // String chapterNumber,
+    // String versrNumber,
+    // String verse,
+    // int book,
+    ) async {
+  //! '${detailController.getBookTitle(selectedVerses[0].book!)}',
+  //! '${selectedVerses[0].chapter}',
+  //! '${selectedVerses[0].verseNumber}',
+  //! selectedVerses[0].verseText!,
+  //! selectedVerses[0].book!
+
   // ignore: use_build_context_synchronously
   showDialog(
     context: context,
     builder: (BuildContext context) {
-      return CompareDialog(
-        verse: verse,
-        chapterName: chapterName,
-        chapterNumber: chapterNumber,
-        versrNumber: versrNumber,
-        book: book,
-      );
+      return CompareDialog(selectedVerses: selectedVerse
+          // verse: verse,
+          // chapterName: chapterName,
+          // chapterNumber: chapterNumber,
+          // versrNumber: versrNumber,
+          // book: book,
+          );
     },
   );
 }
 
 class CompareDialog extends StatefulWidget {
-  final String chapterName;
-  final String chapterNumber;
-  final String versrNumber;
-  final String verse;
-  final int book;
+  final List<Verses> selectedVerses;
+  // final String chapterName;
+  // final String chapterNumber;
+  // final String versrNumber;
+  // final String verse;
+  // final int book;
   const CompareDialog({
     Key? key,
-    required this.chapterName,
-    required this.chapterNumber,
-    required this.versrNumber,
-    required this.verse,
-    required this.book,
+    required this.selectedVerses,
+    // required this.chapterName,
+    // required this.chapterNumber,
+    // required this.versrNumber,
+    // required this.verse,
+    // required this.book,
   }) : super(key: key);
 
   @override
@@ -793,35 +819,30 @@ class _CompareDialogState extends State<CompareDialog> {
     initclass();
   }
 
+  //! '${detailController.getBookTitle(selectedVerses[0].book!)}',
+  //! '${selectedVerses[0].chapter}',
+  //! '${selectedVerses[0].verseNumber}',
+  //! selectedVerses[0].verseText!,
+  //! selectedVerses[0].book!
+
   Future<void> initclass() async {
     await EasyLoading.show(status: 'Please Wait...');
-    eNGKJVverseText = await DatabaseService().readVersesfromDB(
-        'ENGKJV',
-        int.tryParse(widget.chapterNumber)!,
-        int.tryParse(widget.versrNumber)!,
-        widget.book);
-    eNGNIVverseText = await DatabaseService().readVersesfromDB(
-        'ENGNIV',
-        int.tryParse(widget.chapterNumber)!,
-        int.tryParse(widget.versrNumber)!,
-        widget.book);
-    aMHNIVverseText = await DatabaseService().readVersesfromDB(
-        'AMHNIV',
-        int.tryParse(widget.chapterNumber)!,
-        int.tryParse(widget.versrNumber)!,
-        widget.book);
-    aMHKJVverseText = await DatabaseService().readVersesfromDB(
-        'AMHKJV',
-        int.tryParse(widget.chapterNumber)!,
-        int.tryParse(widget.versrNumber)!,
-        widget.book);
-    setState(() {});
-    if (eNGKJVverseText != '' &&
-        eNGNIVverseText != '' &&
-        aMHNIVverseText != '' &&
-        aMHKJVverseText != '') {
-      EasyLoading.dismiss();
+
+    for (var verse in widget.selectedVerses) {
+      eNGKJVverseText = await DatabaseService().readVersesfromDB(
+          'ENGKJV', verse.chapter!, verse.verseNumber!, verse.book!);
+      eNGNIVverseText = await DatabaseService().readVersesfromDB(
+          'ENGNIV', verse.chapter!, verse.verseNumber!, verse.book!);
+      aMHNIVverseText = await DatabaseService().readVersesfromDB(
+          'AMHNIV', verse.chapter!, verse.verseNumber!, verse.book!);
+      aMHKJVverseText = await DatabaseService().readVersesfromDB(
+          'AMHKJV', verse.chapter!, verse.verseNumber!, verse.book!);
+
+      // Store or process the verse texts as needed
     }
+
+    setState(() {});
+    EasyLoading.dismiss();
   }
 
   @override
@@ -841,90 +862,107 @@ class _CompareDialogState extends State<CompareDialog> {
         style: TextStyle(
             color: themeData.themeData.value!.verseColor, fontSize: 15.sp),
       ),
-      content: SingleChildScrollView(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const SizedBox(
-              height: 10,
-            ),
-            Container(
-              width: double.infinity,
-              color: Colors.grey,
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                '${detailController.selectedBook} - ${widget.chapterName} ${widget.chapterNumber}:${widget.versrNumber}',
-                style: const TextStyle(color: Colors.white),
-              ),
-            ),
-            const SizedBox(height: 8.0),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 5.0),
-              child: RichText(
-                text: TextSpan(
-                  children: [
-                    TextSpan(
-                      text: '${widget.versrNumber}$sepa ',
-                      style: TextStyle(
-                        fontSize: detailController.fontSize.sp,
-                        color: themeData.themeData.value!.numbersColor,
-                        fontWeight: FontWeight.bold,
+      content: SizedBox(
+        height: 70.h,
+        width: 80.w,
+        child: ListView.builder(
+            shrinkWrap: true,
+            itemCount: widget.selectedVerses.length,
+            itemBuilder: (context, index) {
+              var lVerse = widget.selectedVerses[index];
+              return Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Container(
+                    width: double.infinity,
+                    color: Colors.grey,
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      '${detailController.selectedBook} - ${detailController.getBookTitle(lVerse.book!)} ${lVerse.chapter!}:${lVerse.verseNumber!}',
+                      style: const TextStyle(color: Colors.white),
+                    ),
+                  ),
+                  const SizedBox(height: 8.0),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                    child: RichText(
+                      text: TextSpan(
+                        children: [
+                          TextSpan(
+                            text:
+                                '${lVerse.verseNumber!}$sepa ',
+                            style: TextStyle(
+                              fontSize: detailController.fontSize.sp,
+                              color: themeData.themeData.value!.numbersColor,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          TextSpan(
+                            text: lVerse.verseText!,
+                            style: TextStyle(
+                              fontSize: detailController.fontSize.sp,
+                              color: themeData.themeData.value!.verseColor,
+                              fontFamily: "Abyssinica",
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                    TextSpan(
-                      text: widget.verse,
-                      style: TextStyle(
-                        fontSize: detailController.fontSize.sp,
-                        color: themeData.themeData.value!.verseColor,
-                        fontFamily: "Abyssinica",
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            // አዲሱ መደበኛ ትርጉም
-            if (detailController.selectedBook != 'አዲሱ መደበኛ ትርጉም')
-              buildVerseContainer(
-                  'አዲሱ መደበኛ ትርጉም',
-                  aMHNIVverseText,
-                  '፤ ',
-                  detailController.selectedBook.contains('Eng')
-                      ? detailController.getAMHBookinfo(widget.chapterName)
-                      : widget.chapterName),
-            // አማርኛ 1954
-            if (detailController.selectedBook != 'አማርኛ 1954')
-              buildVerseContainer(
-                  'አማርኛ 1954',
-                  ' $aMHKJVverseText',
-                  '',
-                  detailController.selectedBook.contains('Eng')
-                      ? detailController.getAMHBookinfo(widget.chapterName)
-                      : widget.chapterName),
-            // English KJV
-            if (detailController.selectedBook != 'English KJV')
-              buildVerseContainer(
-                  'English KJV',
-                  eNGKJVverseText,
-                  ': ',
-                  detailController.selectedBook.contains('Eng')
-                      ? widget.chapterName
-                      : detailController
-                          .getENGBookinfofromAMH(widget.chapterName)),
-            // English NIV
-            if (detailController.selectedBook != 'English NIV')
-              buildVerseContainer(
-                  'English NIV',
-                  eNGNIVverseText,
-                  ': ',
-                  detailController.selectedBook.contains('Eng')
-                      ? widget.chapterName
-                      : detailController
-                          .getENGBookinfofromAMH(widget.chapterName)),
-
-            const SizedBox(height: 8.0),
-          ],
-        ),
+                  ),
+                  // አዲሱ መደበኛ ትርጉም
+                  if (detailController.selectedBook != 'አዲሱ መደበኛ ትርጉም')
+                    buildVerseContainer(
+                        'አዲሱ መደበኛ ትርጉም',
+                        aMHNIVverseText,
+                        '፤ ',
+                        detailController.selectedBook.contains('Eng')
+                            ? detailController.getAMHBookinfo(
+                                lVerse.chapter!.toString())
+                            : detailController
+                                .getBookTitle(lVerse.book!),lVerse),
+                  // አማርኛ 1954
+                  if (detailController.selectedBook != 'አማርኛ 1954')
+                    buildVerseContainer(
+                        'አማርኛ 1954',
+                        ' $aMHKJVverseText',
+                        '',
+                        detailController.selectedBook.contains('Eng')
+                            ? detailController.getAMHBookinfo(detailController
+                                .getBookTitle(lVerse.book!))
+                            : detailController
+                                .getBookTitle(lVerse.book!),lVerse),
+                  // English KJV
+                  if (detailController.selectedBook != 'English KJV')
+                    buildVerseContainer(
+                        'English KJV',
+                        eNGKJVverseText,
+                        ': ',
+                        detailController.selectedBook.contains('Eng')
+                            ? detailController
+                                .getBookTitle(lVerse.book!)
+                            : detailController.getENGBookinfofromAMH(
+                                detailController.getBookTitle(
+                                    lVerse.book!)),lVerse),
+                  // English NIV
+                  if (detailController.selectedBook != 'English NIV')
+                    buildVerseContainer(
+                        'English NIV',
+                        eNGNIVverseText,
+                        ': ',
+                        detailController.selectedBook.contains('Eng')
+                            ? detailController
+                                .getBookTitle(lVerse.book!)
+                            : detailController.getENGBookinfofromAMH(
+                                detailController.getBookTitle(
+                                    lVerse.book!)),lVerse),
+        
+                  const SizedBox(height: 8.0),
+                ],
+              );
+            }),
       ),
       actions: <Widget>[
         TextButton(
@@ -942,7 +980,7 @@ class _CompareDialogState extends State<CompareDialog> {
   }
 
   Widget buildVerseContainer(
-      String title, String verseText, String separ, String chapName) {
+      String title, String verseText, String separ, String chapName, Verses lverse) {
     return Column(
       children: [
         Container(
@@ -950,7 +988,7 @@ class _CompareDialogState extends State<CompareDialog> {
           color: Colors.grey,
           padding: const EdgeInsets.all(8.0),
           child: Text(
-            '$title - $chapName ${widget.chapterNumber}:${widget.versrNumber}',
+            '$title - $chapName ${lverse.chapter!}:${lverse.verseNumber!}',
             style: const TextStyle(color: Colors.white),
           ),
         ),
@@ -961,7 +999,7 @@ class _CompareDialogState extends State<CompareDialog> {
             text: TextSpan(
               children: [
                 TextSpan(
-                  text: '${widget.versrNumber}$separ',
+                  text: '${lverse.verseNumber!}$separ',
                   style: TextStyle(
                     fontSize: detailController.fontSize.sp,
                     color: themeData.themeData.value!.numbersColor,

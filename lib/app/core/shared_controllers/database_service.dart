@@ -115,8 +115,8 @@ class DatabaseService {
             book == "ENGNIV"
         ? 'SELECT * FROM $book WHERE chapter = $chapter AND verseNumber = $verseNumber AND book = $booknum AND para NOT IN ("s1", "s2", "s3", "d")'
         : 'SELECT * FROM $book WHERE chapter = $chapter AND verseNumber = $verseNumber AND book = $booknum');
-    Logger logger = Logger();
-    logger.e(rows);
+    // Logger logger = Logger();
+    // logger.e(rows);
     //thisverse = rows;
     // Process the retrieved data
     for (Map<String, dynamic> row in rows) {

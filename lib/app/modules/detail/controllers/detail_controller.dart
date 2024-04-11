@@ -101,10 +101,10 @@ class DetailController extends SuperController {
     getPreviousPageNumber();
     getSelectedBookName();
     setInitialSelectedBookTypeOptions();
-    allVerses.addAll(selectedBookTypeOptions.contains("አዲሱ") ||
-            selectedBookTypeOptions.contains("NIV")
-        ? getterAndSetterController.groupedBookListAMHNIV()
-        : getterAndSetterController.groupedBookList());
+    allVerses.addAll(
+        selectedBook == "አዲሱ መደበኛ ትርጉም" || selectedBook == "English NIV"
+            ? getterAndSetterController.groupedBookListAMHNIV()
+            : getterAndSetterController.groupedBookList());
 
     getBooks();
     loadInitialPage();

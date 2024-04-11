@@ -6,6 +6,14 @@ class CustomEasyLoading {
   static final CustomEasyLoading _instance = CustomEasyLoading._internal();
   CustomEasyLoading._internal();
   static CustomEasyLoading getInstance() => _instance;
+  void showLoading() {
+    EasyLoading.show();
+  }
+
+  void dismissLoading() {
+    EasyLoading.dismiss();
+  }
+
   static initEasyLoading() => _instance.init();
   init() {
     EasyLoading.instance

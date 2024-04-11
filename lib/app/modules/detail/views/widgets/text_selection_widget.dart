@@ -14,6 +14,7 @@ import 'package:get/get.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../../../utils/shared_widgets/custom_easy_loading.dart';
 import '../../../home/controllers/home_controller.dart';
 import '../../../settings/views/settings_view.dart';
 
@@ -636,6 +637,9 @@ Widget textSelectionOptions(BuildContext context, List<Verses> selectedVerses,
                                   // String selectedbooktitle,
                                   // String verse
                                   if (selectedVerses.isNotEmpty) {
+                                    selectedVerses.sort((a, b) =>
+                                        a.verseNumber.compareTo(b.verseNumber));
+
                                     compare(context, selectedVerses
                                         // '${detailController.getBookTitle(selectedVerses[0].book!)}',
                                         // '${selectedVerses[0].chapter}',
@@ -808,15 +812,15 @@ class _CompareDialogState extends State<CompareDialog> {
   final ThemeController themeData = Get.find<ThemeController>();
   final HomeController homeController = Get.find<HomeController>();
 
-  String eNGKJVverseText = '';
-  String eNGNIVverseText = '';
-  String aMHNIVverseText = '';
-  String aMHKJVverseText = '';
+  List<String> eNGKJVverseText = [];
+  List<String> eNGNIVverseText = [];
+  List<String> aMHNIVverseText = [];
+  List<String> aMHKJVverseText = [];
 
   @override
   void initState() {
     super.initState();
-    initclass();
+    // initclass();
   }
 
   //! '${detailController.getBookTitle(selectedVerses[0].book!)}',
@@ -826,160 +830,394 @@ class _CompareDialogState extends State<CompareDialog> {
   //! selectedVerses[0].book!
 
   Future<void> initclass() async {
-    await EasyLoading.show(status: 'Please Wait...');
+    CustomEasyLoading.getInstance().showLoading();
 
     for (var verse in widget.selectedVerses) {
-      eNGKJVverseText = await DatabaseService().readVersesfromDB(
-          'ENGKJV', verse.chapter!, verse.verseNumber!, verse.book!);
-      eNGNIVverseText = await DatabaseService().readVersesfromDB(
-          'ENGNIV', verse.chapter!, verse.verseNumber!, verse.book!);
-      aMHNIVverseText = await DatabaseService().readVersesfromDB(
-          'AMHNIV', verse.chapter!, verse.verseNumber!, verse.book!);
-      aMHKJVverseText = await DatabaseService().readVersesfromDB(
-          'AMHKJV', verse.chapter!, verse.verseNumber!, verse.book!);
-
-      // Store or process the verse texts as needed
+      eNGKJVverseText.add(await DatabaseService().readVersesfromDB(
+          'ENGKJV', verse.chapter!, verse.verseNumber!, verse.book!));
+      eNGNIVverseText.add(await DatabaseService().readVersesfromDB(
+          'ENGNIV', verse.chapter!, verse.verseNumber!, verse.book!));
+      aMHNIVverseText.add(await DatabaseService().readVersesfromDB(
+          'AMHNIV', verse.chapter!, verse.verseNumber!, verse.book!));
+      aMHKJVverseText.add(await DatabaseService().readVersesfromDB(
+          'AMHKJV', verse.chapter!, verse.verseNumber!, verse.book!));
     }
 
-    setState(() {});
-    EasyLoading.dismiss();
+    CustomEasyLoading.getInstance().dismissLoading();
   }
+
+//   Future<void> initclass() async {
+//   for (var verse in widget.selectedVerses) {
+//     eNGKJVverseText.add(await DatabaseService().readVersesfromDB(
+//         'ENGKJV', verse.chapter!, verse.verseNumber!, verse.book!));
+//     eNGNIVverseText.add(await DatabaseService().readVersesfromDB(
+//         'ENGNIV', verse.chapter!, verse.verseNumber!, verse.book!));
+//     aMHNIVverseText.add(await DatabaseService().readVersesfromDB(
+//         'AMHNIV', verse.chapter!, verse.verseNumber!, verse.book!));
+//     aMHKJVverseText.add(await DatabaseService().readVersesfromDB(
+//         'AMHKJV', verse.chapter!, verse.verseNumber!, verse.book!));
+//   }
+// }
 
   @override
   Widget build(BuildContext context) {
     String sepa = ':';
+    String chapterNAME =
+        detailController.getBookTitle(detailController.selectedVerses[0].book!);
     detailController.selectedBook.contains("አዲሱ")
         ? sepa = '፤'
         : detailController.selectedBook.contains("1954")
             ? sepa = ' '
             : sepa = ' ';
 
-    return AlertDialog(
-      backgroundColor: themeData.themeData.value!.backgroundColor,
-      contentPadding: const EdgeInsets.all(0),
-      title: Text(
-        'compare'.tr,
-        style: TextStyle(
-            color: themeData.themeData.value!.verseColor, fontSize: 15.sp),
-      ),
-      content: SizedBox(
-        height: 70.h,
-        width: 80.w,
-        child: ListView.builder(
-            shrinkWrap: true,
-            itemCount: widget.selectedVerses.length,
-            itemBuilder: (context, index) {
-              var lVerse = widget.selectedVerses[index];
-              String valch = lVerse.chapter!.toString();
-              return Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Container(
-                    width: double.infinity,
-                    color: Colors.grey,
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      '${detailController.selectedBook} - ${detailController.getBookTitle(lVerse.book!)} ${lVerse.chapter!}:${lVerse.verseNumber!}',
-                      style: const TextStyle(color: Colors.white),
-                    ),
-                  ),
-                  const SizedBox(height: 8.0),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                    child: RichText(
-                      text: TextSpan(
+    return FutureBuilder<void>(
+        future: initclass(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const SizedBox.shrink();
+          } else if (snapshot.hasError) {
+            return Center(child: Text('Error: ${snapshot.error}'));
+          } else {
+            // Build your UI here using the verse texts
+            return AlertDialog(
+              backgroundColor: themeData.themeData.value!.backgroundColor,
+              contentPadding: const EdgeInsets.all(0),
+              title: Text(
+                'compare'.tr,
+                style: TextStyle(
+                    color: themeData.themeData.value!.verseColor,
+                    fontSize: 15.sp),
+              ),
+              content: SizedBox(
+                height: 70.h,
+                width: 80.w,
+                child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: 1,
+                    itemBuilder: (context, index) {
+                      var lVerse = widget.selectedVerses[index];
+                      String valch = lVerse.chapter!.toString();
+                      return Column(
+                        mainAxisSize: MainAxisSize.min,
                         children: [
-                          TextSpan(
-                            text: '${lVerse.verseNumber!}$sepa ',
-                            style: TextStyle(
-                              fontSize: detailController.fontSize.sp,
-                              color: themeData.themeData.value!.numbersColor,
-                              fontWeight: FontWeight.bold,
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Container(
+                            width: double.infinity,
+                            color: Colors.grey,
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              '${detailController.selectedBook} - ${detailController.getBookTitle(lVerse.book!)} ${lVerse.chapter!}:${lVerse.verseNumber!}',
+                              style: const TextStyle(color: Colors.white),
                             ),
                           ),
-                          TextSpan(
-                            text: lVerse.verseText!,
-                            style: TextStyle(
-                              fontSize: detailController.fontSize.sp,
-                              color: themeData.themeData.value!.verseColor,
-                              fontFamily: "Abyssinica",
-                            ),
-                          ),
+                          const SizedBox(height: 8.0),
+                          ListView.builder(
+                              shrinkWrap: true,
+                              itemCount: widget.selectedVerses.length,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemBuilder: (context, index) {
+                                var lVerse = widget.selectedVerses[index];
+                                return Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 5.0),
+                                  child: RichText(
+                                    text: TextSpan(
+                                      children: [
+                                        TextSpan(
+                                          text: '${lVerse.verseNumber!}$sepa ',
+                                          style: TextStyle(
+                                            fontSize:
+                                                detailController.fontSize.sp,
+                                            color: themeData
+                                                .themeData.value!.numbersColor,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        TextSpan(
+                                          text: "${lVerse.verseText!}",
+                                          style: TextStyle(
+                                            fontSize:
+                                                detailController.fontSize.sp,
+                                            color: themeData
+                                                .themeData.value!.verseColor,
+                                            fontFamily: "Abyssinica",
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              }),
+                          if (detailController.selectedBook != 'አዲሱ መደበኛ ትርጉም')
+                            Column(children: [
+                              Container(
+                                width: double.infinity,
+                                color: Colors.grey,
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  'አዲሱ መደበኛ ትርጉም - ${detailController.selectedBook.contains('Eng') ? detailController.getAMHBookinfo(chapterNAME) : chapterNAME} ${lVerse.chapter!}:${lVerse.verseNumber!}',
+                                  style: const TextStyle(color: Colors.white),
+                                ),
+                              ),
+                              const SizedBox(height: 8.0),
+                              ListView.builder(
+                                  shrinkWrap: true,
+                                  itemCount: widget.selectedVerses.length,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  itemBuilder: (context, index) {
+                                    var lVerse = widget.selectedVerses[index];
+                                    return Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 5.0),
+                                      child: RichText(
+                                        text: TextSpan(
+                                          children: [
+                                            TextSpan(
+                                              text: '${lVerse.verseNumber!}፤ ',
+                                              style: TextStyle(
+                                                fontSize: detailController
+                                                    .fontSize.sp,
+                                                color: themeData.themeData
+                                                    .value!.numbersColor,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                            TextSpan(
+                                              text:
+                                                  ' ${aMHNIVverseText[index]}',
+                                              style: TextStyle(
+                                                fontSize: detailController
+                                                    .fontSize.sp,
+                                                color: themeData.themeData
+                                                    .value!.verseColor,
+                                                fontFamily: "Abyssinica",
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    );
+                                  }),
+                            ]),
+                          if (detailController.selectedBook != 'አማርኛ 1954')
+                            Column(children: [
+                              Container(
+                                width: double.infinity,
+                                color: Colors.grey,
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  'አማርኛ 1954 - ${detailController.selectedBook.contains('Eng') ? detailController.getAMHBookinfo(chapterNAME) : chapterNAME} ${lVerse.chapter!}:${lVerse.verseNumber!}',
+                                  style: const TextStyle(color: Colors.white),
+                                ),
+                              ),
+                              const SizedBox(height: 8.0),
+                              ListView.builder(
+                                  shrinkWrap: true,
+                                  itemCount: widget.selectedVerses.length,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  itemBuilder: (context, index) {
+                                    var lVerse = widget.selectedVerses[index];
+                                    String verset = aMHKJVverseText[index];
+                                    return Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 5.0),
+                                      child: RichText(
+                                        text: TextSpan(
+                                          children: [
+                                            TextSpan(
+                                              text: '${lVerse.verseNumber!}',
+                                              style: TextStyle(
+                                                fontSize: detailController
+                                                    .fontSize.sp,
+                                                color: themeData.themeData
+                                                    .value!.numbersColor,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                            TextSpan(
+                                              text: verset,
+                                              style: TextStyle(
+                                                fontSize: detailController
+                                                    .fontSize.sp,
+                                                color: themeData.themeData
+                                                    .value!.verseColor,
+                                                fontFamily: "Abyssinica",
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    );
+                                  }),
+                            ]),
+
+                          if (detailController.selectedBook != 'English KJV')
+                            Column(children: [
+                              Container(
+                                width: double.infinity,
+                                color: Colors.grey,
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  'English KJV - ${detailController.selectedBook.contains('Eng') ? chapterNAME : detailController.getENGBookinfofromAMH(chapterNAME)} ${lVerse.chapter!}:${lVerse.verseNumber!}',
+                                  style: const TextStyle(color: Colors.white),
+                                ),
+                              ),
+                              const SizedBox(height: 8.0),
+                              ListView.builder(
+                                  shrinkWrap: true,
+                                  itemCount: widget.selectedVerses.length,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  itemBuilder: (context, index) {
+                                    var lVerse = widget.selectedVerses[index];
+                                    return Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 5.0),
+                                      child: RichText(
+                                        text: TextSpan(
+                                          children: [
+                                            TextSpan(
+                                              text: '${lVerse.verseNumber!}:',
+                                              style: TextStyle(
+                                                fontSize: detailController
+                                                    .fontSize.sp,
+                                                color: themeData.themeData
+                                                    .value!.numbersColor,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                            TextSpan(
+                                              text:
+                                                  ' ${eNGKJVverseText[index]}',
+                                              style: TextStyle(
+                                                fontSize: detailController
+                                                    .fontSize.sp,
+                                                color: themeData.themeData
+                                                    .value!.verseColor,
+                                                fontFamily: "Abyssinica",
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    );
+                                  }),
+                            ]),
+
+                          if (detailController.selectedBook != 'English NIV')
+                            Column(children: [
+                              Container(
+                                width: double.infinity,
+                                color: Colors.grey,
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  'English NIV - ${detailController.selectedBook.contains('Eng') ? chapterNAME : detailController.getENGBookinfofromAMH(chapterNAME)} ${lVerse.chapter!}:${lVerse.verseNumber!}',
+                                  style: const TextStyle(color: Colors.white),
+                                ),
+                              ),
+                              const SizedBox(height: 8.0),
+                              ListView.builder(
+                                  shrinkWrap: true,
+                                  itemCount: widget.selectedVerses.length,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  itemBuilder: (context, index) {
+                                    var lVerse = widget.selectedVerses[index];
+                                    return Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 5.0),
+                                      child: RichText(
+                                        text: TextSpan(
+                                          children: [
+                                            TextSpan(
+                                              text: '${lVerse.verseNumber!}:',
+                                              style: TextStyle(
+                                                fontSize: detailController
+                                                    .fontSize.sp,
+                                                color: themeData.themeData
+                                                    .value!.numbersColor,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                            TextSpan(
+                                              text:
+                                                  ' ${eNGNIVverseText[index]}',
+                                              style: TextStyle(
+                                                fontSize: detailController
+                                                    .fontSize.sp,
+                                                color: themeData.themeData
+                                                    .value!.verseColor,
+                                                fontFamily: "Abyssinica",
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    );
+                                  }),
+                            ]),
+
+                          // // አዲሱ መደበኛ ትርጉም
+                          // if (detailController.selectedBook != 'አዲሱ መደበኛ ትርጉም')
+                          //   buildVerseContainer('አዲሱ መደበኛ ትርጉም', '፤ ', lVerse),
+                          // // አማርኛ 1954
+                          // if (detailController.selectedBook != 'አማርኛ 1954')
+                          //   buildVerseContainer(
+                          //       'አማርኛ 1954',
+                          //       '',
+                          //       // detailController.selectedBook.contains('Eng')
+                          //       //     ? detailController.getAMHBookinfo(
+                          //       //         detailController.getBookTitle(lVerse.book!))
+                          //       //     : detailController.getBookTitle(lVerse.book!),
+                          //       lVerse),
+                          // // English KJV
+                          // if (detailController.selectedBook != 'English KJV')
+                          //   buildVerseContainer('English KJV', ': ', lVerse),
+                          // // English NIV
+                          // if (detailController.selectedBook != 'English NIV')
+                          //   buildVerseContainer('English NIV', ': ', lVerse),
+
+                          const SizedBox(height: 8.0),
                         ],
-                      ),
-                    ),
+                      );
+                    }),
+              ),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () {
+                    detailController.updateshowSelectionMenu(false);
+                    Navigator.of(context).pop();
+                  },
+                  child: Text(
+                    'close'.tr,
+                    style:
+                        TextStyle(color: themeData.themeData.value!.verseColor),
                   ),
-
-                  // አዲሱ መደበኛ ትርጉም
-                  if (detailController.selectedBook != 'አዲሱ መደበኛ ትርጉም')
-                    buildVerseContainer(
-                        'አዲሱ መደበኛ ትርጉም',
-                        aMHNIVverseText,
-                        '፤ ',
-                        detailController.selectedBook.contains('Eng')
-                            ? detailController
-                                .getAMHBookinfo(detailController.getBookTitle(lVerse.book!))
-                            : detailController.getBookTitle(lVerse.book!),
-                        lVerse),
-                  // አማርኛ 1954
-                  if (detailController.selectedBook != 'አማርኛ 1954')
-                    buildVerseContainer(
-                        'አማርኛ 1954',
-                        ' $aMHKJVverseText',
-                        '',
-                        detailController.selectedBook.contains('Eng')
-                            ? detailController.getAMHBookinfo(
-                                detailController.getBookTitle(lVerse.book!))
-                            : detailController.getBookTitle(lVerse.book!),
-                        lVerse),
-                  // English KJV
-                  if (detailController.selectedBook != 'English KJV')
-                    buildVerseContainer(
-                        'English KJV',
-                        eNGKJVverseText,
-                        ': ',
-                        detailController.selectedBook.contains('Eng')
-                            ? detailController.getBookTitle(lVerse.book!)
-                            : detailController.getENGBookinfofromAMH(
-                                detailController.getBookTitle(lVerse.book!)),
-                        lVerse),
-                  // English NIV
-                  if (detailController.selectedBook != 'English NIV')
-                    buildVerseContainer(
-                        'English NIV',
-                        eNGNIVverseText,
-                        ': ',
-                        detailController.selectedBook.contains('Eng')
-                            ? detailController.getBookTitle(lVerse.book!)
-                            : detailController.getENGBookinfofromAMH(
-                                detailController.getBookTitle(lVerse.book!)),
-                        lVerse),
-
-                  const SizedBox(height: 8.0),
-                ],
-              );
-            }),
-      ),
-      actions: <Widget>[
-        TextButton(
-          onPressed: () {
-            detailController.updateshowSelectionMenu(false);
-            Navigator.of(context).pop();
-          },
-          child: Text(
-            'close'.tr,
-            style: TextStyle(color: themeData.themeData.value!.verseColor),
-          ),
-        ),
-      ],
-    );
+                ),
+              ],
+            );
+          }
+        });
   }
 
-  Widget buildVerseContainer(String title, String verseText, String separ,
-      String chapName, Verses lverse) {
+  Widget buildVerseContainer(String title, String separ, Verses lverse) {
+    // if(detailController.selectedBook != 'አዲሱ መደበኛ ትርጉም'){
+
+    // }
+    String chapterNameIs = detailController.selectedBook.contains('Eng')
+        ? detailController
+            .getAMHBookinfo(detailController.getBookTitle(lverse.book!))
+        : detailController.getBookTitle(lverse.book!);
+
+    List<String> listof = detailController.selectedBook != 'አዲሱ መደበኛ ትርጉም'
+        ? aMHNIVverseText
+        : detailController.selectedBook != 'አማርኛ 1954'
+            ? aMHKJVverseText
+            : detailController.selectedBook != 'English KJV'
+                ? eNGKJVverseText
+                : detailController.selectedBook != 'English NIV'
+                    ? eNGNIVverseText
+                    : [];
     return Column(
       children: [
         Container(
@@ -987,36 +1225,42 @@ class _CompareDialogState extends State<CompareDialog> {
           color: Colors.grey,
           padding: const EdgeInsets.all(8.0),
           child: Text(
-            '$title - $chapName ${lverse.chapter!}:${lverse.verseNumber!}',
+            '$title - $chapterNameIs ${lverse.chapter!}:${lverse.verseNumber!}',
             style: const TextStyle(color: Colors.white),
           ),
         ),
         const SizedBox(height: 8.0),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10.0),
-          child: RichText(
-            text: TextSpan(
-              children: [
-                TextSpan(
-                  text: '${lverse.verseNumber!}$separ',
-                  style: TextStyle(
-                    fontSize: detailController.fontSize.sp,
-                    color: themeData.themeData.value!.numbersColor,
-                    fontWeight: FontWeight.bold,
+        ListView.builder(
+            shrinkWrap: true,
+            itemCount: listof.length,
+            itemBuilder: (context, index) {
+              var lVerse = widget.selectedVerses[index];
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                child: RichText(
+                  text: TextSpan(
+                    children: [
+                      TextSpan(
+                        text: '${lVerse.verseNumber!}$separ',
+                        style: TextStyle(
+                          fontSize: detailController.fontSize.sp,
+                          color: themeData.themeData.value!.numbersColor,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      TextSpan(
+                        text: lVerse.verseText,
+                        style: TextStyle(
+                          fontSize: detailController.fontSize.sp,
+                          color: themeData.themeData.value!.verseColor,
+                          fontFamily: "Abyssinica",
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-                TextSpan(
-                  text: verseText,
-                  style: TextStyle(
-                    fontSize: detailController.fontSize.sp,
-                    color: themeData.themeData.value!.verseColor,
-                    fontFamily: "Abyssinica",
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
+              );
+            }),
         const SizedBox(height: 8.0),
       ],
     );

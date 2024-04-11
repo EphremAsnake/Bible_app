@@ -659,38 +659,20 @@ class DetailView extends GetView<DetailController> {
                                   Future.delayed(
                                       const Duration(milliseconds: 500), () {
                                     controller.readerScrollController.animateTo(
-                                      controller.selctedverse *
-                                          45, // Scroll to the top
-                                      duration: const Duration(
-                                          milliseconds:
-                                              500), // Adjust the duration as needed
-                                      curve: Curves
-                                          .easeInOut, // Use a different curve if desired
+                                      controller.selctedverse * 45,
+                                      duration:
+                                          const Duration(milliseconds: 500),
+                                      curve: Curves.easeInOut,
                                     );
-                                    // controller.readerScrollController.jumpTo(
-                                    //   controller.selctedverse * 40,
-                                    // );
-                                    //scroll to top
-                                    // controller.readerScrollController.animateTo(
-                                    //   0.0, // Scroll to the top
-                                    //   duration: const Duration(
-                                    //       milliseconds:
-                                    //           500), // Adjust the duration as needed
-                                    //   curve: Curves
-                                    //       .easeInOut, // Use a different curve if desired
-                                    // );
+                                    controller.selectedRowIndex = [];
+                                    controller.selectedVerses = [];
+                                    controller.showSelectionMenu = false;
+                                    controller.detachScrollController();
+                                    controller.selectedRowIndex = [];
+                                    controller.readerScrollController.dispose();
+                                    controller
+                                        .update(); // Move this outside the Future.delayed
                                   });
-                                  controller.selectedRowIndex = [];
-                                  controller.selectedVerses = [];
-                                  controller.showSelectionMenu = false;
-                                  controller.update();
-                                  //!detach the scroll controller and re initialize
-                                  controller.detachScrollController();
-                                  controller.selectedRowIndex = [];
-                                  controller.readerScrollController.dispose();
-                                  // controller.readerScrollController =
-                                  //     ScrollController();
-                                  controller.update();
                                 },
                                 itemBuilder: (context, i) {
                                   controller.setPreviousPageNumber(i);
@@ -1025,7 +1007,8 @@ class DetailView extends GetView<DetailController> {
                                                                                             ? '${controller.allVerses[i][index - 1].verseNumber} - ${controller.allVerses[i][index].verseNumber} '
                                                                                             : '${controller.allVerses[i][index].verseNumber}'
                                                                                         : index != 0 && controller.allVerses[i][index].verseNumber != controller.allVerses[i][index - 1].verseNumber
-                                                                                        ?'${controller.allVerses[i][index].verseNumber}  ':'',
+                                                                                            ? '${controller.allVerses[i][index].verseNumber}  '
+                                                                                            : '',
                                                                                 style: TextStyle(
                                                                                   fontSize: controller.fontSize.sp,
                                                                                   fontWeight: FontWeight.bold,

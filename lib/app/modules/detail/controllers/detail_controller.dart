@@ -101,6 +101,10 @@ class DetailController extends SuperController {
     getPreviousPageNumber();
     getSelectedBookName();
     setInitialSelectedBookTypeOptions();
+    // allVerses.addAll(
+    //     selectedBook == "አዲሱ መደበኛ ትርጉም" || selectedBook == "English NIV"
+    //         ? getterAndSetterController.groupedBookListAMHNIV()
+    //         : getterAndSetterController.groupedBookList());
 
     getBooks();
     loadInitialPage();
@@ -201,8 +205,12 @@ class DetailController extends SuperController {
         await sharedPreferencesStorage.readStringData(Keys.selectedBookKey);
     if (bookName != null) {
       selectedBookTypeOptions = bookName;
+      allVerses.addAll(bookName == "አዲሱ መደበኛ ትርጉም" || bookName == "English NIV"
+          ? getterAndSetterController.groupedBookListAMHNIV()
+          : getterAndSetterController.groupedBookList());
+    } else {
       allVerses.addAll(
-          bookName == "አዲሱ መደበኛ ትርጉም" || bookName == "English NIV"
+          selectedBook == "አዲሱ መደበኛ ትርጉም" || selectedBook == "English NIV"
               ? getterAndSetterController.groupedBookListAMHNIV()
               : getterAndSetterController.groupedBookList());
     }

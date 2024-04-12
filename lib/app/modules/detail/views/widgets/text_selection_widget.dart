@@ -534,8 +534,9 @@ Widget textSelectionOptions(BuildContext context, List<Verses> selectedVerses,
                   SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
+                      //mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const SizedBox(
                           width: 5,

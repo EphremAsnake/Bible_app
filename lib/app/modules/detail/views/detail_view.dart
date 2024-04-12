@@ -656,23 +656,27 @@ class DetailView extends GetView<DetailController> {
                                 itemCount: controller.allVerses.length,
                                 animationCurve: Curves.easeIn,
                                 onPageChanged: (value) {
-                                  Future.delayed(
-                                      const Duration(milliseconds: 500), () {
-                                    controller.readerScrollController.animateTo(
-                                      controller.selctedverse * 45,
-                                      duration:
-                                          const Duration(milliseconds: 500),
-                                      curve: Curves.easeInOut,
-                                    );
-                                    controller.selectedRowIndex = [];
-                                    controller.selectedVerses = [];
-                                    controller.showSelectionMenu = false;
-                                    controller.detachScrollController();
-                                    controller.selectedRowIndex = [];
-                                    controller.readerScrollController.dispose();
-                                    controller
-                                        .update(); // Move this outside the Future.delayed
-                                  });
+                                  if (controller.selctedverse != 0) {
+                                    Future.delayed(
+                                        const Duration(milliseconds: 500), () {
+                                      controller.readerScrollController
+                                          .animateTo(
+                                        controller.selctedverse * 55,
+                                        duration:
+                                            const Duration(milliseconds: 500),
+                                        curve: Curves.easeInOut,
+                                      );
+                                      controller.selectedRowIndex = [];
+                                      controller.selectedVerses = [];
+                                      controller.showSelectionMenu = false;
+                                      controller.detachScrollController();
+                                      controller.selectedRowIndex = [];
+                                      controller.readerScrollController
+                                          .dispose();
+                                      controller
+                                          .update(); // Move this outside the Future.delayed
+                                    });
+                                  }
                                 },
                                 itemBuilder: (context, i) {
                                   controller.setPreviousPageNumber(i);
@@ -998,9 +1002,11 @@ class DetailView extends GetView<DetailController> {
                                                                             child:
                                                                                 RichText(
                                                                               text: TextSpan(
-                                                                                text: controller.selectedBook.contains("አዲሱ")
-                                                                                    ? index != 0 && controller.allVerses[i][index].verseNumber != controller.allVerses[i][index - 1].verseNumber
-                                                                                        ? '${controller.allVerses[i][index].verseNumber} '
+                                                                                text: controller.selectedBook.contains("አዲሱ") || controller.selectedBook.contains("NIV")
+                                                                                    ? index != 0 && controller.allVerses[i][index].verseNumber != controller.allVerses[i][index - 1].verseNumber || controller.allVerses[i][index - 1].verseNumber == 1
+                                                                                        ? controller.allVerses[i][index].book == 22 && controller.allVerses[i][index].chapter == 5 && index == 3
+                                                                                            ? ''
+                                                                                            : '${controller.allVerses[i][index].verseNumber} '
                                                                                         : ''
                                                                                     : controller.selectedBook.contains("1954")
                                                                                         ? controller.allVerses[i][index - 1].verseText == " ፤"

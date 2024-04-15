@@ -656,19 +656,23 @@ class DetailView extends GetView<DetailController> {
                                 itemCount: controller.allVerses.length,
                                 animationCurve: Curves.easeIn,
                                 onPageChanged: (value) {
+                                  controller.selectedRowIndex = [];
+                                  controller.selectedVerses = [];
+                                  controller.showSelectionMenu = false;
+
                                   if (controller.selctedverse != 0) {
                                     Future.delayed(
                                         const Duration(milliseconds: 500), () {
                                       controller.readerScrollController
                                           .animateTo(
-                                        controller.selctedverse * 55,
+                                            controller.selctedverse!=1?
+                                        controller.selctedverse *
+                                            (35 + controller.fontSize):0,
                                         duration:
                                             const Duration(milliseconds: 500),
                                         curve: Curves.easeInOut,
                                       );
-                                      controller.selectedRowIndex = [];
-                                      controller.selectedVerses = [];
-                                      controller.showSelectionMenu = false;
+
                                       controller.detachScrollController();
                                       controller.selectedRowIndex = [];
                                       controller.readerScrollController

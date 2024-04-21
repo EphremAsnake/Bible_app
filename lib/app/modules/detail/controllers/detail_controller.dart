@@ -29,7 +29,7 @@ class DetailController extends SuperController {
       Get.find<DataGetterAndSetter>();
   List<List<Verses>> allVerses = [];
   bool exception = false;
-  AmharicLetter? selectedAmharicLetter;
+  //AmharicLetter? selectedAmharicLetter;
   FocusNode focusNode = FocusNode();
   String forsearch = '';
   TextEditingController searchController = TextEditingController();
@@ -237,10 +237,10 @@ class DetailController extends SuperController {
     loadDevotions();
   }
 
-  setSelectedAmharicLetter(AmharicLetter selectedAmharicLetterType) {
-    selectedAmharicLetter = selectedAmharicLetterType;
-    update();
-  }
+  // setSelectedAmharicLetter(AmharicLetter selectedAmharicLetterType) {
+  //   selectedAmharicLetter = selectedAmharicLetterType;
+  //   update();
+  // }
 
   setSelectedBook(String selectedBookName) {
     selectedBook = selectedBookName;
@@ -455,7 +455,7 @@ class DetailController extends SuperController {
   clearSearchBar() {
     searchController.clear();
     searchResultVerses.clear();
-    selectedAmharicLetter = null;
+    //selectedAmharicLetter = null;
     update();
   }
 

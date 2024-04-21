@@ -39,6 +39,7 @@ class DetailView extends GetView<DetailController> {
     return GetBuilder<DetailController>(
       builder: (_) {
         controller.getSelectedBookName();
+        //FocusScope.of(context).requestFocus(controller.focusNode);
         return WillPopScope(
           onWillPop: () async {
             showExitConfirmationDialog(context);
@@ -82,19 +83,19 @@ class DetailView extends GetView<DetailController> {
                                   showCursor: true,
                                   cursorColor:
                                       themeData.themeData.value!.primaryColor,
-                                  focusNode: controller.focusNode,
+                                  //focusNode: controller.focusNode,
                                   controller: controller.searchController,
                                   onTap: () {
-                                    final int cursorIndex = detailController
+                                    final int cursorIndex = controller
                                         .searchController.selection.baseOffset;
                                     controller.searchFieldCursorIndex =
                                         cursorIndex;
-                                    FocusManager.instance.primaryFocus
-                                        ?.unfocus();
-                                    if (controller.isAmharicKeyboardVisible ==
-                                        false) {
-                                      controller.makeAmharicKeyboardVisible();
-                                    }
+                                    // FocusManager.instance.primaryFocus
+                                    //     ?.unfocus();
+                                    // if (controller.isAmharicKeyboardVisible ==
+                                    //     false) {
+                                    //   controller.makeAmharicKeyboardVisible();
+                                    // }
                                     controller.update();
                                   },
                                   maxLines: 1,
@@ -119,8 +120,8 @@ class DetailView extends GetView<DetailController> {
                                         onPressed: () async {
                                           if (controller.searchController.text
                                               .isNotEmpty) {
-                                            detailController.updateforsearch(
-                                                detailController
+                                            controller.updateforsearch(
+                                                controller
                                                     .searchController.text);
                                             await EasyLoading.show(
                                                 status:
@@ -378,7 +379,7 @@ class DetailView extends GetView<DetailController> {
                                       vertical: 0, horizontal: 4),
                                   child: GestureDetector(
                                     onTap: () {
-                                      detailController
+                                      controller
                                           .navigateToSpecificBookDetailView(
                                               controller
                                                   .searchResultVerses[i].book!,
@@ -453,16 +454,16 @@ class DetailView extends GetView<DetailController> {
                         ),
                       ),
                     ),
-                    Visibility(
-                        visible: controller.isAmharicKeyboardVisible,
-                        child: Container(
-                            decoration: BoxDecoration(
-                                color:
-                                    themeData.themeData.value!.backgroundColor,
-                                border: Border.all(
-                                    color: themeData
-                                        .themeData.value!.backgroundColor)),
-                            child: AmharicKeyboard())),
+                    // Visibility(
+                    //     visible: controller.isAmharicKeyboardVisible,
+                    //     child: Container(
+                    //         decoration: BoxDecoration(
+                    //             color:
+                    //                 themeData.themeData.value!.backgroundColor,
+                    //             border: Border.all(
+                    //                 color: themeData
+                    //                     .themeData.value!.backgroundColor)),
+                    //         child: AmharicKeyboard())),
                     // Visibility(
                     //     visible: !controller.isAmharicKeyboardVisible,
                     //     child: Expanded(
@@ -1092,7 +1093,7 @@ class DetailView extends GetView<DetailController> {
                             ),
                           ],
                         ),
-                        if (detailController.selectedVerses.isNotEmpty)
+                        if (controller.selectedVerses.isNotEmpty)
                           Positioned(
                             left: 0,
                             bottom: 0,

@@ -217,7 +217,7 @@ class DatabaseService {
     try {
       // Query the database
       List<Map<String, dynamic>> rows =
-          await database.rawQuery('SELECT * FROM AMH_Devotion');
+          await database.rawQuery('SELECT * FROM EN_Devotion');
 
       // Process the retrieved data
       for (Map<String, dynamic> row in rows) {

@@ -158,8 +158,12 @@ class DataGetterAndSetter extends GetxController {
                 if (mergedVerses.last.para == "sp") {
                   mergedVerses.add(verse);
                 } else {
-                  mergedVerses.last.verseText =
-                      "${(mergedVerses.last.verseText ?? '').trim()} ${(verse.verseText ?? '').trim()}";
+                  if (!(mergedVerses.last.verseText ?? '')
+                      .trim()
+                      .contains((verse.verseText ?? '').trim())) {
+                    mergedVerses.last.verseText =
+                        "${(mergedVerses.last.verseText ?? '').trim()} ${(verse.verseText ?? '').trim()}";
+                  }
                 }
               } else {
                 // Add the verse if it's a new chapter or verse number
@@ -180,9 +184,12 @@ class DataGetterAndSetter extends GetxController {
                 verse.chapter == currentChapter &&
                 verse.verseNumber == currentVerseNumber) {
               // Merge verses with the same verse number within the same chapter
-
-              mergedVerses.last.verseText =
-                  "${(mergedVerses.last.verseText ?? '').trim()} ${(verse.verseText ?? '').trim()}";
+              if (!(mergedVerses.last.verseText ?? '')
+                  .trim()
+                  .contains((verse.verseText ?? '').trim())) {
+                mergedVerses.last.verseText =
+                    "${(mergedVerses.last.verseText ?? '').trim()} ${(verse.verseText ?? '').trim()}";
+              }
             } else {
               // Add the verse if it's a new chapter or verse number
 
@@ -212,9 +219,14 @@ class DataGetterAndSetter extends GetxController {
               //   verse.verseNumber == currentVerseNumber) {
               // Merge verses with the same verse number within the same chapter
 
-              mergedVerses.last.verseText =
-                  "${(previousVerse.verseText ?? '').trim()} ${(nextVerse.verseText ?? '').trim()}";
-              skipversenum = nextVerse.verseNumber;
+              if (!(previousVerse.verseText ?? '')
+                  .trim()
+                  .contains((nextVerse.verseText ?? '').trim())) {
+                mergedVerses.last.verseText =
+                    "${(previousVerse.verseText ?? '').trim()} ${(nextVerse.verseText ?? '').trim()}";
+                skipversenum = nextVerse.verseNumber;
+              }
+
               // } else {
               //   // Add the verse if it's a new chapter or verse number
               //   mergedVerses.add(verse);
@@ -307,7 +319,7 @@ class DataGetterAndSetter extends GetxController {
     } else {
       selectedBook = "SPNKJV";
     }
-    var amh = await DatabaseService().readVersesDatabase(selectedBook,"Num1");
+    var amh = await DatabaseService().readVersesDatabase(selectedBook, "Num1");
     versesAMH.addAll(amh);
 
     try {

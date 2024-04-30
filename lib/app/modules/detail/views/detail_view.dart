@@ -1370,6 +1370,7 @@ Future<dynamic> showBookSelectionMenu(BuildContext context) {
                       getterAndSetterController.versesAMH =
                           await DatabaseService().changeBibleType("ENGNIV");
                       getterAndSetterController.update();
+                      // getterAndSetterController.groupedBookListAMHNIV()
                       controller.allVerses.assignAll(
                           getterAndSetterController.groupedBookListAMHNIV());
                       //saving selected book to local storage

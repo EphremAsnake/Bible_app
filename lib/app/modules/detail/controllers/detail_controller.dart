@@ -128,6 +128,11 @@ class DetailController extends SuperController {
     update;
   }
 
+  clearVerses() {
+    allVerses.clear();
+    update();
+  }
+
   updateforsearch(String newvalue) {
     forsearch = newvalue;
     update();

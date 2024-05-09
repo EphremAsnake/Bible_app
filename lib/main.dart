@@ -83,7 +83,7 @@ void main() async {
         theme: ThemeData(
           primarySwatch: customSwatch,
         ),
-        title: "Malayalam OV Bible (BSI)",
+        title: "Tamil BSI",
         initialRoute: AppPages.INITIAL,
         getPages: AppPages.routes,
       );

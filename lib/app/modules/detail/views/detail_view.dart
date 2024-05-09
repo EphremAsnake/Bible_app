@@ -725,7 +725,7 @@ class DetailView extends GetView<DetailController> {
                                               controller.selectedBook
                                                       .contains("English")
                                                   ? '${controller.getBookTitle(controller.allVerses[i][0].book!)} | Chapter ${controller.allVerses[i][0].chapter}'
-                                                  : '${controller.getBookTitle(controller.allVerses[i][0].book!)} | Capítulo ${controller.allVerses[i][0].chapter}',
+                                                  : '${controller.getBookTitle(controller.allVerses[i][0].book!)} | ${Keys.chapter} ${controller.allVerses[i][0].chapter}',
                                               style: TextStyle(
                                                   fontSize:
                                                       controller.fontSize.sp,
@@ -1256,7 +1256,8 @@ Future<dynamic> showBookSelectionMenu(BuildContext context) {
                         SharedPreferencesStorage sharedPreferencesStorage =
                             SharedPreferencesStorage();
                         getterAndSetterController.versesAMH =
-                            await DatabaseService().changeBibleType(Keys.defaultbible);
+                            await DatabaseService()
+                                .changeBibleType(Keys.defaultbible);
                         getterAndSetterController.update();
                         controller.allVerses.assignAll(
                             getterAndSetterController.groupedBookList());

@@ -21,7 +21,7 @@ final Map<String, String> en = {
   'all': 'All',
   'every_word': 'Every Word',
   'exactly': 'Exactly',
-  "change_language": "ഭാഷ മലയാളത്തിലേക്ക് മാറുക",
+  "change_language": "हिंदी में भाषा बदलें",
   'no_search_results': "No search result found",
   'info': 'Info',
   'changed_to_amh_1954': "Bible Type Changed To Amharic 1954",

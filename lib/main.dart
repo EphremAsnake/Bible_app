@@ -83,7 +83,7 @@ void main() async {
         theme: ThemeData(
           primarySwatch: customSwatch,
         ),
-        title: "Hindi BSI",
+        title: "Telugu BSI",
         initialRoute: AppPages.INITIAL,
         getPages: AppPages.routes,
       );

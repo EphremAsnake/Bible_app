@@ -83,7 +83,7 @@ void main() async {
         theme: ThemeData(
           primarySwatch: customSwatch,
         ),
-        title: "Telugu BSI",
+        title: "Kannada WBTC",
         initialRoute: AppPages.INITIAL,
         getPages: AppPages.routes,
       );

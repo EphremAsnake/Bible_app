@@ -1256,16 +1256,16 @@ Future<dynamic> showBookSelectionMenu(BuildContext context) {
                         SharedPreferencesStorage sharedPreferencesStorage =
                             SharedPreferencesStorage();
                         getterAndSetterController.versesAMH =
-                            await DatabaseService().changeBibleType("SPNKJV");
+                            await DatabaseService().changeBibleType(Keys.defaultbible);
                         getterAndSetterController.update();
                         controller.allVerses.assignAll(
                             getterAndSetterController.groupedBookList());
 
                         //saving selected book to local storage
                         sharedPreferencesStorage.saveStringData(
-                            Keys.selectedBookKey, "Spanish KJV");
+                            Keys.selectedBookKey, Keys.defaultbibleName);
                         //set selected book Name
-                        controller.setSelectedBook("Spanish KJV");
+                        controller.setSelectedBook(Keys.defaultbibleName);
                         controller.setInitialSelectedBookTypeOptions();
 
                         controller.navigateToSpecificBookDetailView(
@@ -1288,7 +1288,7 @@ Future<dynamic> showBookSelectionMenu(BuildContext context) {
                         controller.update();
                       },
                       title: Text(
-                        'Spanish KJV',
+                        Keys.defaultbibleName,
                         style: TextStyle(
                             color: themeData.themeData.value!.verseColor),
                       ),

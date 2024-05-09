@@ -83,7 +83,7 @@ void main() async {
         theme: ThemeData(
           primarySwatch: customSwatch,
         ),
-        title: "Spanish Bible",
+        title: "Malayalam OV Bible (BSI)",
         initialRoute: AppPages.INITIAL,
         getPages: AppPages.routes,
       );

@@ -33,11 +33,11 @@ class DetailController extends SuperController {
   FocusNode focusNode = FocusNode();
   String forsearch = '';
   TextEditingController searchController = TextEditingController();
-  String selectedBook = "Spanish KJV";
+  String selectedBook = Keys.defaultbibleName;
   bool isAmharicKeyboardVisible = true;
   String selectedSearchTypeOptions = 'every_word'.tr;
   String selectedSearchPlaceOptions = 'all'.tr;
-  String selectedBookTypeOptions = 'Spanish KJV';
+  String selectedBookTypeOptions = Keys.defaultbibleName;
   List<Verses> searchResultVerses = [];
   List<Book> books = [];
   bool blink = false;
@@ -88,7 +88,7 @@ class DetailController extends SuperController {
     'exactly'.tr,
   ];
 
-  List<String> bookTypeOptions = ['Spanish KJV', 'English NIV', 'English KJV'];
+  List<String> bookTypeOptions = [Keys.defaultbibleName, 'English NIV', 'English KJV'];
 
   @override
   void onInit() {
@@ -202,7 +202,8 @@ class DetailController extends SuperController {
     if (bookName != null) {
       selectedBookTypeOptions = bookName;
       Logger logger = Logger();
-      logger.e("Seetting initial: $selectedBookTypeOptions bookName: $bookName");
+      logger
+          .e("Seetting initial: $selectedBookTypeOptions bookName: $bookName");
       allVerses.addAll(bookName == "English NIV"
           ? getterAndSetterController.groupedBookListAMHNIV()
           : getterAndSetterController.groupedBookList());
@@ -255,7 +256,7 @@ class DetailController extends SuperController {
     if (bookName != null) {
       selectedBook = bookName;
     } else {
-      selectedBook = 'Spanish KJV';
+      selectedBook = Keys.defaultbibleName;
     }
 
     update();
@@ -360,8 +361,8 @@ class DetailController extends SuperController {
 
   changeBibleFromSearch(String bibleType) async {
     String saveName = "";
-    if (bibleType == 'SPNKJV') {
-      saveName = "Spanish KJV";
+    if (bibleType == Keys.defaultbible) {
+      saveName = Keys.defaultbibleName;
     } else if (bibleType == 'ENGNIV') {
       saveName = "English NIV";
     } else if (bibleType == 'ENGKJV') {
@@ -389,8 +390,8 @@ class DetailController extends SuperController {
     String searchOption,
     String BibleType,
   ) async {
-    if (BibleType == 'Spanish KJV') {
-      BibleType = "SPNKJV";
+    if (BibleType == Keys.defaultbibleName) {
+      BibleType = Keys.defaultbible;
     } else if (BibleType == 'English NIV') {
       BibleType = "ENGNIV";
     } else if (BibleType == 'English KJV') {

@@ -251,7 +251,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                                             child: Align(
                                               alignment: Alignment.center,
                                               child: Text(
-                                                es['ot'] ?? 'ot'.tr,
+                                                ml['ot'] ?? 'ot'.tr,
                                                 style: TextStyle(
                                                   fontSize:
                                                       SizerUtil.deviceType ==
@@ -269,7 +269,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                                             child: Align(
                                               alignment: Alignment.center,
                                               child: Text(
-                                                es['nt'] ?? 'nt'.tr,
+                                                ml['nt'] ?? 'nt'.tr,
                                                 style: TextStyle(
                                                   fontSize:
                                                       SizerUtil.deviceType ==

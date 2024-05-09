@@ -305,19 +305,19 @@ class DataGetterAndSetter extends GetxController {
     List<Book> books = await DatabaseService().readBookDatabase();
     SharedPreferencesStorage sharedPreferencesStorage =
         SharedPreferencesStorage();
-    String selectedBook = "SPNKJV";
+    String selectedBook = Keys.defaultbible;
     String? bookName =
         await sharedPreferencesStorage.readStringData(Keys.selectedBookKey);
     if (bookName != null) {
-      if (bookName == "Spanish KJV") {
-        selectedBook = "SPNKJV";
+      if (bookName == Keys.defaultbibleName) {
+        selectedBook = Keys.defaultbible;
       } else if (bookName == "English NIV") {
         selectedBook = "ENGNIV";
       } else if (bookName == "English KJV") {
         selectedBook = "ENGKJV";
       }
     } else {
-      selectedBook = "SPNKJV";
+      selectedBook = Keys.defaultbible;
     }
     var amh = await DatabaseService().readVersesDatabase(selectedBook, "Num1");
     versesAMH.addAll(amh);

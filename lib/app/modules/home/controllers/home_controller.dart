@@ -12,6 +12,8 @@ import 'package:spanish_bible/app/utils/helpers/api_state_handler.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../utils/keys/keys.dart';
+
 class HomeController extends GetxController {
   int selectedIndex = -1;
   int selectedOldTestamentBookIndex = -1;
@@ -114,7 +116,7 @@ class HomeController extends GetxController {
     cacheStateHandler.setLoading();
     await DatabaseService().copyDatabase();
     List<Book> books = await DatabaseService().readBookDatabase();
-    var amh = await DatabaseService().readVersesDatabase("SPNKJV","num2");
+    var amh = await DatabaseService().readVersesDatabase(Keys.defaultbible,"num2");
     await getterAndSetterController.readData();
     versesAMH.addAll(amh);
 

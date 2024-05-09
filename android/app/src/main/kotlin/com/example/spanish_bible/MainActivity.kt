@@ -1,4 +1,4 @@
-package com.example.spanish_bible
+package com.itbible.malayalam
 
 import io.flutter.embedding.android.FlutterActivity
 

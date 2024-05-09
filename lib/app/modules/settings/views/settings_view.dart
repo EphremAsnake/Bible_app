@@ -68,7 +68,7 @@ class SettingsView extends GetView<SettingsController> {
                 ),
                 child: ListTile(
                   onTap: () {
-                    if (Get.locale.toString() == "es_SPN") {
+                    if (Get.locale.toString() == "es_ML") {
                       detailController.saveLocale('en_US');
                       Get.updateLocale(const Locale('en', 'US'));
                       Get.snackbar(
@@ -77,8 +77,8 @@ class SettingsView extends GetView<SettingsController> {
                         snackPosition: SnackPosition.BOTTOM,
                       );
                     } else {
-                      Get.updateLocale(const Locale('es', 'SPN'));
-                      detailController.saveLocale('es_SPN');
+                      Get.updateLocale(const Locale('es', 'ML'));
+                      detailController.saveLocale('es_ML');
                       Get.snackbar(
                         'Información',
                         'Idioma de la aplicación cambiado a español',

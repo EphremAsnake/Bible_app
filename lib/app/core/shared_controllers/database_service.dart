@@ -7,6 +7,8 @@ import 'package:logger/logger.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
+import '../../utils/keys/keys.dart';
+
 class DatabaseService {
   Future<void> copyDatabase() async {
     // Get the path to the database file
@@ -188,8 +190,8 @@ class DatabaseService {
 
     // Open the database
     Database database = await openDatabase(path);
-    if (tableName == 'Spanish KJV') {
-      tableName = "SPNKJV";
+    if (tableName == Keys.defaultbibleName) {
+      tableName = Keys.defaultbible;
     } else if (tableName == 'English NIV') {
       tableName = "ENGNIV";
     } else if (tableName == 'English KJV') {

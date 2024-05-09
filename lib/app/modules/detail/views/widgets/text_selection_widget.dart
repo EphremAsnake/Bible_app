@@ -14,6 +14,7 @@ import 'package:get/get.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../../../utils/keys/keys.dart';
 import '../../../../utils/shared_widgets/custom_easy_loading.dart';
 import '../../../home/controllers/home_controller.dart';
 import '../../../settings/views/settings_view.dart';
@@ -841,7 +842,7 @@ class _CompareDialogState extends State<CompareDialog> {
       // aMHNIVverseText.add(await DatabaseService().readVersesfromDB(
       //     'AMHNIV', verse.chapter!, verse.verseNumber!, verse.book!));
       spnKJVverseText.add(await DatabaseService().readVersesfromDB(
-          'SPNKJV', verse.chapter!, verse.verseNumber!, verse.book!));
+          Keys.defaultbible, verse.chapter!, verse.verseNumber!, verse.book!));
     }
 
     CustomEasyLoading.getInstance().dismissLoading();
@@ -1002,14 +1003,14 @@ class _CompareDialogState extends State<CompareDialog> {
                           //           );
                           //         }),
                           //   ]),
-                          if (detailController.selectedBook != 'Spanish KJV')
+                          if (detailController.selectedBook != Keys.defaultbibleName)
                             Column(children: [
                               Container(
                                 width: double.infinity,
                                 color: Colors.grey,
                                 padding: const EdgeInsets.all(8.0),
                                 child: Text(
-                                  'Spanish KJV - ${detailController.selectedBook.contains('Eng') ? detailController.getAMHBookinfo(chapterNAME) : chapterNAME} ${lVerse.chapter!}:${lVerse.verseNumber!}',
+                                  '${Keys.defaultbibleName} - ${detailController.selectedBook.contains('Eng') ? detailController.getAMHBookinfo(chapterNAME) : chapterNAME} ${lVerse.chapter!}:${lVerse.verseNumber!}',
                                   style: const TextStyle(color: Colors.white),
                                 ),
                               ),
@@ -1210,7 +1211,7 @@ class _CompareDialogState extends State<CompareDialog> {
             .getAMHBookinfo(detailController.getBookTitle(lverse.book!))
         : detailController.getBookTitle(lverse.book!);
 
-    List<String> listof = detailController.selectedBook != 'Spanish KJV'
+    List<String> listof = detailController.selectedBook != Keys.defaultbibleName
         ? spnKJVverseText
         : detailController.selectedBook != 'English KJV'
             ? eNGKJVverseText

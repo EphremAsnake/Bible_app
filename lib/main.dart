@@ -83,7 +83,7 @@ void main() async {
         theme: ThemeData(
           primarySwatch: customSwatch,
         ),
-        title: "Kannada WBTC",
+        title: "Marathi Bible",
         initialRoute: AppPages.INITIAL,
         getPages: AppPages.routes,
       );

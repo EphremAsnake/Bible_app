@@ -37,36 +37,34 @@ final Map<String, String> en = {
   'theme': "Theme"
 };
 
-
 final Map<String, String> ml = {
-  'searchResult': 'Résultats de la recherche : ',
-  'book': "Sainte Bible",
-  'ot': 'Ancien Testament',
-  'nt': 'Nouveau Testament',
-  'chapters': 'Chapitres',
-  'search': 'Rechercher',
-  'settings': 'Paramètres',
-  'about': "À propos",
-  'privacy_policy': 'Politique de confidentialité',
-  'all': 'Tous',
-  'every_word': 'Chaque Mot',
-  'exactly': 'Exactement',
+  'searchResult': 'Risultati della ricerca: ',
+  'book': "Santa Bibbia",
+  'ot': 'Antico Testamento',
+  'nt': 'Nuovo Testamento',
+  'chapters': 'Capitoli',
+  'search': 'Cerca',
+  'settings': 'Impostazioni',
+  'about': "Informazioni",
+  'privacy_policy': 'Informativa sulla privacy',
+  'all': 'Tutti',
+  'every_word': 'Ogni parola',
+  'exactly': 'Esattamente',
   "change_language": "Change Language To English",
-  'no_search_results': "Aucun résultat trouvé",
+  'no_search_results': "Nessun risultato trovato",
   'info': 'Info',
-  'changed_to_amh_1954': "Type de Bible changé en Amharique 1954",
-  'changed_to_amh_new': "Type de Bible changé en Amharique Nouvelle Traduction",
-  'changed_to_eng_niv': "Type de Bible changé en Anglais NIV",
-  'changed_to_eng_kjv': "Type de Bible changé en Anglais KJV",
-  'font_size': "Taille de la police",
-  'share': 'Partager',
-  'rate': 'Noter l\'application',
-  'copy': 'Copier',
-  'close': 'Fermer',
-  'compare': 'Comparer',
-  'theme': "Thème"
+  'changed_to_amh_1954': "Tipo di Bibbia cambiato in Amarico 1954",
+  'changed_to_amh_new': "Tipo di Bibbia cambiato in Amarico Nuova Traduzione",
+  'changed_to_eng_niv': "Tipo di Bibbia cambiato in Inglese NIV",
+  'changed_to_eng_kjv': "Tipo di Bibbia cambiato in Inglese KJV",
+  'font_size': "Dimensione del carattere",
+  'share': 'Condividi',
+  'rate': 'Valuta l\'applicazione',
+  'copy': 'Copia',
+  'close': 'Chiudi',
+  'compare': 'Confronta',
+  'theme': "Tema"
 };
-
 
 
 

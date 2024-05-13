@@ -1,4 +1,4 @@
-package com.itbible.arabic
+package com.itbible.german
 
 import io.flutter.embedding.android.FlutterActivity
 

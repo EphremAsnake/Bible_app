@@ -38,34 +38,34 @@ final Map<String, String> en = {
 };
 
 final Map<String, String> ml = {
-  'searchResult': 'النتائج: ',
-  'book': "الكتاب المقدس",
-  'ot': 'العهد القديم',
-  'nt': 'العهد الجديد',
-  'chapters': 'الفصل',
-  'search': 'بحث',
-  'settings': 'الإعدادات',
-  'about': "نبذة عن",
-  'privacy_policy': 'سياسة الخصوصية',
-  'all': 'الكل',
-  'every_word': 'كل الكلمات',
-  'exactly': 'بالضبط',
+  'searchResult': 'Ergebnisse: ',
+  'book': "Heilige Bibel",
+  'ot': 'Altes Testament',
+  'nt': 'Neues Testament',
+  'chapters': 'Kapitel',
+  'search': 'Suche',
+  'settings': 'Einstellungen',
+  'about': "Über",
+  'privacy_policy': 'Datenschutzrichtlinie',
+  'all': 'Alle',
+  'every_word': 'Jedes Wort',
+  'exactly': 'Genau',
   "change_language": "Change Language To English",
-  'no_search_results': "لم يتم العثور على نتائج بحث",
-  'info': 'معلومات',
-  'changed_to_amh_1954': "تم تغيير نوع الكتاب المقدس إلى الأمهرية 1954",
-  'changed_to_amh_new':
-      "تم تغيير نوع الكتاب المقدس إلى الترجمة الأمهرية الجديدة",
-  'changed_to_eng_niv': "تم تغيير نوع الكتاب المقدس إلى الإنجليزية NIV",
-  'changed_to_eng_kjv': "تم تغيير نوع الكتاب المقدس إلى الإنجليزية KJV",
-  'font_size': "حجم الخط",
-  'share': 'مشاركة',
-  'rate': 'تقييم التطبيق',
-  'copy': 'نسخ',
-  'close': 'إغلاق',
-  'compare': 'مقارنة',
-  'theme': "السمة"
+  'no_search_results': "Keine Suchergebnisse gefunden",
+  'info': 'Info',
+  'changed_to_amh_1954': "Bibeltyp geändert zu Amharisch 1954",
+  'changed_to_amh_new': "Bibeltyp geändert zu Amharisch Neue Übersetzung",
+  'changed_to_eng_niv': "Bibeltyp geändert zu Englisch NIV",
+  'changed_to_eng_kjv': "Bibeltyp geändert zu Englisch KJV",
+  'font_size': "Schriftgröße",
+  'share': 'Teilen',
+  'rate': 'App bewerten',
+  'copy': 'Kopieren',
+  'close': 'Schließen',
+  'compare': 'Vergleichen',
+  'theme': "Thema"
 };
+
 
 
 // final Map<String, String> ml = {

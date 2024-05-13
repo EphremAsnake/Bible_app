@@ -83,7 +83,7 @@ void main() async {
         theme: ThemeData(
           primarySwatch: customSwatch,
         ),
-        title: "Romanian Bible",
+        title: "Arabic – Smith Van Dyke Bible",
         initialRoute: AppPages.INITIAL,
         getPages: AppPages.routes,
       );

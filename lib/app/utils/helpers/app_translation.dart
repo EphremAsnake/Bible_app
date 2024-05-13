@@ -38,33 +38,35 @@ final Map<String, String> en = {
 };
 
 final Map<String, String> ml = {
-  'searchResult': 'Risultati della ricerca: ',
-  'book': "Santa Bibbia",
-  'ot': 'Antico Testamento',
-  'nt': 'Nuovo Testamento',
-  'chapters': 'Capitoli',
-  'search': 'Cerca',
-  'settings': 'Impostazioni',
-  'about': "Informazioni",
-  'privacy_policy': 'Informativa sulla privacy',
-  'all': 'Tutti',
-  'every_word': 'Ogni parola',
-  'exactly': 'Esattamente',
+  'searchResult': 'Rezultatet e kërkimit: ',
+  'book': "Bibla e Shenjtë",
+  'ot': 'Testamenti i Vjetër',
+  'nt': 'Testamenti i Ri',
+  'chapters': 'Kapituj',
+  'search': 'Kërko',
+  'settings': 'Cilësimet',
+  'about': "Rreth nesh",
+  'privacy_policy': 'Politika e privatësisë',
+  'all': 'Të gjitha',
+  'every_word': 'Çdo fjalë',
+  'exactly': 'Saktësisht',
   "change_language": "Change Language To English",
-  'no_search_results': "Nessun risultato trovato",
+  'no_search_results': "Asnjë rezultat i gjetur",
   'info': 'Info',
-  'changed_to_amh_1954': "Tipo di Bibbia cambiato in Amarico 1954",
-  'changed_to_amh_new': "Tipo di Bibbia cambiato in Amarico Nuova Traduzione",
-  'changed_to_eng_niv': "Tipo di Bibbia cambiato in Inglese NIV",
-  'changed_to_eng_kjv': "Tipo di Bibbia cambiato in Inglese KJV",
-  'font_size': "Dimensione del carattere",
-  'share': 'Condividi',
-  'rate': 'Valuta l\'applicazione',
-  'copy': 'Copia',
-  'close': 'Chiudi',
-  'compare': 'Confronta',
+  'changed_to_amh_1954': "Lloji i Biblës është ndryshuar në Amharik 1954",
+  'changed_to_amh_new':
+      "Lloji i Biblës është ndryshuar në Amharik Përkthim i Ri",
+  'changed_to_eng_niv': "Lloji i Biblës është ndryshuar në Anglisht NIV",
+  'changed_to_eng_kjv': "Lloji i Biblës është ndryshuar në Anglisht KJV",
+  'font_size': "Madhësia e shkronjave",
+  'share': 'Ndaj',
+  'rate': 'Vlerëso aplikacionin',
+  'copy': 'Kopjo',
+  'close': 'Mbyll',
+  'compare': 'Krahaso',
   'theme': "Tema"
 };
+
 
 
 

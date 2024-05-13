@@ -1,4 +1,4 @@
-package com.itbible.sohana
+package com.itbible.urdu
 
 import io.flutter.embedding.android.FlutterActivity
 

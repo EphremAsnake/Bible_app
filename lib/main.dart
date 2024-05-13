@@ -83,7 +83,7 @@ void main() async {
         theme: ThemeData(
           primarySwatch: customSwatch,
         ),
-        title: "Sohana (Africa) Bible",
+        title: "Urdu Bible",
         initialRoute: AppPages.INITIAL,
         getPages: AppPages.routes,
       );

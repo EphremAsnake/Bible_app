@@ -1,4 +1,4 @@
-package com.itbible.finnish
+package com.itbible.greek
 
 import io.flutter.embedding.android.FlutterActivity
 

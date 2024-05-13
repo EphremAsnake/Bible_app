@@ -38,33 +38,35 @@ final Map<String, String> en = {
 };
 
 final Map<String, String> ml = {
-  'searchResult': 'Ergebnisse: ',
-  'book': "Heilige Bibel",
-  'ot': 'Altes Testament',
-  'nt': 'Neues Testament',
-  'chapters': 'Kapitel',
-  'search': 'Suche',
-  'settings': 'Einstellungen',
-  'about': "Über",
-  'privacy_policy': 'Datenschutzrichtlinie',
-  'all': 'Alle',
-  'every_word': 'Jedes Wort',
-  'exactly': 'Genau',
+  'searchResult': 'Αποτελέσματα αναζήτησης: ',
+  'book': "Αγία Γραφή",
+  'ot': 'Παλαιά Διαθήκη',
+  'nt': 'Καινή Διαθήκη',
+  'chapters': 'Κεφάλαια',
+  'search': 'Αναζήτηση',
+  'settings': 'Ρυθμίσεις',
+  'about': "Σχετικά",
+  'privacy_policy': 'Πολιτική Απορρήτου',
+  'all': 'Όλα',
+  'every_word': 'Κάθε Λέξη',
+  'exactly': 'Ακριβώς',
   "change_language": "Change Language To English",
-  'no_search_results': "Keine Suchergebnisse gefunden",
-  'info': 'Info',
-  'changed_to_amh_1954': "Bibeltyp geändert zu Amharisch 1954",
-  'changed_to_amh_new': "Bibeltyp geändert zu Amharisch Neue Übersetzung",
-  'changed_to_eng_niv': "Bibeltyp geändert zu Englisch NIV",
-  'changed_to_eng_kjv': "Bibeltyp geändert zu Englisch KJV",
-  'font_size': "Schriftgröße",
-  'share': 'Teilen',
-  'rate': 'App bewerten',
-  'copy': 'Kopieren',
-  'close': 'Schließen',
-  'compare': 'Vergleichen',
-  'theme': "Thema"
+  'no_search_results': "Δεν βρέθηκαν αποτελέσματα",
+  'info': 'Πληροφορίες',
+  'changed_to_amh_1954': "Τύπος Βίβλου αλλάχθηκε σε Αμαρική 1954",
+  'changed_to_amh_new': "Τύπος Βίβλου αλλάχθηκε σε Αμαρική Νέα Μετάφραση",
+  'changed_to_eng_niv': "Τύπος Βίβλου αλλάχθηκε σε Αγγλικά NIV",
+  'changed_to_eng_kjv': "Τύπος Βίβλου αλλάχθηκε σε Αγγλικά KJV",
+  'font_size': "Μέγεθος Γραμματοσειράς",
+  'share': 'Κοινοποίηση',
+  'rate': 'Αξιολόγηση εφαρμογής',
+  'copy': 'Αντιγραφή',
+  'close': 'Κλείσιμο',
+  'compare': 'Σύγκριση',
+  'theme': "Θέμα"
 };
+
+
 
 
 

@@ -37,35 +37,35 @@ final Map<String, String> en = {
   'theme': "Theme"
 };
 
-
 final Map<String, String> ml = {
-  'searchResult': 'Résultats de la recherche : ',
-  'book': "Sainte Bible",
-  'ot': 'Ancien Testament',
-  'nt': 'Nouveau Testament',
-  'chapters': 'Chapitres',
-  'search': 'Rechercher',
-  'settings': 'Paramètres',
-  'about': "À propos",
-  'privacy_policy': 'Politique de confidentialité',
-  'all': 'Tous',
-  'every_word': 'Chaque Mot',
-  'exactly': 'Exactement',
+  'searchResult': 'تلاش کے نتائج: ',
+  'book': "مقدس کتاب",
+  'ot': 'پرانا عہد',
+  'nt': 'نیا عہد',
+  'chapters': 'باب',
+  'search': 'تلاش کریں',
+  'settings': 'ترتیبات',
+  'about': "کے بارے میں",
+  'privacy_policy': 'پرائیویسی پالیسی',
+  'all': 'سب',
+  'every_word': 'ہر لفظ',
+  'exactly': 'بالکل',
   "change_language": "Change Language To English",
-  'no_search_results': "Aucun résultat trouvé",
-  'info': 'Info',
-  'changed_to_amh_1954': "Type de Bible changé en Amharique 1954",
-  'changed_to_amh_new': "Type de Bible changé en Amharique Nouvelle Traduction",
-  'changed_to_eng_niv': "Type de Bible changé en Anglais NIV",
-  'changed_to_eng_kjv': "Type de Bible changé en Anglais KJV",
-  'font_size': "Taille de la police",
-  'share': 'Partager',
-  'rate': 'Noter l\'application',
-  'copy': 'Copier',
-  'close': 'Fermer',
-  'compare': 'Comparer',
-  'theme': "Thème"
+  'no_search_results': "کوئی نتیجہ نہیں ملا",
+  'info': 'معلومات',
+  'changed_to_amh_1954': "قدیم امہریک 1954 میں بائبل کی قسم تبدیل ہوگئی",
+  'changed_to_amh_new': "نئی ترجمہ امہریک  میں بائبل کی قسم تبدیل ہوگئی",
+  'changed_to_eng_niv': "NIV انگریزی میں بائبل کی قسم تبدیل ہوگئی",
+  'changed_to_eng_kjv': "KJV انگریزی میں بائبل کی قسم تبدیل ہوگئی",
+  'font_size': "فونٹ کا سائز",
+  'share': 'شیئر کریں',
+  'rate': 'ایپ کی درجہ بندی کریں',
+  'copy': 'کاپی',
+  'close': 'بند کریں',
+  'compare': 'موازنہ کریں',
+  'theme': "تھیم"
 };
+
 
 
 

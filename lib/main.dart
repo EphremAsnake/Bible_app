@@ -83,7 +83,7 @@ void main() async {
         theme: ThemeData(
           primarySwatch: customSwatch,
         ),
-        title: "Greek Bible",
+        title: "French Louis Segond",
         initialRoute: AppPages.INITIAL,
         getPages: AppPages.routes,
       );

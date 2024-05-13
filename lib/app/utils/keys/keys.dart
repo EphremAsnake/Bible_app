@@ -8,7 +8,9 @@ class Keys {
   static String fontSize = "Font Size";
   static String chapterFontSize = "Chapter Font Size";
   static String selectedTheme = "Selected Theme";
-  static String defaultbible = "MyanmarKJV";
-  static String defaultbibleName = "Burmese Bible";
-  static String chapter = "ဇာတ်လမ်း";
+  static String defaultbible = "BengaliKJV";
+  static String defaultbibleName = "Bengali Bible";
+  static String chapter = "অধ্যায়";
 }
+
+

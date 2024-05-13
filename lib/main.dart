@@ -83,7 +83,7 @@ void main() async {
         theme: ThemeData(
           primarySwatch: customSwatch,
         ),
-        title: "German Luther",
+        title: "Bahasa Indonesia Sehari-hari",
         initialRoute: AppPages.INITIAL,
         getPages: AppPages.routes,
       );

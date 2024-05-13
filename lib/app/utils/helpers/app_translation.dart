@@ -21,7 +21,7 @@ final Map<String, String> en = {
   'all': 'All',
   'every_word': 'Every Word',
   'exactly': 'Exactly',
-  "change_language": "Schimbați limba în română",
+  "change_language": "ဘာသာစကားကို မြန်မာဘာသာစကားသို့ ပြောင်းရန်",
   'no_search_results': "No search result found",
   'info': 'Info',
   'changed_to_amh_1954': "Bible Type Changed To Amharic 1954",
@@ -38,37 +38,33 @@ final Map<String, String> en = {
 };
 
 final Map<String, String> ml = {
-  'searchResult': 'Rezultatet e kërkimit: ',
-  'book': "Bibla e Shenjtë",
-  'ot': 'Testamenti i Vjetër',
-  'nt': 'Testamenti i Ri',
-  'chapters': 'Kapituj',
-  'search': 'Kërko',
-  'settings': 'Cilësimet',
-  'about': "Rreth nesh",
-  'privacy_policy': 'Politika e privatësisë',
-  'all': 'Të gjitha',
-  'every_word': 'Çdo fjalë',
-  'exactly': 'Saktësisht',
+  'searchResult': 'ရှာဖွေမှု ရလဒ်: ',
+  'book': "သာဝန် သမီးအချက်အလက်",
+  'ot': 'အရှေ့ စာပေ',
+  'nt': 'အဟောင်း စာပေ',
+  'chapters': 'ဇာတ်လမ်းများ',
+  'search': 'ရှာဖွေပါ',
+  'settings': 'ဆက်တင်များ',
+  'about': "အကြောင်းအရာ",
+  'privacy_policy': 'ကြော်ငြာ ရေးဝယ်ယူမှု',
+  'all': 'အားလုံး',
+  'every_word': 'အသေးစိတ် စာလုံး',
+  'exactly': 'အတည်ပြုရန်',
   "change_language": "Change Language To English",
-  'no_search_results': "Asnjë rezultat i gjetur",
-  'info': 'Info',
-  'changed_to_amh_1954': "Lloji i Biblës është ndryshuar në Amharik 1954",
-  'changed_to_amh_new':
-      "Lloji i Biblës është ndryshuar në Amharik Përkthim i Ri",
-  'changed_to_eng_niv': "Lloji i Biblës është ndryshuar në Anglisht NIV",
-  'changed_to_eng_kjv': "Lloji i Biblës është ndryshuar në Anglisht KJV",
-  'font_size': "Madhësia e shkronjave",
-  'share': 'Ndaj',
-  'rate': 'Vlerëso aplikacionin',
-  'copy': 'Kopjo',
-  'close': 'Mbyll',
-  'compare': 'Krahaso',
-  'theme': "Tema"
+  'no_search_results': "ရလဒ်မတွေ့ရှိပါ",
+  'info': 'အချက်အလက်',
+  'changed_to_amh_1954': "ဘီဘီယက် ၁၉၅၄ သို့ သိရှိထားသည်",
+  'changed_to_amh_new': "ဘီဘီယက် နည်းပညာ သို့ သိရှိထားသည်",
+  'changed_to_eng_niv': "NIV အဂၤလိပ် သို့ သိရှိထားသည်",
+  'changed_to_eng_kjv': "KJV အဂၤလိပ် သို့ သိရှိထားသည်",
+  'font_size': "စာလုံးအရွယ်အစား",
+  'share': 'မျှဝေရန်',
+  'rate': 'အခြေအနေ တွက်ချက်ပေးရန်',
+  'copy': 'ကူးထားရန်',
+  'close': 'ပိတ်ရန်',
+  'compare': 'ကြှနျုပျကို',
+  'theme': "အပေါ်ဆုံး"
 };
-
-
-
 
 
 // final Map<String, String> ml = {

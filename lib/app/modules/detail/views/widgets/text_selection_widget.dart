@@ -1075,7 +1075,7 @@ class _CompareDialogState extends State<CompareDialog> {
                                   physics: const NeverScrollableScrollPhysics(),
                                   itemBuilder: (context, index) {
                                     var lVerse = widget.selectedVerses[index];
-                                    String verset = spnKJVverseText[index];
+                                    String verset = aMHNIVverseText[index];
                                     return Padding(
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 5.0),

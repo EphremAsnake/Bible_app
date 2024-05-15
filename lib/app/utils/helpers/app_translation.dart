@@ -21,7 +21,7 @@ final Map<String, String> en = {
   'all': 'All',
   'every_word': 'Every Word',
   'exactly': 'Exactly',
-  "change_language": "ប្តូរភាសាទៅជាខ្មែរ",
+  "change_language": "baguhin ang wika sa filipino",
   'no_search_results': "No search result found",
   'info': 'Info',
   'changed_to_amh_1954': "Bible Type Changed To Amharic 1954",
@@ -36,35 +36,35 @@ final Map<String, String> en = {
   'compare': 'Compare',
   'theme': "Theme"
 };
-final Map<String, String> ml = {
-  'searchResult': 'Ergebnisse: ',
-  'book': "Heilige Bibel",
-  'ot': 'Altes Testament',
-  'nt': 'Neues Testament',
-  'chapters': 'Kapitel',
-  'search': 'Suche',
-  'settings': 'Einstellungen',
-  'about': "Über",
-  'privacy_policy': 'Datenschutzrichtlinie',
-  'all': 'Alle',
-  'every_word': 'Jedes Wort',
-  'exactly': 'Genau',
-  "change_language": "Change Language To English",
-  'no_search_results': "Keine Suchergebnisse gefunden",
-  'info': 'Info',
-  'changed_to_amh_1954': "Bibeltyp geändert auf Amharisch 1954",
-  'changed_to_amh_new': "Bibeltyp geändert auf Amharische Neue Übersetzung",
-  'changed_to_eng_niv': "Bibeltyp geändert auf Englisch NIV",
-  'changed_to_eng_kjv': "Bibeltyp geändert auf Englisch KJV",
-  'font_size': "Schriftgröße",
-  'share': 'Teilen',
-  'rate': 'App bewerten',
-  'copy': 'Kopieren',
-  'close': 'Schließen',
-  'compare': 'Vergleichen',
-  'theme': "Thema"
-};
 
+final Map<String, String> ml = {
+  'searchResult': 'Mga Resulta: ',
+  'book': "Banal na Bibliya",
+  'ot': 'Lumang Tipan',
+  'nt': 'Bagong Tipan',
+  'chapters': 'Kabanata',
+  'search': 'Maghanap',
+  'settings': 'Mga Setting',
+  'about': "Tungkol sa",
+  'privacy_policy': 'Patakaran sa Pagkapribado',
+  'all': 'Lahat',
+  'every_word': 'Bawat Salita',
+  'exactly': 'Tumpak',
+  "change_language": "Change Language To English",
+  'no_search_results': "Walang natagpuang resulta sa paghahanap",
+  'info': 'Impormasyon',
+  'changed_to_amh_1954': "Nabago ang Uri ng Bibliya sa Amharic 1954",
+  'changed_to_amh_new': "Nabago ang Uri ng Bibliya sa Amharic New Translation",
+  'changed_to_eng_niv': "Nabago ang Uri ng Bibliya sa Ingles NIV",
+  'changed_to_eng_kjv': "Nabago ang Uri ng Bibliya sa Ingles KJV",
+  'font_size': "Laki ng Font",
+  'share': 'Ibahagi',
+  'rate': 'Rate ang App',
+  'copy': 'Kopya',
+  'close': 'Isara',
+  'compare': 'Ikumpara',
+  'theme': "Tema"
+};
 
 
 

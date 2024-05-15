@@ -91,6 +91,7 @@ class DetailController extends SuperController {
   List<String> bookTypeOptions = [
     Keys.defaultbibleName,
     Keys.secondbibleName,
+    Keys.thiredbibleName,
     'English NIV',
     'English KJV'
   ];
@@ -370,6 +371,8 @@ class DetailController extends SuperController {
       saveName = Keys.defaultbibleName;
     } else if (bibleType == Keys.secondbible) {
       saveName = Keys.secondbibleName;
+    } else if (bibleType == Keys.thiredbible) {
+      saveName = Keys.thiredbibleName;
     } else if (bibleType == 'ENGNIV') {
       saveName = "English NIV";
     } else if (bibleType == 'ENGKJV') {
@@ -401,6 +404,8 @@ class DetailController extends SuperController {
       BibleType = Keys.defaultbible;
     } else if (BibleType == Keys.secondbibleName) {
       BibleType = Keys.secondbible;
+    } else if (BibleType == Keys.thiredbibleName) {
+      BibleType = Keys.thiredbible;
     } else if (BibleType == 'English NIV') {
       BibleType = "ENGNIV";
     } else if (BibleType == 'English KJV') {

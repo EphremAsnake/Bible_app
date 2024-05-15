@@ -83,7 +83,7 @@ void main() async {
         theme: ThemeData(
           primarySwatch: customSwatch,
         ),
-        title: "Chinese Bible",
+        title: "Filipino Bible",
         initialRoute: AppPages.INITIAL,
         getPages: AppPages.routes,
       );

@@ -83,7 +83,7 @@ void main() async {
         theme: ThemeData(
           primarySwatch: customSwatch,
         ),
-        title: "Elberfelder (German) Bible",
+        title: "Spanish Bible",
         initialRoute: AppPages.INITIAL,
         getPages: AppPages.routes,
       );

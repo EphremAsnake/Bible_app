@@ -1,4 +1,4 @@
-package com.itbible.khmer
+package com.itbible.elberfelder
 
 import io.flutter.embedding.android.FlutterActivity
 

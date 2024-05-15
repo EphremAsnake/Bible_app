@@ -1304,6 +1304,70 @@ Future<dynamic> showBookSelectionMenu(BuildContext context) {
                     ),
                   ),
                 ),
+
+                Obx(
+                  () => Card(
+                    color: themeData.themeData.value!.cardColor,
+                    elevation: 1,
+                    child: ListTile(
+                      onTap: () async {
+                        Get.back();
+                        await EasyLoading.show(
+                            status: 'Changing Please Wait...');
+
+                        controller.isLoading = true;
+                        controller.update();
+                        SharedPreferencesStorage sharedPreferencesStorage =
+                            SharedPreferencesStorage();
+                        getterAndSetterController.versesAMH =
+                            await DatabaseService()
+                                .changeBibleType(Keys.secondbible);
+                        getterAndSetterController.update();
+                        controller.allVerses.assignAll(
+                            getterAndSetterController.groupedBookList());
+
+                        //saving selected book to local storage
+                        sharedPreferencesStorage.saveStringData(
+                            Keys.selectedBookKey, Keys.secondbibleName);
+                        //set selected book Name
+                        controller.setSelectedBook(Keys.secondbibleName);
+                        controller.setInitialSelectedBookTypeOptions();
+
+                        controller.navigateToSpecificBookDetailView(
+                            controller.selectedVerse!.book!,
+                            controller.selectedVerse!.chapter!);
+                        //scroll to top
+                        controller.readerScrollController.animateTo(
+                          0.0, // Scroll to the top
+                          duration: const Duration(
+                              milliseconds:
+                                  500), // Adjust the duration as needed
+                          curve: Curves
+                              .easeInOut, // Use a different curve if desired
+                        );
+
+                        EasyLoading.dismiss();
+                        controller.selectedRowIndex = [];
+                        controller.isLoading = false;
+
+                        controller.update();
+                      },
+                      title: Text(
+                        Keys.secondbibleName,
+                        style: TextStyle(
+                            color: themeData.themeData.value!.verseColor),
+                      ),
+                      leading: Image.asset(
+                        "assets/images/bible.png",
+                        height: 32.sp,
+                      ),
+                      trailing: Icon(
+                        Icons.chevron_right,
+                        color: themeData.themeData.value!.verseColor,
+                      ),
+                    ),
+                  ),
+                ),
                 // Card(
                 //   color: themeData.themeData.value!.cardColor,
                 //   elevation: 1,

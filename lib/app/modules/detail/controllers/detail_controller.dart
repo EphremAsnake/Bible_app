@@ -88,7 +88,12 @@ class DetailController extends SuperController {
     'exactly'.tr,
   ];
 
-  List<String> bookTypeOptions = [Keys.defaultbibleName, 'English NIV', 'English KJV'];
+  List<String> bookTypeOptions = [
+    Keys.defaultbibleName,
+    Keys.secondbibleName,
+    'English NIV',
+    'English KJV'
+  ];
 
   @override
   void onInit() {
@@ -363,6 +368,8 @@ class DetailController extends SuperController {
     String saveName = "";
     if (bibleType == Keys.defaultbible) {
       saveName = Keys.defaultbibleName;
+    } else if (bibleType == Keys.secondbible) {
+      saveName = Keys.secondbibleName;
     } else if (bibleType == 'ENGNIV') {
       saveName = "English NIV";
     } else if (bibleType == 'ENGKJV') {
@@ -392,6 +399,8 @@ class DetailController extends SuperController {
   ) async {
     if (BibleType == Keys.defaultbibleName) {
       BibleType = Keys.defaultbible;
+    } else if (BibleType == Keys.secondbibleName) {
+      BibleType = Keys.secondbible;
     } else if (BibleType == 'English NIV') {
       BibleType = "ENGNIV";
     } else if (BibleType == 'English KJV') {

@@ -816,7 +816,7 @@ class _CompareDialogState extends State<CompareDialog> {
 
   List<String> eNGKJVverseText = [];
   List<String> eNGNIVverseText = [];
-  //List<String> aMHNIVverseText = [];
+  List<String> aMHNIVverseText = [];
   List<String> spnKJVverseText = [];
 
   @override
@@ -839,8 +839,8 @@ class _CompareDialogState extends State<CompareDialog> {
           'ENGKJV', verse.chapter!, verse.verseNumber!, verse.book!));
       eNGNIVverseText.add(await DatabaseService().readVersesfromDB(
           'ENGNIV', verse.chapter!, verse.verseNumber!, verse.book!));
-      // aMHNIVverseText.add(await DatabaseService().readVersesfromDB(
-      //     'AMHNIV', verse.chapter!, verse.verseNumber!, verse.book!));
+      aMHNIVverseText.add(await DatabaseService().readVersesfromDB(
+          Keys.secondbible, verse.chapter!, verse.verseNumber!, verse.book!));
       spnKJVverseText.add(await DatabaseService().readVersesfromDB(
           Keys.defaultbible, verse.chapter!, verse.verseNumber!, verse.book!));
     }
@@ -1003,7 +1003,8 @@ class _CompareDialogState extends State<CompareDialog> {
                           //           );
                           //         }),
                           //   ]),
-                          if (detailController.selectedBook != Keys.defaultbibleName)
+                          if (detailController.selectedBook !=
+                              Keys.defaultbibleName)
                             Column(children: [
                               Container(
                                 width: double.infinity,
@@ -1011,6 +1012,59 @@ class _CompareDialogState extends State<CompareDialog> {
                                 padding: const EdgeInsets.all(8.0),
                                 child: Text(
                                   '${Keys.defaultbibleName} - ${detailController.selectedBook.contains('Eng') ? detailController.getAMHBookinfo(chapterNAME) : chapterNAME} ${lVerse.chapter!}:${lVerse.verseNumber!}',
+                                  style: const TextStyle(color: Colors.white),
+                                ),
+                              ),
+                              const SizedBox(height: 8.0),
+                              ListView.builder(
+                                  shrinkWrap: true,
+                                  itemCount: widget.selectedVerses.length,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  itemBuilder: (context, index) {
+                                    var lVerse = widget.selectedVerses[index];
+                                    String verset = spnKJVverseText[index];
+                                    return Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 5.0),
+                                      child: RichText(
+                                        text: TextSpan(
+                                          children: [
+                                            TextSpan(
+                                              text: '${lVerse.verseNumber!} ',
+                                              style: TextStyle(
+                                                fontSize: detailController
+                                                    .fontSize.sp,
+                                                color: themeData.themeData
+                                                    .value!.numbersColor,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                            TextSpan(
+                                              text: verset,
+                                              style: TextStyle(
+                                                fontSize: detailController
+                                                    .fontSize.sp,
+                                                color: themeData.themeData
+                                                    .value!.verseColor,
+                                                fontFamily: "Abyssinica",
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    );
+                                  }),
+                            ]),
+
+                          if (detailController.selectedBook !=
+                              Keys.secondbibleName)
+                            Column(children: [
+                              Container(
+                                width: double.infinity,
+                                color: Colors.grey,
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  '${Keys.secondbibleName} - ${detailController.selectedBook.contains('Eng') ? detailController.getAMHBookinfo(chapterNAME) : chapterNAME} ${lVerse.chapter!}:${lVerse.verseNumber!}',
                                   style: const TextStyle(color: Colors.white),
                                 ),
                               ),
@@ -1213,11 +1267,13 @@ class _CompareDialogState extends State<CompareDialog> {
 
     List<String> listof = detailController.selectedBook != Keys.defaultbibleName
         ? spnKJVverseText
-        : detailController.selectedBook != 'English KJV'
-            ? eNGKJVverseText
-            : detailController.selectedBook != 'English NIV'
-                ? eNGNIVverseText
-                : [];
+        : detailController.selectedBook != Keys.secondbibleName
+            ? aMHNIVverseText
+            : detailController.selectedBook != 'English KJV'
+                ? eNGKJVverseText
+                : detailController.selectedBook != 'English NIV'
+                    ? eNGNIVverseText
+                    : [];
     return Column(
       children: [
         Container(

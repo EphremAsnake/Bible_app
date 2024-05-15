@@ -192,6 +192,8 @@ class DatabaseService {
     Database database = await openDatabase(path);
     if (tableName == Keys.defaultbibleName) {
       tableName = Keys.defaultbible;
+    } else if (tableName == Keys.secondbibleName) {
+      tableName = Keys.secondbible;
     } else if (tableName == 'English NIV') {
       tableName = "ENGNIV";
     } else if (tableName == 'English KJV') {

@@ -9,6 +9,8 @@ class Keys {
   static String chapterFontSize = "Chapter Font Size";
   static String selectedTheme = "Selected Theme";
   static String defaultbible = "ElberfelderKJV";
-  static String defaultbibleName = "Elberfelder (German) Bible";
+  static String secondbible = "MengebibelKJV";
+  static String defaultbibleName = "Elberfelder";
+  static String secondbibleName = "Menge Bibel";
   static String chapter = "Kapitel";
 }

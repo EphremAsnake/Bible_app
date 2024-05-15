@@ -311,6 +311,8 @@ class DataGetterAndSetter extends GetxController {
     if (bookName != null) {
       if (bookName == Keys.defaultbibleName) {
         selectedBook = Keys.defaultbible;
+      } else if (bookName == Keys.secondbibleName) {
+        selectedBook = Keys.secondbible;
       } else if (bookName == "English NIV") {
         selectedBook = "ENGNIV";
       } else if (bookName == "English KJV") {

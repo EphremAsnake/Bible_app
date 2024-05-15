@@ -21,7 +21,7 @@ final Map<String, String> en = {
   'all': 'All',
   'every_word': 'Every Word',
   'exactly': 'Exactly',
-  "change_language": "ប្តូរភាសាទៅជាខ្មែរ",
+  "change_language": "Изменить язык на русский",
   'no_search_results': "No search result found",
   'info': 'Info',
   'changed_to_amh_1954': "Bible Type Changed To Amharic 1954",
@@ -36,35 +36,37 @@ final Map<String, String> en = {
   'compare': 'Compare',
   'theme': "Theme"
 };
+
+
 final Map<String, String> ml = {
-  'searchResult': 'Matokeo: ',
-  'book': "Biblia Takatifu",
-  'ot': 'Agano la Kale',
-  'nt': 'Agano Jipya',
-  'chapters': 'Sura',
-  'search': 'Tafuta',
-  'settings': 'Mipangilio',
-  'about': "Kuhusu",
-  'privacy_policy': 'Sera ya Faragha',
-  'all': 'Zote',
-  'every_word': 'Kila Neno',
-  'exactly': 'Kwa Hakika',
+  'searchResult': 'Результаты: ',
+  'book': "Священная Библия",
+  'ot': 'Ветхий Завет',
+  'nt': 'Новый Завет',
+  'chapters': 'Глава',
+  'search': 'Поиск',
+  'settings': 'Настройки',
+  'about': "О нас",
+  'privacy_policy': 'Политика конфиденциальности',
+  'all': 'Все',
+  'every_word': 'Каждое слово',
+  'exactly': 'Точно',
   "change_language": "Change Language To English",
-  'no_search_results': "Hakuna matokeo ya utafutaji",
-  'info': 'Maelezo',
-  'changed_to_amh_1954': "Aina ya Biblia Imebadilishwa Kuwa Kiamhari 1954",
-  'changed_to_amh_new':
-      "Aina ya Biblia Imebadilishwa Kuwa Kiamhari Tafsiri Mpya",
-  'changed_to_eng_niv': "Aina ya Biblia Imebadilishwa Kuwa Kiingereza NIV",
-  'changed_to_eng_kjv': "Aina ya Biblia Imebadilishwa Kuwa Kiingereza KJV",
-  'font_size': "Ukubwa wa Fonti",
-  'share': 'Shiriki',
-  'rate': 'Pima Programu',
-  'copy': 'Nakili',
-  'close': 'Funga',
-  'compare': ' Linganisha',
-  'theme': "Mandhari"
+  'no_search_results': "Результатов поиска не найдено",
+  'info': 'Информация',
+  'changed_to_amh_1954': "Тип Библии изменен на амхарский 1954 г.",
+  'changed_to_amh_new': "Тип Библии изменен на амхарский Новый Перевод",
+  'changed_to_eng_niv': "Тип Библии изменен на английский NIV",
+  'changed_to_eng_kjv': "Тип Библии изменен на английский KJV",
+  'font_size': "Размер шрифта",
+  'share': 'Поделиться',
+  'rate': 'Оценить приложение',
+  'copy': 'Копировать',
+  'close': 'Закрыть',
+  'compare': 'Сравнить',
+  'theme': "Тема"
 };
+
 
 
 // final Map<String, String> ml = {

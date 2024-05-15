@@ -194,8 +194,6 @@ class DatabaseService {
       tableName = Keys.defaultbible;
     } else if (tableName == Keys.secondbibleName) {
       tableName = Keys.secondbible;
-    } else if (tableName == Keys.thiredbibleName) {
-      tableName = Keys.thiredbible;
     } else if (tableName == 'English NIV') {
       tableName = "ENGNIV";
     } else if (tableName == 'English KJV') {

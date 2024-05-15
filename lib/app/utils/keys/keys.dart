@@ -8,11 +8,13 @@ class Keys {
   static String fontSize = "Font Size";
   static String chapterFontSize = "Chapter Font Size";
   static String selectedTheme = "Selected Theme";
-  static String defaultbible = "TagalogKJV";
-  static String secondbible = "RIPVKJV";
-  static String thiredbible = "CebuanoKJV";
-  static String defaultbibleName = "Tagalog";
-  static String secondbibleName = "RIPV";
-  static String thiredbibleName = "Cebuano";
-  static String chapter = "kabanata";
+  static String defaultbible = "ChineseTraditionalKJV";
+  static String secondbible = "ChineseSimplifiedKJV";
+  static String defaultbibleName = "Chinese Traditional";
+  static String secondbibleName = "Chinese Simplified";
+  static String chapter = "章节";
 }
+
+
+
+

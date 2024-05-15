@@ -1239,335 +1239,36 @@ Future<dynamic> showBookSelectionMenu(BuildContext context) {
         child: Center(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 12),
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  Obx(
-                    () => Card(
-                      color: themeData.themeData.value!.cardColor,
-                      elevation: 1,
-                      child: ListTile(
-                        onTap: () async {
-                          Get.back();
-                          await EasyLoading.show(
-                              status: 'Changing Please Wait...');
-              
-                          controller.isLoading = true;
-                          controller.update();
-                          SharedPreferencesStorage sharedPreferencesStorage =
-                              SharedPreferencesStorage();
-                          getterAndSetterController.versesAMH =
-                              await DatabaseService()
-                                  .changeBibleType(Keys.defaultbible);
-                          getterAndSetterController.update();
-                          controller.allVerses.assignAll(
-                              getterAndSetterController.groupedBookList());
-              
-                          //saving selected book to local storage
-                          sharedPreferencesStorage.saveStringData(
-                              Keys.selectedBookKey, Keys.defaultbibleName);
-                          //set selected book Name
-                          controller.setSelectedBook(Keys.defaultbibleName);
-                          controller.setInitialSelectedBookTypeOptions();
-              
-                          controller.navigateToSpecificBookDetailView(
-                              controller.selectedVerse!.book!,
-                              controller.selectedVerse!.chapter!);
-                          //scroll to top
-                          controller.readerScrollController.animateTo(
-                            0.0, // Scroll to the top
-                            duration: const Duration(
-                                milliseconds:
-                                    500), // Adjust the duration as needed
-                            curve: Curves
-                                .easeInOut, // Use a different curve if desired
-                          );
-              
-                          EasyLoading.dismiss();
-                          controller.selectedRowIndex = [];
-                          controller.isLoading = false;
-              
-                          controller.update();
-                        },
-                        title: Text(
-                          Keys.defaultbibleName,
-                          style: TextStyle(
-                              color: themeData.themeData.value!.verseColor),
-                        ),
-                        leading: Image.asset(
-                          "assets/images/bible.png",
-                          height: 32.sp,
-                        ),
-                        trailing: Icon(
-                          Icons.chevron_right,
-                          color: themeData.themeData.value!.verseColor,
-                        ),
-                      ),
-                    ),
-                  ),
-              
-                  Obx(
-                    () => Card(
-                      color: themeData.themeData.value!.cardColor,
-                      elevation: 1,
-                      child: ListTile(
-                        onTap: () async {
-                          Get.back();
-                          await EasyLoading.show(
-                              status: 'Changing Please Wait...');
-              
-                          controller.isLoading = true;
-                          controller.update();
-                          SharedPreferencesStorage sharedPreferencesStorage =
-                              SharedPreferencesStorage();
-                          getterAndSetterController.versesAMH =
-                              await DatabaseService()
-                                  .changeBibleType(Keys.secondbible);
-                          getterAndSetterController.update();
-                          controller.allVerses.assignAll(
-                              getterAndSetterController.groupedBookList());
-              
-                          //saving selected book to local storage
-                          sharedPreferencesStorage.saveStringData(
-                              Keys.selectedBookKey, Keys.secondbibleName);
-                          //set selected book Name
-                          controller.setSelectedBook(Keys.secondbibleName);
-                          controller.setInitialSelectedBookTypeOptions();
-              
-                          controller.navigateToSpecificBookDetailView(
-                              controller.selectedVerse!.book!,
-                              controller.selectedVerse!.chapter!);
-                          //scroll to top
-                          controller.readerScrollController.animateTo(
-                            0.0, // Scroll to the top
-                            duration: const Duration(
-                                milliseconds:
-                                    500), // Adjust the duration as needed
-                            curve: Curves
-                                .easeInOut, // Use a different curve if desired
-                          );
-              
-                          EasyLoading.dismiss();
-                          controller.selectedRowIndex = [];
-                          controller.isLoading = false;
-              
-                          controller.update();
-                        },
-                        title: Text(
-                          Keys.secondbibleName,
-                          style: TextStyle(
-                              color: themeData.themeData.value!.verseColor),
-                        ),
-                        leading: Image.asset(
-                          "assets/images/bible.png",
-                          height: 32.sp,
-                        ),
-                        trailing: Icon(
-                          Icons.chevron_right,
-                          color: themeData.themeData.value!.verseColor,
-                        ),
-                      ),
-                    ),
-                  ),
-              
-                  Obx(
-                    () => Card(
-                      color: themeData.themeData.value!.cardColor,
-                      elevation: 1,
-                      child: ListTile(
-                        onTap: () async {
-                          Get.back();
-                          await EasyLoading.show(
-                              status: 'Changing Please Wait...');
-              
-                          controller.isLoading = true;
-                          controller.update();
-                          SharedPreferencesStorage sharedPreferencesStorage =
-                              SharedPreferencesStorage();
-                          getterAndSetterController.versesAMH =
-                              await DatabaseService()
-                                  .changeBibleType(Keys.thiredbible);
-                          getterAndSetterController.update();
-                          controller.allVerses.assignAll(
-                              getterAndSetterController.groupedBookList());
-              
-                          //saving selected book to local storage
-                          sharedPreferencesStorage.saveStringData(
-                              Keys.selectedBookKey, Keys.thiredbibleName);
-                          //set selected book Name
-                          controller.setSelectedBook(Keys.thiredbibleName);
-                          controller.setInitialSelectedBookTypeOptions();
-              
-                          controller.navigateToSpecificBookDetailView(
-                              controller.selectedVerse!.book!,
-                              controller.selectedVerse!.chapter!);
-                          //scroll to top
-                          controller.readerScrollController.animateTo(
-                            0.0, // Scroll to the top
-                            duration: const Duration(
-                                milliseconds:
-                                    500), // Adjust the duration as needed
-                            curve: Curves
-                                .easeInOut, // Use a different curve if desired
-                          );
-              
-                          EasyLoading.dismiss();
-                          controller.selectedRowIndex = [];
-                          controller.isLoading = false;
-              
-                          controller.update();
-                        },
-                        title: Text(
-                          Keys.thiredbibleName,
-                          style: TextStyle(
-                              color: themeData.themeData.value!.verseColor),
-                        ),
-                        leading: Image.asset(
-                          "assets/images/bible.png",
-                          height: 32.sp,
-                        ),
-                        trailing: Icon(
-                          Icons.chevron_right,
-                          color: themeData.themeData.value!.verseColor,
-                        ),
-                      ),
-                    ),
-                  ),
-                  // Card(
-                  //   color: themeData.themeData.value!.cardColor,
-                  //   elevation: 1,
-                  //   child: ListTile(
-                  //     onTap: () async {
-                  //       Get.back();
-                  //       await EasyLoading.show(status: 'Changing Please Wait...');
-                  //       controller.isLoading = true;
-                  //       controller.update();
-                  //       SharedPreferencesStorage sharedPreferencesStorage =
-                  //           SharedPreferencesStorage();
-                  //       getterAndSetterController.versesAMH =
-                  //           await DatabaseService().changeBibleType("AMHNIV");
-                  //       getterAndSetterController.update();
-                  //       controller.allVerses.assignAll(
-                  //           getterAndSetterController.groupedBookListAMHNIV());
-                  //       //saving selected book to local storage
-                  //       sharedPreferencesStorage.saveStringData(
-                  //           Keys.selectedBookKey, "አዲሱ መደበኛ ትርጉም");
-                  //       //set selected book Name
-                  //       controller.setSelectedBook("አዲሱ መደበኛ ትርጉም");
-                  //       controller.setInitialSelectedBookTypeOptions();
-              
-                  //       controller.navigateToSpecificBookDetailView(
-                  //           controller.selectedVerse!.book!,
-                  //           controller.selectedVerse!.chapter!);
-                  //       //scroll to top
-                  //       controller.readerScrollController.animateTo(
-                  //         0.0, // Scroll to the top
-                  //         duration: const Duration(
-                  //             milliseconds: 500), // Adjust the duration as needed
-                  //         curve: Curves
-                  //             .easeInOut, // Use a different curve if desired
-                  //       );
-                  //       EasyLoading.dismiss();
-                  //       controller.selectedRowIndex = [];
-                  //       controller.isLoading = false;
-              
-                  //       controller.update();
-                  //     },
-                  //     title: Text(
-                  //       'አዲሱ መደበኛ ትርጉም',
-                  //       style: TextStyle(
-                  //           color: themeData.themeData.value!.verseColor),
-                  //     ),
-                  //     leading: Image.asset(
-                  //       "assets/images/bible.png",
-                  //       height: 32.sp,
-                  //     ),
-                  //     trailing: Icon(Icons.chevron_right,
-                  //         color: themeData.themeData.value!.verseColor),
-                  //   ),
-                  // ),
-                  Card(
+            child: Column(
+              children: [
+                Obx(
+                  () => Card(
                     color: themeData.themeData.value!.cardColor,
                     elevation: 1,
                     child: ListTile(
                       onTap: () async {
                         Get.back();
-                        await EasyLoading.show(status: 'Changing Please Wait...');
+                        await EasyLoading.show(
+                            status: 'Changing Please Wait...');
+
                         controller.isLoading = true;
                         controller.update();
                         SharedPreferencesStorage sharedPreferencesStorage =
                             SharedPreferencesStorage();
                         getterAndSetterController.versesAMH =
-                            await DatabaseService().changeBibleType("ENGNIV");
-                        getterAndSetterController.update();
-                        // getterAndSetterController.groupedBookListAMHNIV()
-                        controller.allVerses.assignAll(
-                            getterAndSetterController.groupedBookListAMHNIV());
-                        //saving selected book to local storage
-                        sharedPreferencesStorage.saveStringData(
-                            Keys.selectedBookKey, "English NIV");
-              
-                        //set selected book Name
-                        controller.setSelectedBook("English NIV");
-                        controller.setInitialSelectedBookTypeOptions();
-              
-                        controller.navigateToSpecificBookDetailView(
-                            controller.selectedVerse!.book!,
-                            controller.selectedVerse!.chapter!);
-                        //scroll to top
-                        controller.readerScrollController.animateTo(
-                          0.0, // Scroll to the top
-                          duration: const Duration(
-                              milliseconds: 500), // Adjust the duration as needed
-                          curve: Curves
-                              .easeInOut, // Use a different curve if desired
-                        );
-                        EasyLoading.dismiss();
-                        controller.selectedRowIndex = [];
-                        controller.isLoading = false;
-              
-                        controller.update();
-                      },
-                      title: Text(
-                        'English NIV',
-                        style: TextStyle(
-                            color: themeData.themeData.value!.verseColor),
-                      ),
-                      leading: Image.asset(
-                        "assets/images/bible.png",
-                        height: 32.sp,
-                      ),
-                      trailing: Icon(
-                        Icons.chevron_right,
-                        color: themeData.themeData.value!.verseColor,
-                      ),
-                    ),
-                  ),
-                  Card(
-                    color: themeData.themeData.value!.cardColor,
-                    elevation: 1,
-                    child: ListTile(
-                      onTap: () async {
-                        Get.back();
-                        await EasyLoading.show(status: 'Changing Please Wait...');
-              
-                        controller.isLoading = true;
-                        controller.update();
-                        SharedPreferencesStorage sharedPreferencesStorage =
-                            SharedPreferencesStorage();
-                        getterAndSetterController.versesAMH =
-                            await DatabaseService().changeBibleType("ENGKJV");
+                            await DatabaseService()
+                                .changeBibleType(Keys.defaultbible);
                         getterAndSetterController.update();
                         controller.allVerses.assignAll(
                             getterAndSetterController.groupedBookList());
-              
+
                         //saving selected book to local storage
                         sharedPreferencesStorage.saveStringData(
-                            Keys.selectedBookKey, "English KJV");
+                            Keys.selectedBookKey, Keys.defaultbibleName);
                         //set selected book Name
-                        controller.setSelectedBook("English KJV");
+                        controller.setSelectedBook(Keys.defaultbibleName);
                         controller.setInitialSelectedBookTypeOptions();
-              
+
                         controller.navigateToSpecificBookDetailView(
                             controller.selectedVerse!.book!,
                             controller.selectedVerse!.chapter!);
@@ -1575,19 +1276,20 @@ Future<dynamic> showBookSelectionMenu(BuildContext context) {
                         controller.readerScrollController.animateTo(
                           0.0, // Scroll to the top
                           duration: const Duration(
-                              milliseconds: 500), // Adjust the duration as needed
+                              milliseconds:
+                                  500), // Adjust the duration as needed
                           curve: Curves
                               .easeInOut, // Use a different curve if desired
                         );
-              
+
                         EasyLoading.dismiss();
                         controller.selectedRowIndex = [];
                         controller.isLoading = false;
-              
+
                         controller.update();
                       },
                       title: Text(
-                        'English KJV',
+                        Keys.defaultbibleName,
                         style: TextStyle(
                             color: themeData.themeData.value!.verseColor),
                       ),
@@ -1601,8 +1303,240 @@ Future<dynamic> showBookSelectionMenu(BuildContext context) {
                       ),
                     ),
                   ),
-                ],
-              ),
+                ),
+
+                Obx(
+                  () => Card(
+                    color: themeData.themeData.value!.cardColor,
+                    elevation: 1,
+                    child: ListTile(
+                      onTap: () async {
+                        Get.back();
+                        await EasyLoading.show(
+                            status: 'Changing Please Wait...');
+
+                        controller.isLoading = true;
+                        controller.update();
+                        SharedPreferencesStorage sharedPreferencesStorage =
+                            SharedPreferencesStorage();
+                        getterAndSetterController.versesAMH =
+                            await DatabaseService()
+                                .changeBibleType(Keys.secondbible);
+                        getterAndSetterController.update();
+                        controller.allVerses.assignAll(
+                            getterAndSetterController.groupedBookList());
+
+                        //saving selected book to local storage
+                        sharedPreferencesStorage.saveStringData(
+                            Keys.selectedBookKey, Keys.secondbibleName);
+                        //set selected book Name
+                        controller.setSelectedBook(Keys.secondbibleName);
+                        controller.setInitialSelectedBookTypeOptions();
+
+                        controller.navigateToSpecificBookDetailView(
+                            controller.selectedVerse!.book!,
+                            controller.selectedVerse!.chapter!);
+                        //scroll to top
+                        controller.readerScrollController.animateTo(
+                          0.0, // Scroll to the top
+                          duration: const Duration(
+                              milliseconds:
+                                  500), // Adjust the duration as needed
+                          curve: Curves
+                              .easeInOut, // Use a different curve if desired
+                        );
+
+                        EasyLoading.dismiss();
+                        controller.selectedRowIndex = [];
+                        controller.isLoading = false;
+
+                        controller.update();
+                      },
+                      title: Text(
+                        Keys.secondbibleName,
+                        style: TextStyle(
+                            color: themeData.themeData.value!.verseColor),
+                      ),
+                      leading: Image.asset(
+                        "assets/images/bible.png",
+                        height: 32.sp,
+                      ),
+                      trailing: Icon(
+                        Icons.chevron_right,
+                        color: themeData.themeData.value!.verseColor,
+                      ),
+                    ),
+                  ),
+                ),
+                // Card(
+                //   color: themeData.themeData.value!.cardColor,
+                //   elevation: 1,
+                //   child: ListTile(
+                //     onTap: () async {
+                //       Get.back();
+                //       await EasyLoading.show(status: 'Changing Please Wait...');
+                //       controller.isLoading = true;
+                //       controller.update();
+                //       SharedPreferencesStorage sharedPreferencesStorage =
+                //           SharedPreferencesStorage();
+                //       getterAndSetterController.versesAMH =
+                //           await DatabaseService().changeBibleType("AMHNIV");
+                //       getterAndSetterController.update();
+                //       controller.allVerses.assignAll(
+                //           getterAndSetterController.groupedBookListAMHNIV());
+                //       //saving selected book to local storage
+                //       sharedPreferencesStorage.saveStringData(
+                //           Keys.selectedBookKey, "አዲሱ መደበኛ ትርጉም");
+                //       //set selected book Name
+                //       controller.setSelectedBook("አዲሱ መደበኛ ትርጉም");
+                //       controller.setInitialSelectedBookTypeOptions();
+
+                //       controller.navigateToSpecificBookDetailView(
+                //           controller.selectedVerse!.book!,
+                //           controller.selectedVerse!.chapter!);
+                //       //scroll to top
+                //       controller.readerScrollController.animateTo(
+                //         0.0, // Scroll to the top
+                //         duration: const Duration(
+                //             milliseconds: 500), // Adjust the duration as needed
+                //         curve: Curves
+                //             .easeInOut, // Use a different curve if desired
+                //       );
+                //       EasyLoading.dismiss();
+                //       controller.selectedRowIndex = [];
+                //       controller.isLoading = false;
+
+                //       controller.update();
+                //     },
+                //     title: Text(
+                //       'አዲሱ መደበኛ ትርጉም',
+                //       style: TextStyle(
+                //           color: themeData.themeData.value!.verseColor),
+                //     ),
+                //     leading: Image.asset(
+                //       "assets/images/bible.png",
+                //       height: 32.sp,
+                //     ),
+                //     trailing: Icon(Icons.chevron_right,
+                //         color: themeData.themeData.value!.verseColor),
+                //   ),
+                // ),
+                Card(
+                  color: themeData.themeData.value!.cardColor,
+                  elevation: 1,
+                  child: ListTile(
+                    onTap: () async {
+                      Get.back();
+                      await EasyLoading.show(status: 'Changing Please Wait...');
+                      controller.isLoading = true;
+                      controller.update();
+                      SharedPreferencesStorage sharedPreferencesStorage =
+                          SharedPreferencesStorage();
+                      getterAndSetterController.versesAMH =
+                          await DatabaseService().changeBibleType("ENGNIV");
+                      getterAndSetterController.update();
+                      // getterAndSetterController.groupedBookListAMHNIV()
+                      controller.allVerses.assignAll(
+                          getterAndSetterController.groupedBookListAMHNIV());
+                      //saving selected book to local storage
+                      sharedPreferencesStorage.saveStringData(
+                          Keys.selectedBookKey, "English NIV");
+
+                      //set selected book Name
+                      controller.setSelectedBook("English NIV");
+                      controller.setInitialSelectedBookTypeOptions();
+
+                      controller.navigateToSpecificBookDetailView(
+                          controller.selectedVerse!.book!,
+                          controller.selectedVerse!.chapter!);
+                      //scroll to top
+                      controller.readerScrollController.animateTo(
+                        0.0, // Scroll to the top
+                        duration: const Duration(
+                            milliseconds: 500), // Adjust the duration as needed
+                        curve: Curves
+                            .easeInOut, // Use a different curve if desired
+                      );
+                      EasyLoading.dismiss();
+                      controller.selectedRowIndex = [];
+                      controller.isLoading = false;
+
+                      controller.update();
+                    },
+                    title: Text(
+                      'English NIV',
+                      style: TextStyle(
+                          color: themeData.themeData.value!.verseColor),
+                    ),
+                    leading: Image.asset(
+                      "assets/images/bible.png",
+                      height: 32.sp,
+                    ),
+                    trailing: Icon(
+                      Icons.chevron_right,
+                      color: themeData.themeData.value!.verseColor,
+                    ),
+                  ),
+                ),
+                Card(
+                  color: themeData.themeData.value!.cardColor,
+                  elevation: 1,
+                  child: ListTile(
+                    onTap: () async {
+                      Get.back();
+                      await EasyLoading.show(status: 'Changing Please Wait...');
+
+                      controller.isLoading = true;
+                      controller.update();
+                      SharedPreferencesStorage sharedPreferencesStorage =
+                          SharedPreferencesStorage();
+                      getterAndSetterController.versesAMH =
+                          await DatabaseService().changeBibleType("ENGKJV");
+                      getterAndSetterController.update();
+                      controller.allVerses.assignAll(
+                          getterAndSetterController.groupedBookList());
+
+                      //saving selected book to local storage
+                      sharedPreferencesStorage.saveStringData(
+                          Keys.selectedBookKey, "English KJV");
+                      //set selected book Name
+                      controller.setSelectedBook("English KJV");
+                      controller.setInitialSelectedBookTypeOptions();
+
+                      controller.navigateToSpecificBookDetailView(
+                          controller.selectedVerse!.book!,
+                          controller.selectedVerse!.chapter!);
+                      //scroll to top
+                      controller.readerScrollController.animateTo(
+                        0.0, // Scroll to the top
+                        duration: const Duration(
+                            milliseconds: 500), // Adjust the duration as needed
+                        curve: Curves
+                            .easeInOut, // Use a different curve if desired
+                      );
+
+                      EasyLoading.dismiss();
+                      controller.selectedRowIndex = [];
+                      controller.isLoading = false;
+
+                      controller.update();
+                    },
+                    title: Text(
+                      'English KJV',
+                      style: TextStyle(
+                          color: themeData.themeData.value!.verseColor),
+                    ),
+                    leading: Image.asset(
+                      "assets/images/bible.png",
+                      height: 32.sp,
+                    ),
+                    trailing: Icon(
+                      Icons.chevron_right,
+                      color: themeData.themeData.value!.verseColor,
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
         ),

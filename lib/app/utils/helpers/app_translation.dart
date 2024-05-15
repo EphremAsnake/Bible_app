@@ -36,37 +36,35 @@ final Map<String, String> en = {
   'compare': 'Compare',
   'theme': "Theme"
 };
-
 final Map<String, String> ml = {
-  'searchResult': 'Resultater: ',
-  'book': "Hellige Bibel",
-  'ot': 'Gamle Testamente',
-  'nt': 'Nye Testamente',
-  'chapters': 'Kapittel',
-  'search': 'Søk',
-  'settings': 'Innstillinger',
-  'about': "Om",
-  'privacy_policy': 'Personvernregler',
-  'all': 'Alle',
-  'every_word': 'Hvert Ord',
-  'exactly': 'Nøyaktig',
+  'searchResult': 'Matokeo: ',
+  'book': "Biblia Takatifu",
+  'ot': 'Agano la Kale',
+  'nt': 'Agano Jipya',
+  'chapters': 'Sura',
+  'search': 'Tafuta',
+  'settings': 'Mipangilio',
+  'about': "Kuhusu",
+  'privacy_policy': 'Sera ya Faragha',
+  'all': 'Zote',
+  'every_word': 'Kila Neno',
+  'exactly': 'Kwa Hakika',
   "change_language": "Change Language To English",
-  'no_search_results': "Ingen søkeresultater funnet",
-  'info': 'Info',
-  'changed_to_amh_1954': "Bibeltype endret til amharisk 1954",
-  'changed_to_amh_new': "Bibeltype endret til amharisk ny oversettelse",
-  'changed_to_eng_niv': "Bibeltype endret til engelsk NIV",
-  'changed_to_eng_kjv': "Bibeltype endret til engelsk KJV",
-  'font_size': "Skriftstørrelse",
-  'share': 'Del',
-  'rate': 'Vurder appen',
-  'copy': 'Kopier',
-  'close': 'Lukk',
-  'compare': 'Sammenligne',
-  'theme': "Tema"
+  'no_search_results': "Hakuna matokeo ya utafutaji",
+  'info': 'Maelezo',
+  'changed_to_amh_1954': "Aina ya Biblia Imebadilishwa Kuwa Kiamhari 1954",
+  'changed_to_amh_new':
+      "Aina ya Biblia Imebadilishwa Kuwa Kiamhari Tafsiri Mpya",
+  'changed_to_eng_niv': "Aina ya Biblia Imebadilishwa Kuwa Kiingereza NIV",
+  'changed_to_eng_kjv': "Aina ya Biblia Imebadilishwa Kuwa Kiingereza KJV",
+  'font_size': "Ukubwa wa Fonti",
+  'share': 'Shiriki',
+  'rate': 'Pima Programu',
+  'copy': 'Nakili',
+  'close': 'Funga',
+  'compare': ' Linganisha',
+  'theme': "Mandhari"
 };
-
-
 
 
 // final Map<String, String> ml = {

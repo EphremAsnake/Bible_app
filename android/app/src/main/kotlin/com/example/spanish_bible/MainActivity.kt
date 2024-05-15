@@ -1,4 +1,4 @@
-package com.itbible.russian
+package com.itbible.dutch
 
 import io.flutter.embedding.android.FlutterActivity
 

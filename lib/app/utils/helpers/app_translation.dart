@@ -21,7 +21,7 @@ final Map<String, String> en = {
   'all': 'All',
   'every_word': 'Every Word',
   'exactly': 'Exactly',
-  "change_language": "Изменить язык на русский",
+  "change_language": "Taal wijzigen in Nederlands",
   'no_search_results': "No search result found",
   'info': 'Info',
   'changed_to_amh_1954': "Bible Type Changed To Amharic 1954",
@@ -37,35 +37,35 @@ final Map<String, String> en = {
   'theme': "Theme"
 };
 
-
 final Map<String, String> ml = {
-  'searchResult': 'Результаты: ',
-  'book': "Священная Библия",
-  'ot': 'Ветхий Завет',
-  'nt': 'Новый Завет',
-  'chapters': 'Глава',
-  'search': 'Поиск',
-  'settings': 'Настройки',
-  'about': "О нас",
-  'privacy_policy': 'Политика конфиденциальности',
-  'all': 'Все',
-  'every_word': 'Каждое слово',
-  'exactly': 'Точно',
+  'searchResult': 'Resultaten: ',
+  'book': "Heilige Bijbel",
+  'ot': 'Oude Testament',
+  'nt': 'Nieuwe Testament',
+  'chapters': 'Hoofdstuk',
+  'search': 'Zoeken',
+  'settings': 'Instellingen',
+  'about': "Over ons",
+  'privacy_policy': 'Privacybeleid',
+  'all': 'Alles',
+  'every_word': 'Elk Woord',
+  'exactly': 'Exact',
   "change_language": "Change Language To English",
-  'no_search_results': "Результатов поиска не найдено",
-  'info': 'Информация',
-  'changed_to_amh_1954': "Тип Библии изменен на амхарский 1954 г.",
-  'changed_to_amh_new': "Тип Библии изменен на амхарский Новый Перевод",
-  'changed_to_eng_niv': "Тип Библии изменен на английский NIV",
-  'changed_to_eng_kjv': "Тип Библии изменен на английский KJV",
-  'font_size': "Размер шрифта",
-  'share': 'Поделиться',
-  'rate': 'Оценить приложение',
-  'copy': 'Копировать',
-  'close': 'Закрыть',
-  'compare': 'Сравнить',
-  'theme': "Тема"
+  'no_search_results': "Geen zoekresultaten gevonden",
+  'info': 'Informatie',
+  'changed_to_amh_1954': "Bijbeltype gewijzigd naar Amhaars 1954",
+  'changed_to_amh_new': "Bijbeltype gewijzigd naar Amhaarse Nieuwe Vertaling",
+  'changed_to_eng_niv': "Bijbeltype gewijzigd naar Engels NIV",
+  'changed_to_eng_kjv': "Bijbeltype gewijzigd naar Engels KJV",
+  'font_size': "Lettergrootte",
+  'share': 'Delen',
+  'rate': 'App beoordelen',
+  'copy': 'Kopiëren',
+  'close': 'Sluiten',
+  'compare': 'Vergelijken',
+  'theme': "Thema"
 };
+
 
 
 
